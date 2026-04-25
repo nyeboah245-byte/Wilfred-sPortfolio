@@ -16,7 +16,6 @@ body {
   font-family: 'DM Sans', sans-serif;
   font-weight: 300;
   line-height: 1.6;
-  cursor: auto;
   overflow-x: hidden;
 }
 
@@ -78,18 +77,18 @@ transition: width .3s cubic-bezier(.16,1,.3,1);
 .nav-links a:hover { color: #e2bc72; }
 .nav-links a:hover::after { width: 100%; }
 
-/* ── HERO ── */
+/* ── HERO — full viewport width, no side gaps ── */
 #hero {
+width: 100vw;         /* stretch edge-to-edge */
 min-height: 100vh;
 position: relative;
 overflow: hidden;
 display: flex;
 align-items: center;
 justify-content: center;
-padding: 8rem 4rem 4rem;
+padding: 8rem 2rem 5rem; /* even horizontal padding */
 }
 
-/* Full-bleed background image — NO mask, NO vignette fade */
 .hero-portrait-bg {
 position: absolute;
 inset: 0;
@@ -101,11 +100,8 @@ height: 100%;
 object-fit: cover;
 object-position: center top;
 display: block;
-/* Slight desaturation so text pops, but no mask/fade */
 filter: brightness(0.55) saturate(0.7);
 }
-
-/* Dark gradient overlay for text legibility — bottom-heavy so name area is readable */
 .hero-portrait-bg::after {
 content: ‘’;
 position: absolute;
@@ -119,7 +115,6 @@ rgba(8,8,8,0.72) 100%
 );
 }
 
-/* Subtle grid on top of image */
 .hero-bg-grid {
 position: absolute;
 inset: 0;
@@ -141,12 +136,13 @@ pointer-events: none;
 z-index: 1;
 }
 
-/* Hero content sits above everything */
+/* Hero content — centred both axes */
 .hero-inner {
 position: relative;
 z-index: 2;
 text-align: center;
-max-width: 900px;
+max-width: 860px;
+width: 100%;
 }
 
 .hero-eyebrow {
@@ -157,7 +153,6 @@ color: #e2bc72;
 margin-bottom: 1.6rem;
 opacity: 0;
 animation: fadeUp .9s cubic-bezier(.16,1,.3,1) .2s forwards;
-/* Text shadow for legibility over image */
 text-shadow: 0 1px 8px rgba(0,0,0,0.8);
 }
 .hero-name {
@@ -169,13 +164,9 @@ color: #f5f2ed;
 letter-spacing: -.01em;
 opacity: 0;
 animation: fadeUp 1s cubic-bezier(.16,1,.3,1) .4s forwards;
-/* Strong text shadow so name is crisp over any photo area */
 text-shadow: 0 2px 20px rgba(0,0,0,0.85), 0 0 60px rgba(0,0,0,0.5);
 }
-.hero-name em {
-font-style: italic;
-color: #e2bc72;
-}
+.hero-name em { font-style: italic; color: #e2bc72; }
 .hero-tagline {
 margin-top: 2rem;
 font-size: clamp(.95rem, 1.8vw, 1.15rem);
@@ -197,7 +188,6 @@ flex-wrap: wrap;
 opacity: 0;
 animation: fadeUp .9s cubic-bezier(.16,1,.3,1) .8s forwards;
 }
-
 .hero-scroll-indicator {
 position: absolute;
 bottom: 2.5rem;
@@ -320,34 +310,31 @@ grid-template-columns: 1fr 1fr;
 gap: 5rem;
 align-items: start;
 }
+
+/* Portrait frame — shows the actual image */
 .portrait-frame {
 width: 100%;
 aspect-ratio: 3/4;
-background: #1a1a1a;
 border: 1px solid #2a2a2a;
 border-radius: 2px;
-display: flex;
-flex-direction: column;
-align-items: center;
-justify-content: center;
-gap: 1rem;
-color: #444444;
-font-size: 3rem;
 position: relative;
 overflow: hidden;
+background: #1a1a1a;
+}
+.portrait-frame img {
+width: 100%;
+height: 100%;
+object-fit: cover;
+object-position: center top;
+display: block;
 }
 .portrait-frame::before {
 content: ‘’;
 position: absolute;
 inset: 0;
 background: linear-gradient(135deg, rgba(201,161,74,0.04) 0%, transparent 60%);
-}
-.portrait-label {
-font-size: .7rem;
-letter-spacing: .18em;
-text-transform: uppercase;
-color: #c9a14a;
-font-family: ‘DM Sans’, sans-serif;
+pointer-events: none;
+z-index: 1;
 }
 .portrait-frame::after {
 content: ‘’;
@@ -356,6 +343,7 @@ top: 12px; left: 12px;
 width: 24px; height: 24px;
 border-top: 1px solid #c9a14a;
 border-left: 1px solid #c9a14a;
+z-index: 2;
 }
 .portrait-corner-br {
 position: absolute;
@@ -363,7 +351,9 @@ bottom: 12px; right: 12px;
 width: 24px; height: 24px;
 border-bottom: 1px solid #c9a14a;
 border-right: 1px solid #c9a14a;
+z-index: 2;
 }
+
 .about-bio {
 font-size: 1.05rem;
 line-height: 1.85;
@@ -410,7 +400,6 @@ font-size: .7rem;
 .meta-val { color: #d8d0c4; }
 
 /* ── GALLERY ── */
-#gallery { max-width: 1300px; }
 .filter-bar {
 display: flex;
 gap: .5rem;
@@ -429,8 +418,8 @@ letter-spacing: .1em;
 text-transform: uppercase;
 transition: all .25s;
 outline: none;
+cursor: pointer;
 }
-.filter-btn:focus { outline: none; box-shadow: none; }
 .filter-btn.active,
 .filter-btn:hover {
 background: #c9a14a;
@@ -443,6 +432,7 @@ column-gap: 1.2rem;
 }
 @media (max-width: 900px) { .masonry-grid { columns: 2; } }
 @media (max-width: 560px) { .masonry-grid { columns: 1; } }
+
 .project-card {
 break-inside: avoid;
 margin-bottom: 1.2rem;
@@ -451,6 +441,7 @@ border: 1px solid #242424;
 border-radius: 4px;
 overflow: hidden;
 position: relative;
+cursor: pointer;
 transition: transform .4s cubic-bezier(.16,1,.3,1), box-shadow .4s cubic-bezier(.16,1,.3,1), border-color .3s;
 }
 .project-card:hover {
@@ -458,27 +449,43 @@ transform: translateY(-4px);
 box-shadow: 0 20px 60px rgba(0,0,0,0.6), 0 0 0 1px #9a7530;
 border-color: #9a7530;
 }
-.project-placeholder {
+
+/* Image container — img fills it, fallback shows if src is empty */
+.project-img-wrap {
 width: 100%;
+position: relative;
+background: #141414;
+overflow: hidden;
+}
+.project-img-wrap img {
+width: 100%;
+height: 100%;
+object-fit: cover;
+display: block;
+transition: transform .5s cubic-bezier(.16,1,.3,1);
+}
+.project-card:hover .project-img-wrap img { transform: scale(1.03); }
+
+/* Height classes — applied to the wrapper so images fill them */
+.project-img-wrap.tall   { height: 340px; }
+.project-img-wrap.medium { height: 240px; }
+.project-img-wrap.short  { height: 180px; }
+
+/* Fallback placeholder (shown when no real img loaded) */
+.project-img-wrap::before {
+content: attr(data-num);
+position: absolute;
+inset: 0;
 display: flex;
-flex-direction: column;
 align-items: center;
 justify-content: center;
-gap: .5rem;
-color: #333333;
-font-size: 1.8rem;
-background: #141414;
-transition: background .3s;
+font-family: ‘Bebas Neue’, sans-serif;
+font-size: 1rem;
+letter-spacing: .2em;
+color: #2a2a2a;
+z-index: 0;
 }
-.project-card:hover .project-placeholder { background: #1e1e1e; }
-.placeholder-label {
-font-size: .65rem;
-letter-spacing: .18em;
-text-transform: uppercase;
-color: #333333;
-font-family: ‘DM Sans’, sans-serif;
-font-weight: 400;
-}
+
 .project-overlay {
 position: absolute;
 inset: 0;
@@ -488,6 +495,7 @@ transition: opacity .35s cubic-bezier(.16,1,.3,1);
 display: flex;
 align-items: flex-end;
 padding: 1.4rem;
+z-index: 2;
 }
 .project-card:hover .project-overlay { opacity: 1; }
 .project-cat {
@@ -505,9 +513,6 @@ font-weight: 400;
 color: #f5f2ed;
 line-height: 1.2;
 }
-.project-placeholder.tall   { height: 340px; }
-.project-placeholder.medium { height: 240px; }
-.project-placeholder.short  { height: 180px; }
 
 /* ── CONTACT ── */
 #contact { text-align: center; }
@@ -559,7 +564,6 @@ align-items: center;
 justify-content: space-between;
 flex-wrap: wrap;
 gap: 1rem;
-max-width: 100%;
 }
 .footer-logo {
 font-family: ‘Bebas Neue’, sans-serif;
@@ -580,6 +584,67 @@ text-decoration: none;
 transition: color .2s;
 }
 .footer-social a:hover { color: #c9a14a; }
+
+/* ── LIGHTBOX ── */
+#lightbox {
+display: none;
+position: fixed;
+inset: 0;
+background: rgba(0,0,0,0.92);
+z-index: 500;
+align-items: center;
+justify-content: center;
+backdrop-filter: blur(8px);
+-webkit-backdrop-filter: blur(8px);
+}
+#lightbox.open { display: flex; }
+#lightbox-inner {
+background: #1a1a1a;
+border: 1px solid #2a2a2a;
+border-radius: 4px;
+max-width: 700px;
+width: 90%;
+overflow: hidden;
+position: relative;
+animation: fadeUp .4s cubic-bezier(.16,1,.3,1);
+}
+#lightbox-img-wrap {
+width: 100%;
+max-height: 420px;
+overflow: hidden;
+background: #141414;
+display: flex;
+align-items: center;
+justify-content: center;
+}
+#lightbox-img-wrap img {
+width: 100%;
+height: 100%;
+object-fit: contain;
+display: block;
+}
+#lightbox-body { padding: 1.5rem 2rem; }
+#lightbox-cat { font-size: .65rem; letter-spacing: .2em; text-transform: uppercase; color: #c9a14a; }
+#lightbox-title {
+font-family: ‘Cormorant Garamond’, serif;
+font-size: 1.6rem;
+color: #f5f2ed;
+margin: .3rem 0 .6rem;
+}
+#lightbox-desc { font-size: .88rem; color: #888888; line-height: 1.7; }
+#lightbox-close {
+position: absolute;
+top: 1rem; right: 1rem;
+background: none;
+border: none;
+color: #666666;
+font-size: 1.4rem;
+cursor: pointer;
+transition: color .2s;
+outline: none;
+z-index: 10;
+}
+#lightbox-close:hover { color: #c9a14a; }
 
 /* ── ANIMATIONS ── */
 @keyframes fadeUp {
@@ -606,7 +671,7 @@ transition: opacity .8s cubic-bezier(.16,1,.3,1), transform .8s cubic-bezier(.16
 nav { padding: 1.2rem 1.5rem; }
 .nav-links { gap: 1.4rem; }
 .nav-links a { font-size: .7rem; }
-#hero { padding: 7rem 1.5rem 4rem; }
+#hero { padding: 7rem 1.5rem 5rem; }
 section { padding: 5rem 1.5rem; }
 #about .about-grid { grid-template-columns: 1fr; gap: 2.5rem; }
 footer { padding: 2rem 1.5rem; flex-direction: column; align-items: flex-start; }
@@ -615,74 +680,7 @@ footer { padding: 2rem 1.5rem; flex-direction: column; align-items: flex-start; 
 .nav-links { display: none; }
 }
 
-/* ── GALLERY FILTER STATES ── */
 .project-card.hidden { display: none; }
-
-/* ── LIGHTBOX ── */
-#lightbox {
-display: none;
-position: fixed;
-inset: 0;
-background: rgba(0,0,0,0.92);
-z-index: 500;
-align-items: center;
-justify-content: center;
-backdrop-filter: blur(8px);
--webkit-backdrop-filter: blur(8px);
-}
-#lightbox.open { display: flex; }
-#lightbox-inner {
-background: #1a1a1a;
-border: 1px solid #2a2a2a;
-border-radius: 4px;
-max-width: 700px;
-width: 90%;
-overflow: hidden;
-position: relative;
-animation: fadeUp .4s cubic-bezier(.16,1,.3,1);
-}
-#lightbox-img {
-width: 100%;
-min-height: 200px;
-background: #141414;
-display: flex;
-align-items: center;
-justify-content: center;
-font-size: 4rem;
-color: #333333;
-flex-direction: column;
-gap: .5rem;
-}
-#lightbox-img span {
-font-size: .7rem;
-letter-spacing: .2em;
-text-transform: uppercase;
-color: #444444;
-font-family: ‘DM Sans’, sans-serif;
-}
-#lightbox-body { padding: 1.5rem 2rem; }
-#lightbox-cat { font-size: .65rem; letter-spacing: .2em; text-transform: uppercase; color: #c9a14a; }
-#lightbox-title {
-font-family: ‘Cormorant Garamond’, serif;
-font-size: 1.6rem;
-color: #f5f2ed;
-margin: .3rem 0 .6rem;
-}
-#lightbox-desc { font-size: .88rem; color: #888888; line-height: 1.7; }
-#lightbox-close {
-position: absolute;
-top: 1rem; right: 1rem;
-background: none;
-border: none;
-color: #666666;
-font-size: 1.4rem;
-cursor: pointer;
-transition: color .2s;
-outline: none;
-}
-#lightbox-close:hover { color: #c9a14a; }
-
-/* ── REMOVE ALL FOCUS RINGS ── */
 *:focus { outline: none; }
 *:focus-visible { outline: none; }
 </style>
@@ -690,12 +688,14 @@ outline: none;
 </head>
 <body>
 
-<!-- Lightbox -->
+<!-- ══ LIGHTBOX ══ -->
 
 <div id="lightbox">
   <div id="lightbox-inner">
     <button id="lightbox-close" onclick="closeLightbox()">✕</button>
-    <div id="lightbox-img">🖼️<span>Replace with your image</span></div>
+    <div id="lightbox-img-wrap">
+      <img id="lightbox-img" src="" alt=""/>
+    </div>
     <div id="lightbox-body">
       <span id="lightbox-cat"></span>
       <h3 id="lightbox-title"></h3>
@@ -704,7 +704,7 @@ outline: none;
   </div>
 </div>
 
-<!-- Navigation -->
+<!-- ══ NAV ══ -->
 
 <nav id="navbar">
   <a class="nav-logo" href="#hero">W<span>.</span>T</a>
@@ -718,21 +718,20 @@ outline: none;
 <!-- ══════════════ HERO ══════════════ -->
 
 <div id="hero">
-  <!-- Full-bleed portrait background — no mask, no vignette -->
   <div class="hero-portrait-bg">
-    <img src="IMG_8773.jpeg" alt="Wilfred Tengolyin" id="heroBgPhoto"/>
+    <!--
+      ┌──────────────────────────────────────────┐
+      │  HERO BACKGROUND PHOTO                   │
+      │  Replace "IMG_8773.jpeg" with your image │
+      └──────────────────────────────────────────┘
+    -->
+    <img src="IMG_8773.jpeg" alt="Wilfred Tengolyin"/>
   </div>
-
-  <!-- Subtle grid overlay -->
-
   <div class="hero-bg-grid"></div>
   <div class="hero-glow"></div>
-
   <div class="hero-inner">
-    <p class="hero-eyebrow">Communication Design · KNUST · Graphic Design & Animation</p>
-    <h1 class="hero-name">
-      Wilfred<br><em>Tengolyin</em>
-    </h1>
+    <p class="hero-eyebrow">Communication Design · KNUST · Graphic Design &amp; Animation</p>
+    <h1 class="hero-name">Wilfred<br><em>Tengolyin</em></h1>
     <p class="hero-tagline">
       Crafting visual experiences that move — through bold graphic design, purposeful motion, and stories told in form and colour.
     </p>
@@ -748,7 +747,6 @@ outline: none;
       <a href="#gallery" class="btn-outline">View Work ↓</a>
     </div>
   </div>
-
   <div class="hero-scroll-indicator">
     <div class="scroll-line"></div>
     <span>Scroll</span>
@@ -766,57 +764,62 @@ outline: none;
     <div class="section-line"></div>
   </div>
   <div class="about-grid">
-    <div class="about-portrait reveal reveal-delay-1">
-      <div class="portrait-frame">
-        <span style="font-size:3rem;">🖼️</span>
-        <span class="portrait-label"><img src ="IMG_8798.jpeg"></span>
-        <div class="portrait-corner-br"></div>
-      </div>
-    </div>
-    <div class="about-content reveal reveal-delay-2">
-      <p class="about-bio">
-        I'm <strong>Wilfred Tengolyin Nabyaazoare</strong>, a Communication Design student at <strong>KNUST</strong> with a deep passion for Graphic Design and Animation. I believe design is not decoration — it is the architecture of meaning.
-      </p>
-      <p class="about-bio">
-        Driven by resilience and a relentless creative curiosity, I merge visual discipline with motion craft to produce work that communicates, captivates, and endures. My goal is to build a distinguished career in Multimedia, mastering creative skills both academically and professionally.
-      </p>
-      <div class="skills-list">
-        <span class="skill-tag">Adobe Illustrator</span>
-        <span class="skill-tag">Adobe Photoshop</span>
-        <span class="skill-tag">After Effects</span>
-        <span class="skill-tag">Premiere Pro</span>
-        <span class="skill-tag">Figma</span>
-        <span class="skill-tag">InDesign</span>
-        <span class="skill-tag">Motion Design</span>
-        <span class="skill-tag">Typography</span>
-        <span class="skill-tag">Branding</span>
-        <span class="skill-tag">Animation</span>
-      </div>
-      <div class="about-meta">
-        <div class="meta-row">
-          <span class="meta-label">Based In</span>
-          <span class="meta-val">Ghana 🇬🇭</span>
-        </div>
-        <div class="meta-row">
-          <span class="meta-label">Institution</span>
-          <span class="meta-val">KNUST — College of Art &amp; Built Environment</span>
-        </div>
-        <div class="meta-row">
-          <span class="meta-label">Handle</span>
-          <span class="meta-val">@wilfredlulu</span>
-        </div>
-        <div class="meta-row">
-          <span class="meta-label">Status</span>
-          <span class="meta-val" style="color:#e2bc72;">Open to freelance &amp; collaborations ✦</span>
-        </div>
-      </div>
-    </div>
+
+```
+<!-- ABOUT PORTRAIT -->
+<div class="about-portrait reveal reveal-delay-1">
+  <div class="portrait-frame">
+    <!--
+      ┌──────────────────────────────────────────┐
+      │  ABOUT SECTION PORTRAIT PHOTO            │
+      │  Replace "IMG_8798.jpeg" with your image │
+      └──────────────────────────────────────────┘
+    -->
+    <img src="IMG_8798.jpeg" alt="Wilfred Tengolyin portrait"/>
+    <div class="portrait-corner-br"></div>
+  </div>
+</div>
+
+<div class="about-content reveal reveal-delay-2">
+  <p class="about-bio">
+    I'm <strong>Wilfred Tengolyin Nabyaazoare</strong>, a Communication Design student at <strong>KNUST</strong> with a deep passion for Graphic Design and Animation. I believe design is not decoration — it is the architecture of meaning.
+  </p>
+  <p class="about-bio">
+    Driven by resilience and a relentless creative curiosity, I merge visual discipline with motion craft to produce work that communicates, captivates, and endures. My goal is to build a distinguished career in Multimedia, mastering creative skills both academically and professionally.
+  </p>
+  <div class="skills-list">
+    <span class="skill-tag">Adobe Illustrator</span>
+    <span class="skill-tag">Adobe Photoshop</span>
+    <span class="skill-tag">After Effects</span>
+    <span class="skill-tag">Premiere Pro</span>
+    <span class="skill-tag">Figma</span>
+    <span class="skill-tag">InDesign</span>
+    <span class="skill-tag">Motion Design</span>
+    <span class="skill-tag">Typography</span>
+    <span class="skill-tag">Branding</span>
+    <span class="skill-tag">Animation</span>
+  </div>
+  <div class="about-meta">
+    <div class="meta-row"><span class="meta-label">Based In</span><span class="meta-val">Ghana 🇬🇭</span></div>
+    <div class="meta-row"><span class="meta-label">Institution</span><span class="meta-val">KNUST — College of Art &amp; Built Environment</span></div>
+    <div class="meta-row"><span class="meta-label">Handle</span><span class="meta-val">@wilfredlulu</span></div>
+    <div class="meta-row"><span class="meta-label">Status</span><span class="meta-val" style="color:#e2bc72;">Open to freelance &amp; collaborations ✦</span></div>
+  </div>
+</div>
+```
+
   </div>
 </section>
 
 <div class="section-divider"></div>
 
-<!-- ══════════════ GALLERY ══════════════ -->
+<!-- ══════════════ GALLERY ══════════════
+  HOW TO ADD YOUR IMAGES:
+  Each project card has ONE line you need to edit — the src="..." on the <img> tag.
+  Just replace the placeholder filename with your real image path.
+  The comment above each card tells you exactly which slot it is.
+  Example: src="my-poster.jpg"  or  src="projects/flyer-01.png"
+════════════════════════════════════════ -->
 
 <section id="gallery" style="max-width:1300px; padding-left:4rem; padding-right:4rem;">
   <div class="section-header reveal">
@@ -832,47 +835,519 @@ outline: none;
     <button class="filter-btn" data-filter="branding">Branding</button>
     <button class="filter-btn" data-filter="typography">Typography</button>
   </div>
+
   <div class="masonry-grid">
-    <!-- PROJECT 1 --><div class="project-card reveal" data-category="graphic" onclick="openLightbox('Graphic Design','Project 01 — Untitled')"><div class="project-placeholder tall">🎨<span class="IMG_8773.jpeg">Image 01</span></div><div class="project-overlay"><div class="project-info"><span class="project-cat">Graphic Design</span><p class="project-title">Project 01 — Untitled</p></div></div></div>
-    <!-- PROJECT 2 --><div class="project-card reveal reveal-delay-1" data-category="photo" onclick="openLightbox('Photo Concept','Project 02 — Untitled')"><div class="project-placeholder medium">📸<span class="IMG_8789.jpeg">Image 02</span></div><div class="project-overlay"><div class="project-info"><span class="project-cat">Photo Concept</span><p class="project-title">Project 02 — Untitled</p></div></div></div>
-    <!-- PROJECT 3 --><div class="project-card reveal reveal-delay-2" data-category="motion" onclick="openLightbox('Motion / Animation','Project 03 — Untitled','Replace this description with your project details, tools used, and the story behind this piece.')"><div class="project-placeholder short">🎬<span class="placeholder-label">Image 03</span></div><div class="project-overlay"><div class="project-info"><span class="project-cat">Motion / Animation</span><p class="project-title">Project 03 — Untitled</p></div></div></div>
-    <!-- PROJECT 4 --><div class="project-card reveal" data-category="branding" onclick="openLightbox('Branding','Project 04 — Untitled','Replace this description with your project details, tools used, and the story behind this piece.')"><div class="project-placeholder medium">✦<span class="placeholder-label">Image 04</span></div><div class="project-overlay"><div class="project-info"><span class="project-cat">Branding</span><p class="project-title">Project 04 — Untitled</p></div></div></div>
-    <!-- PROJECT 5 --><div class="project-card reveal reveal-delay-1" data-category="typography" onclick="openLightbox('Typography','Project 05 — Untitled','Replace this description with your project details, tools used, and the story behind this piece.')"><div class="project-placeholder tall">🅰️<span class="placeholder-label">Image 05</span></div><div class="project-overlay"><div class="project-info"><span class="project-cat">Typography</span><p class="project-title">Project 05 — Untitled</p></div></div></div>
-    <!-- PROJECT 6 --><div class="project-card reveal reveal-delay-2" data-category="photo" onclick="openLightbox('Photo Concept','Project 06 — Untitled','Replace this description with your project details, tools used, and the story behind this piece.')"><div class="project-placeholder short">📸<span class="placeholder-label">Image 06</span></div><div class="project-overlay"><div class="project-info"><span class="project-cat">Photo Concept</span><p class="project-title">Project 06 — Untitled</p></div></div></div>
-    <!-- PROJECT 7 --><div class="project-card reveal" data-category="graphic" onclick="openLightbox('Graphic Design','Project 07 — Untitled','Replace this description with your project details, tools used, and the story behind this piece.')"><div class="project-placeholder short">🎨<span class="placeholder-label">Image 07</span></div><div class="project-overlay"><div class="project-info"><span class="project-cat">Graphic Design</span><p class="project-title">Project 07 — Untitled</p></div></div></div>
-    <!-- PROJECT 8 --><div class="project-card reveal reveal-delay-1" data-category="motion" onclick="openLightbox('Motion / Animation','Project 08 — Untitled','Replace this description with your project details, tools used, and the story behind this piece.')"><div class="project-placeholder tall">🎬<span class="placeholder-label">Image 08</span></div><div class="project-overlay"><div class="project-info"><span class="project-cat">Motion / Animation</span><p class="project-title">Project 08 — Untitled</p></div></div></div>
-    <!-- PROJECT 9 --><div class="project-card reveal reveal-delay-2" data-category="branding" onclick="openLightbox('Branding','Project 09 — Untitled','Replace this description with your project details, tools used, and the story behind this piece.')"><div class="project-placeholder medium">✦<span class="placeholder-label">Image 09</span></div><div class="project-overlay"><div class="project-info"><span class="project-cat">Branding</span><p class="project-title">Project 09 — Untitled</p></div></div></div>
-    <!-- PROJECT 10 --><div class="project-card reveal" data-category="graphic" onclick="openLightbox('Graphic Design','Project 10 — Untitled','Replace this description with your project details, tools used, and the story behind this piece.')"><div class="project-placeholder medium">🎨<span class="placeholder-label">Image 10</span></div><div class="project-overlay"><div class="project-info"><span class="project-cat">Graphic Design</span><p class="project-title">Project 10 — Untitled</p></div></div></div>
-    <!-- PROJECT 11 --><div class="project-card reveal reveal-delay-1" data-category="photo" onclick="openLightbox('Photo Concept','Project 11 — Untitled','Replace this description with your project details, tools used, and the story behind this piece.')"><div class="project-placeholder tall">📸<span class="placeholder-label">Image 11</span></div><div class="project-overlay"><div class="project-info"><span class="project-cat">Photo Concept</span><p class="project-title">Project 11 — Untitled</p></div></div></div>
-    <!-- PROJECT 12 --><div class="project-card reveal reveal-delay-2" data-category="typography" onclick="openLightbox('Typography','Project 12 — Untitled','Replace this description with your project details, tools used, and the story behind this piece.')"><div class="project-placeholder short">🅰️<span class="placeholder-label">Image 12</span></div><div class="project-overlay"><div class="project-info"><span class="project-cat">Typography</span><p class="project-title">Project 12 — Untitled</p></div></div></div>
-    <!-- PROJECT 13 --><div class="project-card reveal" data-category="motion" onclick="openLightbox('Motion / Animation','Project 13 — Untitled','Replace this description with your project details, tools used, and the story behind this piece.')"><div class="project-placeholder medium">🎬<span class="placeholder-label">Image 13</span></div><div class="project-overlay"><div class="project-info"><span class="project-cat">Motion / Animation</span><p class="project-title">Project 13 — Untitled</p></div></div></div>
-    <!-- PROJECT 14 --><div class="project-card reveal reveal-delay-1" data-category="graphic" onclick="openLightbox('Graphic Design','Project 14 — Untitled','Replace this description with your project details, tools used, and the story behind this piece.')"><div class="project-placeholder short">🎨<span class="placeholder-label">Image 14</span></div><div class="project-overlay"><div class="project-info"><span class="project-cat">Graphic Design</span><p class="project-title">Project 14 — Untitled</p></div></div></div>
-    <!-- PROJECT 15 --><div class="project-card reveal reveal-delay-2" data-category="branding" onclick="openLightbox('Branding','Project 15 — Untitled','Replace this description with your project details, tools used, and the story behind this piece.')"><div class="project-placeholder tall">✦<span class="placeholder-label">Image 15</span></div><div class="project-overlay"><div class="project-info"><span class="project-cat">Branding</span><p class="project-title">Project 15 — Untitled</p></div></div></div>
-    <!-- PROJECT 16 --><div class="project-card reveal" data-category="photo" onclick="openLightbox('Photo Concept','Project 16 — Untitled','Replace this description with your project details, tools used, and the story behind this piece.')"><div class="project-placeholder medium">📸<span class="placeholder-label">Image 16</span></div><div class="project-overlay"><div class="project-info"><span class="project-cat">Photo Concept</span><p class="project-title">Project 16 — Untitled</p></div></div></div>
-    <!-- PROJECT 17 --><div class="project-card reveal reveal-delay-1" data-category="typography" onclick="openLightbox('Typography','Project 17 — Untitled','Replace this description with your project details, tools used, and the story behind this piece.')"><div class="project-placeholder short">🅰️<span class="placeholder-label">Image 17</span></div><div class="project-overlay"><div class="project-info"><span class="project-cat">Typography</span><p class="project-title">Project 17 — Untitled</p></div></div></div>
-    <!-- PROJECT 18 --><div class="project-card reveal reveal-delay-2" data-category="graphic" onclick="openLightbox('Graphic Design','Project 18 — Untitled','Replace this description with your project details, tools used, and the story behind this piece.')"><div class="project-placeholder tall">🎨<span class="placeholder-label">Image 18</span></div><div class="project-overlay"><div class="project-info"><span class="project-cat">Graphic Design</span><p class="project-title">Project 18 — Untitled</p></div></div></div>
-    <!-- PROJECT 19 --><div class="project-card reveal" data-category="motion" onclick="openLightbox('Motion / Animation','Project 19 — Untitled','Replace this description with your project details, tools used, and the story behind this piece.')"><div class="project-placeholder medium">🎬<span class="placeholder-label">Image 19</span></div><div class="project-overlay"><div class="project-info"><span class="project-cat">Motion / Animation</span><p class="project-title">Project 19 — Untitled</p></div></div></div>
-    <!-- PROJECT 20 --><div class="project-card reveal reveal-delay-1" data-category="branding" onclick="openLightbox('Branding','Project 20 — Untitled','Replace this description with your project details, tools used, and the story behind this piece.')"><div class="project-placeholder short">✦<span class="placeholder-label">Image 20</span></div><div class="project-overlay"><div class="project-info"><span class="project-cat">Branding</span><p class="project-title">Project 20 — Untitled</p></div></div></div>
-    <!-- PROJECT 21 --><div class="project-card reveal reveal-delay-2" data-category="photo" onclick="openLightbox('Photo Concept','Project 21 — Untitled','Replace this description with your project details, tools used, and the story behind this piece.')"><div class="project-placeholder tall">📸<span class="placeholder-label">Image 21</span></div><div class="project-overlay"><div class="project-info"><span class="project-cat">Photo Concept</span><p class="project-title">Project 21 — Untitled</p></div></div></div>
-    <!-- PROJECT 22 --><div class="project-card reveal" data-category="graphic" onclick="openLightbox('Graphic Design','Project 22 — Untitled','Replace this description with your project details, tools used, and the story behind this piece.')"><div class="project-placeholder medium">🎨<span class="placeholder-label">Image 22</span></div><div class="project-overlay"><div class="project-info"><span class="project-cat">Graphic Design</span><p class="project-title">Project 22 — Untitled</p></div></div></div>
-    <!-- PROJECT 23 --><div class="project-card reveal reveal-delay-1" data-category="typography" onclick="openLightbox('Typography','Project 23 — Untitled','Replace this description with your project details, tools used, and the story behind this piece.')"><div class="project-placeholder short">🅰️<span class="placeholder-label">Image 23</span></div><div class="project-overlay"><div class="project-info"><span class="project-cat">Typography</span><p class="project-title">Project 23 — Untitled</p></div></div></div>
-    <!-- PROJECT 24 --><div class="project-card reveal reveal-delay-2" data-category="motion" onclick="openLightbox('Motion / Animation','Project 24 — Untitled','Replace this description with your project details, tools used, and the story behind this piece.')"><div class="project-placeholder tall">🎬<span class="placeholder-label">Image 24</span></div><div class="project-overlay"><div class="project-info"><span class="project-cat">Motion / Animation</span><p class="project-title">Project 24 — Untitled</p></div></div></div>
-    <!-- PROJECT 25 --><div class="project-card reveal" data-category="graphic" onclick="openLightbox('Graphic Design','Project 25 — Untitled','Replace this description with your project details, tools used, and the story behind this piece.')"><div class="project-placeholder medium">🎨<span class="placeholder-label">Image 25</span></div><div class="project-overlay"><div class="project-info"><span class="project-cat">Graphic Design</span><p class="project-title">Project 25 — Untitled</p></div></div></div>
-    <!-- PROJECT 26 --><div class="project-card reveal reveal-delay-1" data-category="branding" onclick="openLightbox('Branding','Project 26 — Untitled','Replace this description with your project details, tools used, and the story behind this piece.')"><div class="project-placeholder short">✦<span class="placeholder-label">Image 26</span></div><div class="project-overlay"><div class="project-info"><span class="project-cat">Branding</span><p class="project-title">Project 26 — Untitled</p></div></div></div>
-    <!-- PROJECT 27 --><div class="project-card reveal reveal-delay-2" data-category="photo" onclick="openLightbox('Photo Concept','Project 27 — Untitled','Replace this description with your project details, tools used, and the story behind this piece.')"><div class="project-placeholder tall">📸<span class="placeholder-label">Image 27</span></div><div class="project-overlay"><div class="project-info"><span class="project-cat">Photo Concept</span><p class="project-title">Project 27 — Untitled</p></div></div></div>
-    <!-- PROJECT 28 --><div class="project-card reveal" data-category="typography" onclick="openLightbox('Typography','Project 28 — Untitled','Replace this description with your project details, tools used, and the story behind this piece.')"><div class="project-placeholder medium">🅰️<span class="placeholder-label">Image 28</span></div><div class="project-overlay"><div class="project-info"><span class="project-cat">Typography</span><p class="project-title">Project 28 — Untitled</p></div></div></div>
-    <!-- PROJECT 29 --><div class="project-card reveal reveal-delay-1" data-category="motion" onclick="openLightbox('Motion / Animation','Project 29 — Untitled','Replace this description with your project details, tools used, and the story behind this piece.')"><div class="project-placeholder short">🎬<span class="placeholder-label">Image 29</span></div><div class="project-overlay"><div class="project-info"><span class="project-cat">Motion / Animation</span><p class="project-title">Project 29 — Untitled</p></div></div></div>
-    <!-- PROJECT 30 --><div class="project-card reveal reveal-delay-2" data-category="graphic" onclick="openLightbox('Graphic Design','Project 30 — Untitled','Replace this description with your project details, tools used, and the story behind this piece.')"><div class="project-placeholder tall">🎨<span class="placeholder-label">Image 30</span></div><div class="project-overlay"><div class="project-info"><span class="project-cat">Graphic Design</span><p class="project-title">Project 30 — Untitled</p></div></div></div>
-    <!-- PROJECT 31 --><div class="project-card reveal" data-category="branding" onclick="openLightbox('Branding','Project 31 — Untitled','Replace this description with your project details, tools used, and the story behind this piece.')"><div class="project-placeholder medium">✦<span class="placeholder-label">Image 31</span></div><div class="project-overlay"><div class="project-info"><span class="project-cat">Branding</span><p class="project-title">Project 31 — Untitled</p></div></div></div>
-    <!-- PROJECT 32 --><div class="project-card reveal reveal-delay-1" data-category="photo" onclick="openLightbox('Photo Concept','Project 32 — Untitled','Replace this description with your project details, tools used, and the story behind this piece.')"><div class="project-placeholder short">📸<span class="placeholder-label">Image 32</span></div><div class="project-overlay"><div class="project-info"><span class="project-cat">Photo Concept</span><p class="project-title">Project 32 — Untitled</p></div></div></div>
-    <!-- PROJECT 33 --><div class="project-card reveal reveal-delay-2" data-category="graphic" onclick="openLightbox('Graphic Design','Project 33 — Untitled','Replace this description with your project details, tools used, and the story behind this piece.')"><div class="project-placeholder tall">🎨<span class="placeholder-label">Image 33</span></div><div class="project-overlay"><div class="project-info"><span class="project-cat">Graphic Design</span><p class="project-title">Project 33 — Untitled</p></div></div></div>
-    <!-- PROJECT 34 --><div class="project-card reveal" data-category="typography" onclick="openLightbox('Typography','Project 34 — Untitled','Replace this description with your project details, tools used, and the story behind this piece.')"><div class="project-placeholder medium">🅰️<span class="placeholder-label">Image 34</span></div><div class="project-overlay"><div class="project-info"><span class="project-cat">Typography</span><p class="project-title">Project 34 — Untitled</p></div></div></div>
-    <!-- PROJECT 35 --><div class="project-card reveal reveal-delay-1" data-category="motion" onclick="openLightbox('Motion / Animation','Project 35 — Untitled','Replace this description with your project details, tools used, and the story behind this piece.')"><div class="project-placeholder short">🎬<span class="placeholder-label">Image 35</span></div><div class="project-overlay"><div class="project-info"><span class="project-cat">Motion / Animation</span><p class="project-title">Project 35 — Untitled</p></div></div></div>
-    <!-- PROJECT 36 --><div class="project-card reveal reveal-delay-2" data-category="graphic" onclick="openLightbox('Graphic Design','Project 36 — Untitled','Replace this description with your project details, tools used, and the story behind this piece.')"><div class="project-placeholder tall">🎨<span class="placeholder-label">Image 36</span></div><div class="project-overlay"><div class="project-info"><span class="project-cat">Graphic Design</span><p class="project-title">Project 36 — Untitled</p></div></div></div>
-    <!-- PROJECT 37 --><div class="project-card reveal" data-category="branding" onclick="openLightbox('Branding','Project 37 — Untitled','Replace this description with your project details, tools used, and the story behind this piece.')"><div class="project-placeholder medium">✦<span class="placeholder-label">Image 37</span></div><div class="project-overlay"><div class="project-info"><span class="project-cat">Branding</span><p class="project-title">Project 37 — Untitled</p></div></div></div>
-    <!-- PROJECT 38 --><div class="project-card reveal reveal-delay-1" data-category="photo" onclick="openLightbox('Photo Concept','Project 38 — Untitled','Replace this description with your project details, tools used, and the story behind this piece.')"><div class="project-placeholder short">📸<span class="placeholder-label">Image 38</span></div><div class="project-overlay"><div class="project-info"><span class="project-cat">Photo Concept</span><p class="project-title">Project 38 — Untitled</p></div></div></div>
-    <!-- PROJECT 39 --><div class="project-card reveal reveal-delay-2" data-category="graphic" onclick="openLightbox('Graphic Design','Project 39 — Untitled','Replace this description with your project details, tools used, and the story behind this piece.')"><div class="project-placeholder tall">🎨<span class="placeholder-label">Image 39</span></div><div class="project-overlay"><div class="project-info"><span class="project-cat">Graphic Design</span><p class="project-title">Project 39 — Untitled</p></div></div></div>
+
+```
+<!-- ═══ PROJECT 01 — change src below ═══ -->
+<div class="project-card reveal" data-category="graphic" onclick="openLightbox(this)">
+  <div class="project-img-wrap tall" data-num="IMAGE 01">
+    <img src="" alt="Project 01"/><!-- ← PUT IMAGE PATH HERE: src="your-image.jpg" -->
   </div>
+  <div class="project-overlay">
+    <div class="project-info">
+      <span class="project-cat">Graphic Design</span>
+      <p class="project-title">Project 01 — Untitled</p>
+    </div>
+  </div>
+</div>
+
+<!-- ═══ PROJECT 02 — change src below ═══ -->
+<div class="project-card reveal reveal-delay-1" data-category="photo" onclick="openLightbox(this)">
+  <div class="project-img-wrap medium" data-num="IMAGE 02">
+    <img src="" alt="Project 02"/><!-- ← PUT IMAGE PATH HERE: src="your-image.jpg" -->
+  </div>
+  <div class="project-overlay">
+    <div class="project-info">
+      <span class="project-cat">Photo Concept</span>
+      <p class="project-title">Project 02 — Untitled</p>
+    </div>
+  </div>
+</div>
+
+<!-- ═══ PROJECT 03 — change src below ═══ -->
+<div class="project-card reveal reveal-delay-2" data-category="motion" onclick="openLightbox(this)">
+  <div class="project-img-wrap short" data-num="IMAGE 03">
+    <img src="" alt="Project 03"/><!-- ← PUT IMAGE PATH HERE: src="your-image.jpg" -->
+  </div>
+  <div class="project-overlay">
+    <div class="project-info">
+      <span class="project-cat">Motion / Animation</span>
+      <p class="project-title">Project 03 — Untitled</p>
+    </div>
+  </div>
+</div>
+
+<!-- ═══ PROJECT 04 — change src below ═══ -->
+<div class="project-card reveal" data-category="branding" onclick="openLightbox(this)">
+  <div class="project-img-wrap medium" data-num="IMAGE 04">
+    <img src="" alt="Project 04"/><!-- ← PUT IMAGE PATH HERE: src="your-image.jpg" -->
+  </div>
+  <div class="project-overlay">
+    <div class="project-info">
+      <span class="project-cat">Branding</span>
+      <p class="project-title">Project 04 — Untitled</p>
+    </div>
+  </div>
+</div>
+
+<!-- ═══ PROJECT 05 — change src below ═══ -->
+<div class="project-card reveal reveal-delay-1" data-category="typography" onclick="openLightbox(this)">
+  <div class="project-img-wrap tall" data-num="IMAGE 05">
+    <img src="" alt="Project 05"/><!-- ← PUT IMAGE PATH HERE: src="your-image.jpg" -->
+  </div>
+  <div class="project-overlay">
+    <div class="project-info">
+      <span class="project-cat">Typography</span>
+      <p class="project-title">Project 05 — Untitled</p>
+    </div>
+  </div>
+</div>
+
+<!-- ═══ PROJECT 06 — change src below ═══ -->
+<div class="project-card reveal reveal-delay-2" data-category="photo" onclick="openLightbox(this)">
+  <div class="project-img-wrap short" data-num="IMAGE 06">
+    <img src="" alt="Project 06"/><!-- ← PUT IMAGE PATH HERE: src="your-image.jpg" -->
+  </div>
+  <div class="project-overlay">
+    <div class="project-info">
+      <span class="project-cat">Photo Concept</span>
+      <p class="project-title">Project 06 — Untitled</p>
+    </div>
+  </div>
+</div>
+
+<!-- ═══ PROJECT 07 — change src below ═══ -->
+<div class="project-card reveal" data-category="graphic" onclick="openLightbox(this)">
+  <div class="project-img-wrap short" data-num="IMAGE 07">
+    <img src="" alt="Project 07"/><!-- ← PUT IMAGE PATH HERE: src="your-image.jpg" -->
+  </div>
+  <div class="project-overlay">
+    <div class="project-info">
+      <span class="project-cat">Graphic Design</span>
+      <p class="project-title">Project 07 — Untitled</p>
+    </div>
+  </div>
+</div>
+
+<!-- ═══ PROJECT 08 — change src below ═══ -->
+<div class="project-card reveal reveal-delay-1" data-category="motion" onclick="openLightbox(this)">
+  <div class="project-img-wrap tall" data-num="IMAGE 08">
+    <img src="" alt="Project 08"/><!-- ← PUT IMAGE PATH HERE: src="your-image.jpg" -->
+  </div>
+  <div class="project-overlay">
+    <div class="project-info">
+      <span class="project-cat">Motion / Animation</span>
+      <p class="project-title">Project 08 — Untitled</p>
+    </div>
+  </div>
+</div>
+
+<!-- ═══ PROJECT 09 — change src below ═══ -->
+<div class="project-card reveal reveal-delay-2" data-category="branding" onclick="openLightbox(this)">
+  <div class="project-img-wrap medium" data-num="IMAGE 09">
+    <img src="" alt="Project 09"/><!-- ← PUT IMAGE PATH HERE: src="your-image.jpg" -->
+  </div>
+  <div class="project-overlay">
+    <div class="project-info">
+      <span class="project-cat">Branding</span>
+      <p class="project-title">Project 09 — Untitled</p>
+    </div>
+  </div>
+</div>
+
+<!-- ═══ PROJECT 10 — change src below ═══ -->
+<div class="project-card reveal" data-category="graphic" onclick="openLightbox(this)">
+  <div class="project-img-wrap medium" data-num="IMAGE 10">
+    <img src="" alt="Project 10"/><!-- ← PUT IMAGE PATH HERE: src="your-image.jpg" -->
+  </div>
+  <div class="project-overlay">
+    <div class="project-info">
+      <span class="project-cat">Graphic Design</span>
+      <p class="project-title">Project 10 — Untitled</p>
+    </div>
+  </div>
+</div>
+
+<!-- ═══ PROJECT 11 — change src below ═══ -->
+<div class="project-card reveal reveal-delay-1" data-category="photo" onclick="openLightbox(this)">
+  <div class="project-img-wrap tall" data-num="IMAGE 11">
+    <img src="" alt="Project 11"/><!-- ← PUT IMAGE PATH HERE: src="your-image.jpg" -->
+  </div>
+  <div class="project-overlay">
+    <div class="project-info">
+      <span class="project-cat">Photo Concept</span>
+      <p class="project-title">Project 11 — Untitled</p>
+    </div>
+  </div>
+</div>
+
+<!-- ═══ PROJECT 12 — change src below ═══ -->
+<div class="project-card reveal reveal-delay-2" data-category="typography" onclick="openLightbox(this)">
+  <div class="project-img-wrap short" data-num="IMAGE 12">
+    <img src="" alt="Project 12"/><!-- ← PUT IMAGE PATH HERE: src="your-image.jpg" -->
+  </div>
+  <div class="project-overlay">
+    <div class="project-info">
+      <span class="project-cat">Typography</span>
+      <p class="project-title">Project 12 — Untitled</p>
+    </div>
+  </div>
+</div>
+
+<!-- ═══ PROJECT 13 — change src below ═══ -->
+<div class="project-card reveal" data-category="motion" onclick="openLightbox(this)">
+  <div class="project-img-wrap medium" data-num="IMAGE 13">
+    <img src="" alt="Project 13"/><!-- ← PUT IMAGE PATH HERE: src="your-image.jpg" -->
+  </div>
+  <div class="project-overlay">
+    <div class="project-info">
+      <span class="project-cat">Motion / Animation</span>
+      <p class="project-title">Project 13 — Untitled</p>
+    </div>
+  </div>
+</div>
+
+<!-- ═══ PROJECT 14 — change src below ═══ -->
+<div class="project-card reveal reveal-delay-1" data-category="graphic" onclick="openLightbox(this)">
+  <div class="project-img-wrap short" data-num="IMAGE 14">
+    <img src="" alt="Project 14"/><!-- ← PUT IMAGE PATH HERE: src="your-image.jpg" -->
+  </div>
+  <div class="project-overlay">
+    <div class="project-info">
+      <span class="project-cat">Graphic Design</span>
+      <p class="project-title">Project 14 — Untitled</p>
+    </div>
+  </div>
+</div>
+
+<!-- ═══ PROJECT 15 — change src below ═══ -->
+<div class="project-card reveal reveal-delay-2" data-category="branding" onclick="openLightbox(this)">
+  <div class="project-img-wrap tall" data-num="IMAGE 15">
+    <img src="" alt="Project 15"/><!-- ← PUT IMAGE PATH HERE: src="your-image.jpg" -->
+  </div>
+  <div class="project-overlay">
+    <div class="project-info">
+      <span class="project-cat">Branding</span>
+      <p class="project-title">Project 15 — Untitled</p>
+    </div>
+  </div>
+</div>
+
+<!-- ═══ PROJECT 16 — change src below ═══ -->
+<div class="project-card reveal" data-category="photo" onclick="openLightbox(this)">
+  <div class="project-img-wrap medium" data-num="IMAGE 16">
+    <img src="" alt="Project 16"/><!-- ← PUT IMAGE PATH HERE: src="your-image.jpg" -->
+  </div>
+  <div class="project-overlay">
+    <div class="project-info">
+      <span class="project-cat">Photo Concept</span>
+      <p class="project-title">Project 16 — Untitled</p>
+    </div>
+  </div>
+</div>
+
+<!-- ═══ PROJECT 17 — change src below ═══ -->
+<div class="project-card reveal reveal-delay-1" data-category="typography" onclick="openLightbox(this)">
+  <div class="project-img-wrap short" data-num="IMAGE 17">
+    <img src="" alt="Project 17"/><!-- ← PUT IMAGE PATH HERE: src="your-image.jpg" -->
+  </div>
+  <div class="project-overlay">
+    <div class="project-info">
+      <span class="project-cat">Typography</span>
+      <p class="project-title">Project 17 — Untitled</p>
+    </div>
+  </div>
+</div>
+
+<!-- ═══ PROJECT 18 — change src below ═══ -->
+<div class="project-card reveal reveal-delay-2" data-category="graphic" onclick="openLightbox(this)">
+  <div class="project-img-wrap tall" data-num="IMAGE 18">
+    <img src="" alt="Project 18"/><!-- ← PUT IMAGE PATH HERE: src="your-image.jpg" -->
+  </div>
+  <div class="project-overlay">
+    <div class="project-info">
+      <span class="project-cat">Graphic Design</span>
+      <p class="project-title">Project 18 — Untitled</p>
+    </div>
+  </div>
+</div>
+
+<!-- ═══ PROJECT 19 — change src below ═══ -->
+<div class="project-card reveal" data-category="motion" onclick="openLightbox(this)">
+  <div class="project-img-wrap medium" data-num="IMAGE 19">
+    <img src="" alt="Project 19"/><!-- ← PUT IMAGE PATH HERE: src="your-image.jpg" -->
+  </div>
+  <div class="project-overlay">
+    <div class="project-info">
+      <span class="project-cat">Motion / Animation</span>
+      <p class="project-title">Project 19 — Untitled</p>
+    </div>
+  </div>
+</div>
+
+<!-- ═══ PROJECT 20 — change src below ═══ -->
+<div class="project-card reveal reveal-delay-1" data-category="branding" onclick="openLightbox(this)">
+  <div class="project-img-wrap short" data-num="IMAGE 20">
+    <img src="" alt="Project 20"/><!-- ← PUT IMAGE PATH HERE: src="your-image.jpg" -->
+  </div>
+  <div class="project-overlay">
+    <div class="project-info">
+      <span class="project-cat">Branding</span>
+      <p class="project-title">Project 20 — Untitled</p>
+    </div>
+  </div>
+</div>
+
+<!-- ═══ PROJECT 21 — change src below ═══ -->
+<div class="project-card reveal reveal-delay-2" data-category="photo" onclick="openLightbox(this)">
+  <div class="project-img-wrap tall" data-num="IMAGE 21">
+    <img src="" alt="Project 21"/><!-- ← PUT IMAGE PATH HERE: src="your-image.jpg" -->
+  </div>
+  <div class="project-overlay">
+    <div class="project-info">
+      <span class="project-cat">Photo Concept</span>
+      <p class="project-title">Project 21 — Untitled</p>
+    </div>
+  </div>
+</div>
+
+<!-- ═══ PROJECT 22 — change src below ═══ -->
+<div class="project-card reveal" data-category="graphic" onclick="openLightbox(this)">
+  <div class="project-img-wrap medium" data-num="IMAGE 22">
+    <img src="" alt="Project 22"/><!-- ← PUT IMAGE PATH HERE: src="your-image.jpg" -->
+  </div>
+  <div class="project-overlay">
+    <div class="project-info">
+      <span class="project-cat">Graphic Design</span>
+      <p class="project-title">Project 22 — Untitled</p>
+    </div>
+  </div>
+</div>
+
+<!-- ═══ PROJECT 23 — change src below ═══ -->
+<div class="project-card reveal reveal-delay-1" data-category="typography" onclick="openLightbox(this)">
+  <div class="project-img-wrap short" data-num="IMAGE 23">
+    <img src="" alt="Project 23"/><!-- ← PUT IMAGE PATH HERE: src="your-image.jpg" -->
+  </div>
+  <div class="project-overlay">
+    <div class="project-info">
+      <span class="project-cat">Typography</span>
+      <p class="project-title">Project 23 — Untitled</p>
+    </div>
+  </div>
+</div>
+
+<!-- ═══ PROJECT 24 — change src below ═══ -->
+<div class="project-card reveal reveal-delay-2" data-category="motion" onclick="openLightbox(this)">
+  <div class="project-img-wrap tall" data-num="IMAGE 24">
+    <img src="" alt="Project 24"/><!-- ← PUT IMAGE PATH HERE: src="your-image.jpg" -->
+  </div>
+  <div class="project-overlay">
+    <div class="project-info">
+      <span class="project-cat">Motion / Animation</span>
+      <p class="project-title">Project 24 — Untitled</p>
+    </div>
+  </div>
+</div>
+
+<!-- ═══ PROJECT 25 — change src below ═══ -->
+<div class="project-card reveal" data-category="graphic" onclick="openLightbox(this)">
+  <div class="project-img-wrap medium" data-num="IMAGE 25">
+    <img src="" alt="Project 25"/><!-- ← PUT IMAGE PATH HERE: src="your-image.jpg" -->
+  </div>
+  <div class="project-overlay">
+    <div class="project-info">
+      <span class="project-cat">Graphic Design</span>
+      <p class="project-title">Project 25 — Untitled</p>
+    </div>
+  </div>
+</div>
+
+<!-- ═══ PROJECT 26 — change src below ═══ -->
+<div class="project-card reveal reveal-delay-1" data-category="branding" onclick="openLightbox(this)">
+  <div class="project-img-wrap short" data-num="IMAGE 26">
+    <img src="" alt="Project 26"/><!-- ← PUT IMAGE PATH HERE: src="your-image.jpg" -->
+  </div>
+  <div class="project-overlay">
+    <div class="project-info">
+      <span class="project-cat">Branding</span>
+      <p class="project-title">Project 26 — Untitled</p>
+    </div>
+  </div>
+</div>
+
+<!-- ═══ PROJECT 27 — change src below ═══ -->
+<div class="project-card reveal reveal-delay-2" data-category="photo" onclick="openLightbox(this)">
+  <div class="project-img-wrap tall" data-num="IMAGE 27">
+    <img src="" alt="Project 27"/><!-- ← PUT IMAGE PATH HERE: src="your-image.jpg" -->
+  </div>
+  <div class="project-overlay">
+    <div class="project-info">
+      <span class="project-cat">Photo Concept</span>
+      <p class="project-title">Project 27 — Untitled</p>
+    </div>
+  </div>
+</div>
+
+<!-- ═══ PROJECT 28 — change src below ═══ -->
+<div class="project-card reveal" data-category="typography" onclick="openLightbox(this)">
+  <div class="project-img-wrap medium" data-num="IMAGE 28">
+    <img src="" alt="Project 28"/><!-- ← PUT IMAGE PATH HERE: src="your-image.jpg" -->
+  </div>
+  <div class="project-overlay">
+    <div class="project-info">
+      <span class="project-cat">Typography</span>
+      <p class="project-title">Project 28 — Untitled</p>
+    </div>
+  </div>
+</div>
+
+<!-- ═══ PROJECT 29 — change src below ═══ -->
+<div class="project-card reveal reveal-delay-1" data-category="motion" onclick="openLightbox(this)">
+  <div class="project-img-wrap short" data-num="IMAGE 29">
+    <img src="" alt="Project 29"/><!-- ← PUT IMAGE PATH HERE: src="your-image.jpg" -->
+  </div>
+  <div class="project-overlay">
+    <div class="project-info">
+      <span class="project-cat">Motion / Animation</span>
+      <p class="project-title">Project 29 — Untitled</p>
+    </div>
+  </div>
+</div>
+
+<!-- ═══ PROJECT 30 — change src below ═══ -->
+<div class="project-card reveal reveal-delay-2" data-category="graphic" onclick="openLightbox(this)">
+  <div class="project-img-wrap tall" data-num="IMAGE 30">
+    <img src="" alt="Project 30"/><!-- ← PUT IMAGE PATH HERE: src="your-image.jpg" -->
+  </div>
+  <div class="project-overlay">
+    <div class="project-info">
+      <span class="project-cat">Graphic Design</span>
+      <p class="project-title">Project 30 — Untitled</p>
+    </div>
+  </div>
+</div>
+
+<!-- ═══ PROJECT 31 — change src below ═══ -->
+<div class="project-card reveal" data-category="branding" onclick="openLightbox(this)">
+  <div class="project-img-wrap medium" data-num="IMAGE 31">
+    <img src="" alt="Project 31"/><!-- ← PUT IMAGE PATH HERE: src="your-image.jpg" -->
+  </div>
+  <div class="project-overlay">
+    <div class="project-info">
+      <span class="project-cat">Branding</span>
+      <p class="project-title">Project 31 — Untitled</p>
+    </div>
+  </div>
+</div>
+
+<!-- ═══ PROJECT 32 — change src below ═══ -->
+<div class="project-card reveal reveal-delay-1" data-category="photo" onclick="openLightbox(this)">
+  <div class="project-img-wrap short" data-num="IMAGE 32">
+    <img src="" alt="Project 32"/><!-- ← PUT IMAGE PATH HERE: src="your-image.jpg" -->
+  </div>
+  <div class="project-overlay">
+    <div class="project-info">
+      <span class="project-cat">Photo Concept</span>
+      <p class="project-title">Project 32 — Untitled</p>
+    </div>
+  </div>
+</div>
+
+<!-- ═══ PROJECT 33 — change src below ═══ -->
+<div class="project-card reveal reveal-delay-2" data-category="graphic" onclick="openLightbox(this)">
+  <div class="project-img-wrap tall" data-num="IMAGE 33">
+    <img src="" alt="Project 33"/><!-- ← PUT IMAGE PATH HERE: src="your-image.jpg" -->
+  </div>
+  <div class="project-overlay">
+    <div class="project-info">
+      <span class="project-cat">Graphic Design</span>
+      <p class="project-title">Project 33 — Untitled</p>
+    </div>
+  </div>
+</div>
+
+<!-- ═══ PROJECT 34 — change src below ═══ -->
+<div class="project-card reveal" data-category="typography" onclick="openLightbox(this)">
+  <div class="project-img-wrap medium" data-num="IMAGE 34">
+    <img src="" alt="Project 34"/><!-- ← PUT IMAGE PATH HERE: src="your-image.jpg" -->
+  </div>
+  <div class="project-overlay">
+    <div class="project-info">
+      <span class="project-cat">Typography</span>
+      <p class="project-title">Project 34 — Untitled</p>
+    </div>
+  </div>
+</div>
+
+<!-- ═══ PROJECT 35 — change src below ═══ -->
+<div class="project-card reveal reveal-delay-1" data-category="motion" onclick="openLightbox(this)">
+  <div class="project-img-wrap short" data-num="IMAGE 35">
+    <img src="" alt="Project 35"/><!-- ← PUT IMAGE PATH HERE: src="your-image.jpg" -->
+  </div>
+  <div class="project-overlay">
+    <div class="project-info">
+      <span class="project-cat">Motion / Animation</span>
+      <p class="project-title">Project 35 — Untitled</p>
+    </div>
+  </div>
+</div>
+
+<!-- ═══ PROJECT 36 — change src below ═══ -->
+<div class="project-card reveal reveal-delay-2" data-category="graphic" onclick="openLightbox(this)">
+  <div class="project-img-wrap tall" data-num="IMAGE 36">
+    <img src="" alt="Project 36"/><!-- ← PUT IMAGE PATH HERE: src="your-image.jpg" -->
+  </div>
+  <div class="project-overlay">
+    <div class="project-info">
+      <span class="project-cat">Graphic Design</span>
+      <p class="project-title">Project 36 — Untitled</p>
+    </div>
+  </div>
+</div>
+
+<!-- ═══ PROJECT 37 — change src below ═══ -->
+<div class="project-card reveal" data-category="branding" onclick="openLightbox(this)">
+  <div class="project-img-wrap medium" data-num="IMAGE 37">
+    <img src="" alt="Project 37"/><!-- ← PUT IMAGE PATH HERE: src="your-image.jpg" -->
+  </div>
+  <div class="project-overlay">
+    <div class="project-info">
+      <span class="project-cat">Branding</span>
+      <p class="project-title">Project 37 — Untitled</p>
+    </div>
+  </div>
+</div>
+
+<!-- ═══ PROJECT 38 — change src below ═══ -->
+<div class="project-card reveal reveal-delay-1" data-category="photo" onclick="openLightbox(this)">
+  <div class="project-img-wrap short" data-num="IMAGE 38">
+    <img src="" alt="Project 38"/><!-- ← PUT IMAGE PATH HERE: src="your-image.jpg" -->
+  </div>
+  <div class="project-overlay">
+    <div class="project-info">
+      <span class="project-cat">Photo Concept</span>
+      <p class="project-title">Project 38 — Untitled</p>
+    </div>
+  </div>
+</div>
+
+<!-- ═══ PROJECT 39 — change src below ═══ -->
+<div class="project-card reveal reveal-delay-2" data-category="graphic" onclick="openLightbox(this)">
+  <div class="project-img-wrap tall" data-num="IMAGE 39">
+    <img src="" alt="Project 39"/><!-- ← PUT IMAGE PATH HERE: src="your-image.jpg" -->
+  </div>
+  <div class="project-overlay">
+    <div class="project-info">
+      <span class="project-cat">Graphic Design</span>
+      <p class="project-title">Project 39 — Untitled</p>
+    </div>
+  </div>
+</div>
+```
+
+  </div><!-- /masonry-grid -->
 </section>
 
 <div class="section-divider"></div>
@@ -896,22 +1371,10 @@ outline: none;
       </a>
     </div>
     <div class="contact-details reveal reveal-delay-2">
-      <div class="contact-row">
-        <span class="contact-icon">✉</span>
-        <a href="mailto:wilfredlulu111@gmail.com">wilfredlulu111@gmail.com</a>
-      </div>
-      <div class="contact-row">
-        <span class="contact-icon">📱</span>
-        <a href="tel:+233558687100">+233 558 687 100</a>
-      </div>
-      <div class="contact-row">
-        <span class="contact-icon">📱</span>
-        <a href="tel:+233509033087">+233 509 033 087</a>
-      </div>
-      <div class="contact-row">
-        <span class="contact-icon">📍</span>
-        <span>Kumasi, Ghana — KNUST</span>
-      </div>
+      <div class="contact-row"><span class="contact-icon">✉</span><a href="mailto:wilfredlulu111@gmail.com">wilfredlulu111@gmail.com</a></div>
+      <div class="contact-row"><span class="contact-icon">📱</span><a href="tel:+233558687100">+233 558 687 100</a></div>
+      <div class="contact-row"><span class="contact-icon">📱</span><a href="tel:+233509033087">+233 509 033 087</a></div>
+      <div class="contact-row"><span class="contact-icon">📍</span><span>Kumasi, Ghana — KNUST</span></div>
     </div>
   </div>
 </section>
@@ -953,10 +1416,19 @@ document.querySelectorAll('.filter-btn').forEach(btn => {
 });
 
 // ── LIGHTBOX ──
-function openLightbox(cat, title, desc) {
+// Reads the image src and text directly from the card that was clicked
+function openLightbox(card) {
+  const img    = card.querySelector('img');
+  const cat    = card.querySelector('.project-cat').textContent;
+  const title  = card.querySelector('.project-title').textContent;
+
   document.getElementById('lightbox-cat').textContent   = cat;
   document.getElementById('lightbox-title').textContent = title;
-  document.getElementById('lightbox-desc').textContent  = desc;
+  document.getElementById('lightbox-desc').textContent  = '';
+
+  const lbImg = document.getElementById('lightbox-img');
+  lbImg.src = img && img.src ? img.src : '';
+
   document.getElementById('lightbox').classList.add('open');
   document.body.style.overflow = 'hidden';
 }
