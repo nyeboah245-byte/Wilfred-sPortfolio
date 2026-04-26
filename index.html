@@ -662,7 +662,7 @@ footer { padding: 2rem 1.5rem; flex-direction: column; align-items: flex-start; 
 
 <!-- ── LIGHT MODE TOGGLE ── -->
 
-<button id="theme-toggle" aria-label="Toggle light/dark mode" title="Toggle light mode">☀</button>
+
 
 <!-- ══ LIGHTBOX ══ -->
 
@@ -1583,17 +1583,9 @@ document.getElementById('lightbox').addEventListener('click', e => {
 document.addEventListener('keydown', e => { if (e.key === 'Escape') closeLightbox(); });
 
 // ── LIGHT MODE TOGGLE ──
-const themeBtn = document.getElementById('theme-toggle');
-const saved = localStorage.getItem('wt-theme');
-if (saved === 'light') {
-  document.body.classList.add('light-mode');
-  themeBtn.textContent = '☾';
-}
-themeBtn.addEventListener('click', () => {
-  const isLight = document.body.classList.toggle('light-mode');
-  themeBtn.textContent = isLight ? '☾' : '☀';
-  localStorage.setItem('wt-theme', isLight ? 'light' : 'dark');
-});
+
+
+
 </script>
 
 </body>
