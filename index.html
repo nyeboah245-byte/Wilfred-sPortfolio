@@ -1,8 +1,5 @@
-<!DOCTYPE html><html lang="en"><head>
+<!DOCTYPE html><html lang="en"><head><meta charset="UTF-8"/><meta name="viewport" content="width=device-width, initial-scale=1.0"/><title>Wilfred Tengolyin — Communication Design</title>
 
-<meta charset="UTF-8"/>
-<meta name="viewport" content="width=device-width, initial-scale=1.0"/>
-<title>Wilfred Tengolyin — Communication Design</title>
 <link rel="preconnect" href="https://fonts.googleapis.com"/>
 <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin/>
 <link href="https://fonts.googleapis.com/css2?family=Cormorant+Garamond:ital,wght@0,300;0,400;0,600;1,300;1,400&family=DM+Sans:wght@300;400;500&family=Bebas+Neue&display=swap" rel="stylesheet"/>
@@ -17,6 +14,102 @@ body {
   font-weight: 300;
   line-height: 1.6;
   overflow-x: hidden;
+  transition: background 0.35s, color 0.35s;
+}
+
+/* ── LIGHT MODE ── */
+body.light-mode {
+background: #f5f2ed;
+color: #2a2a2a;
+}
+body.light-mode::before { opacity: .012; }
+body.light-mode nav {
+background: linear-gradient(to bottom, rgba(245,242,237,0.92) 0%, transparent 100%);
+}
+body.light-mode nav.scrolled {
+background: rgba(245,242,237,0.95);
+border-bottom: 1px solid #ddd;
+}
+body.light-mode .nav-logo { color: #1a1a1a; }
+body.light-mode .nav-links a { color: #444; }
+body.light-mode .section-divider {
+background: linear-gradient(to right, transparent, #ccc, transparent);
+}
+body.light-mode .section-title { color: #1a1a1a; }
+body.light-mode .portrait-frame { border-color: #ccc; background: #e8e4df; }
+body.light-mode .about-bio { color: #3a3a3a; }
+body.light-mode .about-bio strong { color: #1a1a1a; }
+body.light-mode .skill-tag { border-color: #ccc; color: #555; }
+body.light-mode .skill-tag:hover { background: rgba(201,161,74,0.08); }
+body.light-mode .about-meta { border-top-color: #ddd; }
+body.light-mode .meta-val { color: #3a3a3a; }
+body.light-mode .filter-btn { border-color: #ccc; color: #555; }
+body.light-mode .project-card { background: #edeae4; border-color: #ccc; }
+body.light-mode .contact-details { background: #edeae4; border-color: #ccc; }
+body.light-mode .contact-row { color: #3a3a3a; }
+body.light-mode .contact-row a { color: #3a3a3a; }
+body.light-mode .contact-headline { color: #1a1a1a; }
+body.light-mode .contact-sub { color: #666; }
+body.light-mode footer { border-top-color: #ddd; }
+body.light-mode .footer-logo { color: #888; }
+body.light-mode .footer-copy { color: #aaa; }
+body.light-mode .footer-social a { color: #888; }
+body.light-mode #lightbox { background: rgba(245,242,237,0.93); }
+body.light-mode #lightbox-inner { background: #fff; border-color: #ddd; }
+body.light-mode #lightbox-title { color: #1a1a1a; }
+body.light-mode #lightbox-desc { color: #555; }
+body.light-mode #lightbox-close { color: #999; }
+body.light-mode .section-line { background: #ddd; }
+body.light-mode .hero-portrait-bg img { filter: brightness(0.75) saturate(0.8); }
+body.light-mode .hero-name { color: #1a1a1a; text-shadow: 0 2px 20px rgba(245,242,237,0.5); }
+body.light-mode .hero-tagline { color: #2a2a2a; text-shadow: 0 1px 10px rgba(245,242,237,0.7); }
+body.light-mode .hero-eyebrow { text-shadow: none; }
+body.light-mode .hero-bg-grid {
+background-image:
+linear-gradient(rgba(201,161,74,0.07) 1px, transparent 1px),
+linear-gradient(90deg, rgba(201,161,74,0.07) 1px, transparent 1px);
+}
+body.light-mode .btn-outline {
+background: rgba(245,242,237,0.6);
+color: #2a2a2a;
+border-color: rgba(0,0,0,0.25);
+}
+body.light-mode .btn-outline:hover { background: rgba(201,161,74,0.15); }
+
+/* ── LIGHT MODE TOGGLE BUTTON ── */
+#theme-toggle {
+position: fixed;
+bottom: 1.8rem;
+right: 1.8rem;
+z-index: 999;
+width: 48px;
+height: 48px;
+border-radius: 50%;
+border: 1px solid #2a2a2a;
+background: #141414;
+color: #c9a14a;
+font-size: 1.2rem;
+cursor: pointer;
+display: flex;
+align-items: center;
+justify-content: center;
+box-shadow: 0 4px 20px rgba(0,0,0,0.5);
+transition: background 0.3s, border-color 0.3s, transform 0.25s, box-shadow 0.25s;
+outline: none;
+}
+#theme-toggle:hover {
+transform: scale(1.1);
+box-shadow: 0 6px 28px rgba(201,161,74,0.3);
+border-color: #c9a14a;
+}
+body.light-mode #theme-toggle {
+background: #fff;
+border-color: #ccc;
+color: #c9a14a;
+box-shadow: 0 4px 20px rgba(0,0,0,0.15);
+}
+body.light-mode #theme-toggle:hover {
+box-shadow: 0 6px 28px rgba(201,161,74,0.2);
 }
 
 /* ── NOISE OVERLAY ── */
@@ -88,7 +181,6 @@ align-items: center;
 justify-content: center;
 padding: 8rem 2rem 5rem;
 }
-
 .hero-portrait-bg {
 position: absolute;
 inset: 0;
@@ -114,7 +206,6 @@ rgba(8,8,8,0.35) 60%,
 rgba(8,8,8,0.72) 100%
 );
 }
-
 .hero-bg-grid {
 position: absolute;
 inset: 0;
@@ -125,7 +216,6 @@ linear-gradient(90deg, rgba(201,161,74,0.035) 1px, transparent 1px);
 background-size: 60px 60px;
 pointer-events: none;
 }
-
 .hero-glow {
 position: absolute;
 width: 600px; height: 600px;
@@ -135,7 +225,6 @@ transform: translate(-50%,-50%);
 pointer-events: none;
 z-index: 1;
 }
-
 .hero-inner {
 position: relative;
 z-index: 2;
@@ -143,7 +232,6 @@ text-align: center;
 max-width: 860px;
 width: 100%;
 }
-
 .hero-eyebrow {
 font-size: .72rem;
 letter-spacing: .25em;
@@ -309,7 +397,6 @@ grid-template-columns: 1fr 1fr;
 gap: 5rem;
 align-items: start;
 }
-
 .portrait-frame {
 width: 100%;
 aspect-ratio: 3/4;
@@ -351,7 +438,6 @@ border-bottom: 1px solid #c9a14a;
 border-right: 1px solid #c9a14a;
 z-index: 2;
 }
-
 .about-bio {
 font-size: 1.05rem;
 line-height: 1.85;
@@ -430,7 +516,6 @@ column-gap: 1.2rem;
 }
 @media (max-width: 900px) { .masonry-grid { columns: 2; } }
 @media (max-width: 560px) { .masonry-grid { columns: 1; } }
-
 .project-card {
 break-inside: avoid;
 margin-bottom: 1.2rem;
@@ -447,7 +532,6 @@ transform: translateY(-4px);
 box-shadow: 0 20px 60px rgba(0,0,0,0.6), 0 0 0 1px #9a7530;
 border-color: #9a7530;
 }
-
 .project-img-wrap {
 width: 100%;
 position: relative;
@@ -462,11 +546,9 @@ display: block;
 transition: transform .5s cubic-bezier(.16,1,.3,1);
 }
 .project-card:hover .project-img-wrap img { transform: scale(1.03); }
-
 .project-img-wrap.tall   { height: 340px; }
 .project-img-wrap.medium { height: 240px; }
 .project-img-wrap.short  { height: 180px; }
-
 .project-overlay {
 position: absolute;
 inset: 0;
@@ -656,12 +738,12 @@ nav { padding: 1.2rem 1.5rem; }
 section { padding: 5rem 1.5rem; }
 #about .about-grid { grid-template-columns: 1fr; gap: 2.5rem; }
 footer { padding: 2rem 1.5rem; flex-direction: column; align-items: flex-start; }
+#theme-toggle { bottom: 1.2rem; right: 1.2rem; width: 44px; height: 44px; }
 }
 @media (max-width: 480px) {
 .nav-links { display: none; }
 }
 
-/* Cards with no image are hidden automatically via JS */
 .project-card.hidden { display: none; }
 *:focus { outline: none; }
 *:focus-visible { outline: none; }
@@ -669,6 +751,10 @@ footer { padding: 2rem 1.5rem; flex-direction: column; align-items: flex-start; 
 
 </head>
 <body>
+
+<!-- ── LIGHT MODE TOGGLE ── -->
+
+<button id="theme-toggle" aria-label="Toggle light/dark mode" title="Toggle light mode">☀</button>
 
 <!-- ══ LIGHTBOX ══ -->
 
@@ -701,7 +787,7 @@ footer { padding: 2rem 1.5rem; flex-direction: column; align-items: flex-start; 
 
 <div id="hero">
   <div class="hero-portrait-bg">
-    <img src="IMG_8832.jpeg" alt="Wilfred Tengolyin"/>
+    <img src="IMG_8832.jpeg" alt="Wilfred Tengolyin" loading="eager"/>
   </div>
   <div class="hero-bg-grid"></div>
   <div class="hero-glow"></div>
@@ -742,7 +828,7 @@ footer { padding: 2rem 1.5rem; flex-direction: column; align-items: flex-start; 
   <div class="about-grid">
     <div class="about-portrait reveal reveal-delay-1">
       <div class="portrait-frame">
-        <img src="IMG_8831.jpeg" alt="Wilfred Tengolyin portrait"/>
+        <img src="IMG_8831.jpeg" alt="Wilfred Tengolyin portrait" loading="lazy"/>
         <div class="portrait-corner-br"></div>
       </div>
     </div>
@@ -777,15 +863,7 @@ footer { padding: 2rem 1.5rem; flex-direction: column; align-items: flex-start; 
 
 <div class="section-divider"></div>
 
-<!-- ══════════════ GALLERY ══════════════
-  HOW TO UPDATE CATEGORIES:
-  Each card has data-category, data-title, and data-desc attributes.
-  Change data-category to one of: graphic | photo | motion | branding | typography
-  Update data-title and data-desc to match the actual image.
-
-  IMPORTANT: Cards with no src on the <img> are automatically hidden.
-  Projects 15–39 are kept in the HTML but hidden until you add real images.
-════════════════════════════════════════ -->
+<!-- ══════════════ GALLERY ══════════════ -->
 
 <section id="gallery" style="max-width:1300px; padding-left:4rem; padding-right:4rem;">
   <div class="section-header reveal">
@@ -804,155 +882,151 @@ footer { padding: 2rem 1.5rem; flex-direction: column; align-items: flex-start; 
 
   <div class="masonry-grid">
 
-
-<!-- PROJECT 01 — IMG_8806 -->
-<!-- TO CHANGE CATEGORY: edit data-category. Options: graphic | photo | motion | branding | typography -->
-<!-- TO CHANGE TITLE/DESC: edit data-title and data-desc -->
+```
+<!-- PROJECT 01 -->
 <div class="project-card reveal"
      data-category="graphic"
-   
+     data-title="Editorial Layout — NF Artist Profile"
      data-desc="A clean, editorial-style digital biography layout featuring artist Nate Feuerstein (NF). This project demonstrates a strong command of grid systems, balanced whitespace, and high-contrast typography to create a professional publication feel."
      onclick="openLightbox(this)">
   <div class="project-img-wrap tall">
-    <img src="IMG_8806.jpeg"/>
+    <img src="IMG_8806.jpeg" alt="Editorial Layout NF Artist Profile" loading="lazy"/>
   </div>
   <div class="project-overlay">
     <div class="project-info">
       <span class="project-cat">Graphic Design</span>
-    
+      <p class="project-title">Editorial Layout — NF Artist Profile</p>
     </div>
   </div>
 </div>
 
-<!-- PROJECT 02 — IMG_8807 -->
+<!-- PROJECT 02 -->
 <div class="project-card reveal reveal-delay-1"
      data-category="photo"
-  
-     data-desc=" A dramatic, low-key photography concept focusing on texture and form. The use of a warm, directional orange light source creates a sharp silhouette and highlights the leather details of the classic sneakers.
-."
+     data-title="Sneaker Study — Warm Light"
+     data-desc="A dramatic, low-key photography concept focusing on texture and form. The use of a warm, directional orange light source creates a sharp silhouette and highlights the leather details of the classic sneakers."
      onclick="openLightbox(this)">
   <div class="project-img-wrap medium">
-    <img src="IMG_8807.jpeg" alt="Editorial Layout Design II"/>
+    <img src="IMG_8807.jpeg" alt="Sneaker Study Warm Light" loading="lazy"/>
   </div>
   <div class="project-overlay">
     <div class="project-info">
-      <span class="project-cat">Graphic Design</span>
-      <p class="project-title">Editorial Layout — Design II</p>
+      <span class="project-cat">Photo Concept</span>
+      <p class="project-title">Sneaker Study — Warm Light</p>
     </div>
   </div>
 </div>
 
-<!-- PROJECT 03 — IMG_8808 -->
+<!-- PROJECT 03 -->
 <div class="project-card reveal reveal-delay-2"
      data-category="photo"
-    
+     data-title="Sneaker Study — Gloss & Contour"
      data-desc="A sharp product study of classic sneakers, emphasizing the high-gloss finish and sleek contours of the leather. The moody, low-key lighting highlights the wet look texture and premium build, creating a luxury aesthetic."
      onclick="openLightbox(this)">
   <div class="project-img-wrap short">
-    <img src="IMG_8808.jpeg"/>
+    <img src="IMG_8808.jpeg" alt="Sneaker Study Gloss and Contour" loading="lazy"/>
   </div>
   <div class="project-overlay">
     <div class="project-info">
-      <span class="project-cat">Graphic Design</span>
-     
+      <span class="project-cat">Photo Concept</span>
+      <p class="project-title">Sneaker Study — Gloss &amp; Contour</p>
     </div>
   </div>
 </div>
 
-<!-- PROJECT 04 — IMG_8809 -->
+<!-- PROJECT 04 -->
 <div class="project-card reveal"
      data-category="photo"
-    
-     data-desc=" A dramatic, low-key product photograph of a classic white sneaker. The composition uses warm, directional lighting to highlight the textures of the leather and the iconic silhouette against a deep, moody background
-."
+     data-title="Sneaker Study — Moody Silhouette"
+     data-desc="A dramatic, low-key product photograph of a classic white sneaker. The composition uses warm, directional lighting to highlight the textures of the leather and the iconic silhouette against a deep, moody background."
      onclick="openLightbox(this)">
   <div class="project-img-wrap medium">
-    <img src="IMG_8809.jpeg"/>
+    <img src="IMG_8809.jpeg" alt="Sneaker Study Moody Silhouette" loading="lazy"/>
   </div>
   <div class="project-overlay">
     <div class="project-info">
-      <span class="project-cat">Graphic Design</span>
-     
+      <span class="project-cat">Photo Concept</span>
+      <p class="project-title">Sneaker Study — Moody Silhouette</p>
     </div>
   </div>
 </div>
 
-<!-- PROJECT 05 — IMG_8810 -->
+<!-- PROJECT 05 -->
 <div class="project-card reveal reveal-delay-1"
      data-category="graphic"
-    
+     data-title="Editorial Layout — Design V"
      data-desc="Fifth editorial piece — a culmination of the series with heightened sophistication in grid structure, colour palette, and typographic pairing."
      onclick="openLightbox(this)">
   <div class="project-img-wrap tall">
-    <img src="IMG_8810.jpeg"/>
+    <img src="IMG_8810.jpeg" alt="Editorial Layout Design V" loading="lazy"/>
   </div>
   <div class="project-overlay">
     <div class="project-info">
       <span class="project-cat">Graphic Design</span>
-     
+      <p class="project-title">Editorial Layout — Design V</p>
     </div>
   </div>
 </div>
 
-<!-- PROJECT 06 — IMG_8811 -->
+<!-- PROJECT 06 -->
 <div class="project-card reveal reveal-delay-2"
      data-category="graphic"
-   
+     data-title="Editorial Layout — Design VI"
      data-desc="The sixth editorial layout in the collection, emphasising contrast between imagery and white space for a clean, contemporary feel."
      onclick="openLightbox(this)">
   <div class="project-img-wrap short">
-    <img src="IMG_8811.jpeg"/>
+    <img src="IMG_8811.jpeg" alt="Editorial Layout Design VI" loading="lazy"/>
   </div>
   <div class="project-overlay">
     <div class="project-info">
       <span class="project-cat">Graphic Design</span>
-      
+      <p class="project-title">Editorial Layout — Design VI</p>
     </div>
   </div>
 </div>
 
-<!-- PROJECT 07 — IMG_8813 -->
+<!-- PROJECT 07 -->
 <div class="project-card reveal"
      data-category="graphic"
      data-title="Nate Feuerstien — Artist Profile"
      data-desc="A visually bold artist profile spread for Nate Feuerstien, blending portraiture with editorial typography. Features a teal accent palette and strong headline treatment."
      onclick="openLightbox(this)">
   <div class="project-img-wrap short">
-    <img src="IMG_8813.jpeg"/>
+    <img src="IMG_8813.jpeg" alt="Nate Feuerstien Artist Profile" loading="lazy"/>
   </div>
   <div class="project-overlay">
     <div class="project-info">
       <span class="project-cat">Graphic Design</span>
-  
+      <p class="project-title">Nate Feuerstien — Artist Profile</p>
     </div>
   </div>
 </div>
 
-<!-- PROJECT 08 — IMG_8814 -->
+<!-- PROJECT 08 -->
 <div class="project-card reveal reveal-delay-1"
      data-category="graphic"
-     
+     data-title="Editorial Layout — Design VIII"
      data-desc="A dynamic graphic design layout exploring the relationship between photography, typography and structured white space."
      onclick="openLightbox(this)">
   <div class="project-img-wrap tall">
-    <img src="IMG_8814.jpeg"/>
+    <img src="IMG_8814.jpeg" alt="Editorial Layout Design VIII" loading="lazy"/>
   </div>
   <div class="project-overlay">
     <div class="project-info">
       <span class="project-cat">Graphic Design</span>
-    
+      <p class="project-title">Editorial Layout — Design VIII</p>
     </div>
   </div>
 </div>
 
-<!-- PROJECT 09 — IMG_8815 -->
+<!-- PROJECT 09 -->
 <div class="project-card reveal reveal-delay-2"
      data-category="graphic"
      data-title="Editorial Layout — Design IX"
      data-desc="A composition that explores visual weight and balance, combining bold headline typography with carefully cropped photographic elements."
      onclick="openLightbox(this)">
   <div class="project-img-wrap medium">
-    <img src="IMG_8815.jpeg" alt="Editorial Layout Design IX"/>
+    <img src="IMG_8815.jpeg" alt="Editorial Layout Design IX" loading="lazy"/>
   </div>
   <div class="project-overlay">
     <div class="project-info">
@@ -962,14 +1036,14 @@ footer { padding: 2rem 1.5rem; flex-direction: column; align-items: flex-start; 
   </div>
 </div>
 
-<!-- PROJECT 10 — IMG_8816 -->
+<!-- PROJECT 10 -->
 <div class="project-card reveal"
      data-category="graphic"
      data-title="Editorial Layout — Design X"
      data-desc="A magazine-format graphic layout showcasing Wilfred's mastery of grid systems, typographic hierarchy, and editorial storytelling."
      onclick="openLightbox(this)">
   <div class="project-img-wrap medium">
-    <img src="IMG_8816.jpeg" alt="Editorial Layout Design X"/>
+    <img src="IMG_8816.jpeg" alt="Editorial Layout Design X" loading="lazy"/>
   </div>
   <div class="project-overlay">
     <div class="project-info">
@@ -979,14 +1053,14 @@ footer { padding: 2rem 1.5rem; flex-direction: column; align-items: flex-start; 
   </div>
 </div>
 
-<!-- PROJECT 11 — IMG_8817 -->
+<!-- PROJECT 11 -->
 <div class="project-card reveal reveal-delay-1"
      data-category="graphic"
      data-title="Editorial Layout — Design XI"
      data-desc="An editorial piece with refined colour use and expressive layout, continuing the series with a focus on visual rhythm and composition."
      onclick="openLightbox(this)">
   <div class="project-img-wrap tall">
-    <img src="IMG_8817.jpeg" alt="Editorial Layout Design XI"/>
+    <img src="IMG_8817.jpeg" alt="Editorial Layout Design XI" loading="lazy"/>
   </div>
   <div class="project-overlay">
     <div class="project-info">
@@ -996,14 +1070,14 @@ footer { padding: 2rem 1.5rem; flex-direction: column; align-items: flex-start; 
   </div>
 </div>
 
-<!-- PROJECT 12 — IMG_8818 -->
+<!-- PROJECT 12 -->
 <div class="project-card reveal reveal-delay-2"
      data-category="graphic"
      data-title="Editorial Layout — Design XII"
      data-desc="The twelfth piece in the editorial collection — a confident, print-ready design that demonstrates command of layout, type, and image."
      onclick="openLightbox(this)">
   <div class="project-img-wrap short">
-    <img src="IMG_8818.jpeg" alt="Editorial Layout Design XII"/>
+    <img src="IMG_8818.jpeg" alt="Editorial Layout Design XII" loading="lazy"/>
   </div>
   <div class="project-overlay">
     <div class="project-info">
@@ -1013,14 +1087,14 @@ footer { padding: 2rem 1.5rem; flex-direction: column; align-items: flex-start; 
   </div>
 </div>
 
-<!-- PROJECT 13 — IMG_8819 -->
+<!-- PROJECT 13 -->
 <div class="project-card reveal"
      data-category="graphic"
      data-title="Editorial Layout — Design XIII"
      data-desc="A striking editorial graphic with high contrast between text and imagery, creating a visual narrative that feels both editorial and artistic."
      onclick="openLightbox(this)">
   <div class="project-img-wrap medium">
-    <img src="IMG_8819.jpeg" alt="Editorial Layout Design XIII"/>
+    <img src="IMG_8819.jpeg" alt="Editorial Layout Design XIII" loading="lazy"/>
   </div>
   <div class="project-overlay">
     <div class="project-info">
@@ -1030,90 +1104,448 @@ footer { padding: 2rem 1.5rem; flex-direction: column; align-items: flex-start; 
   </div>
 </div>
 
-<!-- PROJECT 14 — IMG_8820 -->
+<!-- PROJECT 14 -->
 <div class="project-card reveal reveal-delay-1"
      data-category="graphic"
      data-title="Editorial Layout — Design XIV"
-     data-desc="The fourteenth and final piece in the current editorial series — a bold, confident design that brings together all the visual principles explored throughout the collection."
+     data-desc="The fourteenth piece in the editorial series — a bold, confident design that brings together all the visual principles explored throughout the collection."
      onclick="openLightbox(this)">
   <div class="project-img-wrap short">
-    <img src="IMG_8820.jpeg" alt="Editorial Layout Design XIV"/>
+    <img src="IMG_8820.jpeg" alt="Editorial Layout Design XIV" loading="lazy"/>
   </div>
   <div class="project-overlay">
     <div class="project-info">
       <span class="project-cat">Graphic Design</span>
-      
+      <p class="project-title">Editorial Layout — Design XIV</p>
     </div>
   </div>
 </div>
 
-<!-- ═══════════════════════════════════════════════════════════ -->
-<!-- PROJECTS 15–39: Hidden until you add real images           -->
-<!-- To activate: add src="your-image.jpg" and update          -->
-<!-- data-category, data-title, and data-desc below            -->
-<!-- ═══════════════════════════════════════════════════════════ -->
-
+<!-- PROJECT 15 -->
 <div class="project-card reveal reveal-delay-2"
      data-category="photo"
-   
+     data-title="Floral Study — Ixora Bloom"
      data-desc="A high-definition close-up of deep pink Ixora flowers, highlighting their four-petaled structure and delicate textures against a soft, natural background."
-
      onclick="openLightbox(this)">
-  <div class="project-img-wrap tall"><img src="IMG_8821.jpeg" alt=""/></div>
-  <div class="project-overlay"><div class="project-info">
-    <span class="project-cat">Photo</span>
-    
-  </div></div>
+  <div class="project-img-wrap tall">
+    <img src="IMG_8821.jpeg" alt="Floral Study Ixora Bloom" loading="lazy"/>
+  </div>
+  <div class="project-overlay">
+    <div class="project-info">
+      <span class="project-cat">Photo Concept</span>
+      <p class="project-title">Floral Study — Ixora Bloom</p>
+    </div>
+  </div>
 </div>
 
+<!-- PROJECT 16 -->
 <div class="project-card reveal"
      data-category="photo"
-     data-title="Photo Concept"
+     data-title="Botanical — Agave Symmetry"
      data-desc="A striking top-down shot of a variegated agave plant, showcasing its sharp, linear leaves and natural geometric symmetry in vibrant shades of green and cream."
-
      onclick="openLightbox(this)">
-  <div class="project-img-wrap medium"><img src="IMG_8822.jpeg" alt=""/></div>
-  <div class="project-overlay"><div class="project-info">
-      </div></div>
+  <div class="project-img-wrap medium">
+    <img src="IMG_8822.jpeg" alt="Botanical Agave Symmetry" loading="lazy"/>
+  </div>
+  <div class="project-overlay">
+    <div class="project-info">
+      <span class="project-cat">Photo Concept</span>
+      <p class="project-title">Botanical — Agave Symmetry</p>
+    </div>
+  </div>
 </div>
 
+<!-- PROJECT 17 -->
 <div class="project-card reveal reveal-delay-1"
-     data-category="typography"
-     data-title="Photo concept"
-     data-desc=". A low-angle shot emphasizing the intricate, repetitive leaflets of a fern branch, using a shallow depth of field to create a soft, cinematic atmosphere."
-
+     data-category="photo"
+     data-title="Botanical — Fern Depth"
+     data-desc="A low-angle shot emphasising the intricate, repetitive leaflets of a fern branch, using a shallow depth of field to create a soft, cinematic atmosphere."
      onclick="openLightbox(this)">
-  <div class="project-img-wrap short"><img src="IMG_8823.jpeg" alt=""/></div>
-  <div class="project-overlay"><div class="project-info">
-    <span class="project-cat">Typography</span>
-
-  </div></div>
+  <div class="project-img-wrap short">
+    <img src="IMG_8823.jpeg" alt="Botanical Fern Depth" loading="lazy"/>
+  </div>
+  <div class="project-overlay">
+    <div class="project-info">
+      <span class="project-cat">Photo Concept</span>
+      <p class="project-title">Botanical — Fern Depth</p>
+    </div>
+  </div>
 </div>
 
+<!-- PROJECT 18 — add src when ready -->
 <div class="project-card reveal reveal-delay-2"
      data-category="motion"
-     data-title="Motion Design"
+     data-title="Motion Design — XVIII"
      data-desc="A motion design piece exploring animation principles — timing, easing, and visual storytelling through movement."
      onclick="openLightbox(this)">
-  <div class="project-img-wrap medium"><img src="" alt=""/></div>
-  <div class="project-overlay"><div class="project-info">
-    <span class="project-cat">Motion / Animation</span>
-    <p class="project-title">Motion Design</p>
-  </div></div>
+  <div class="project-img-wrap medium">
+    <img src="" alt="Motion Design XVIII" loading="lazy"/>
+  </div>
+  <div class="project-overlay">
+    <div class="project-info">
+      <span class="project-cat">Motion / Animation</span>
+      <p class="project-title">Motion Design — XVIII</p>
+    </div>
+  </div>
 </div>
 
+<!-- PROJECT 19 — add src when ready -->
 <div class="project-card reveal"
      data-category="graphic"
-     data-title="Graphic Design"
+     data-title="Graphic Design — XIX"
      data-desc="A graphic design composition blending colour, form, and typography in an expressive layout."
      onclick="openLightbox(this)">
-  <div class="project-img-wrap tall"><img src="" alt=""/></div>
-  <div class="project-overlay"><div class="project-info">
-    <span class="project-cat">Graphic Design</span>
-    <p class="project-title">Graphic Design</p>
-  </div></div>
+  <div class="project-img-wrap tall">
+    <img src="" alt="Graphic Design XIX" loading="lazy"/>
+  </div>
+  <div class="project-overlay">
+    <div class="project-info">
+      <span class="project-cat">Graphic Design</span>
+      <p class="project-title">Graphic Design — XIX</p>
+    </div>
+  </div>
 </div>
 
+<!-- PROJECT 20 — add src when ready -->
+<div class="project-card reveal reveal-delay-1"
+     data-category="branding"
+     data-title="Branding — XX"
+     data-desc="A branding project exploring identity systems, logo design, and visual language for a concept brand."
+     onclick="openLightbox(this)">
+  <div class="project-img-wrap short">
+    <img src="" alt="Branding XX" loading="lazy"/>
+  </div>
+  <div class="project-overlay">
+    <div class="project-info">
+      <span class="project-cat">Branding</span>
+      <p class="project-title">Branding — XX</p>
+    </div>
+  </div>
+</div>
+
+<!-- PROJECT 21 — add src when ready -->
+<div class="project-card reveal reveal-delay-2"
+     data-category="typography"
+     data-title="Typography — XXI"
+     data-desc="A typographic study exploring letterform relationships, hierarchy, and expressive type layout."
+     onclick="openLightbox(this)">
+  <div class="project-img-wrap medium">
+    <img src="" alt="Typography XXI" loading="lazy"/>
+  </div>
+  <div class="project-overlay">
+    <div class="project-info">
+      <span class="project-cat">Typography</span>
+      <p class="project-title">Typography — XXI</p>
+    </div>
+  </div>
+</div>
+
+<!-- PROJECT 22 — add src when ready -->
+<div class="project-card reveal"
+     data-category="graphic"
+     data-title="Graphic Design — XXII"
+     data-desc="An expressive graphic design piece combining bold visual elements with purposeful composition."
+     onclick="openLightbox(this)">
+  <div class="project-img-wrap tall">
+    <img src="" alt="Graphic Design XXII" loading="lazy"/>
+  </div>
+  <div class="project-overlay">
+    <div class="project-info">
+      <span class="project-cat">Graphic Design</span>
+      <p class="project-title">Graphic Design — XXII</p>
+    </div>
+  </div>
+</div>
+
+<!-- PROJECT 23 — add src when ready -->
+<div class="project-card reveal reveal-delay-1"
+     data-category="photo"
+     data-title="Photo Concept — XXIII"
+     data-desc="A conceptual photography piece exploring light, shadow, and narrative within the frame."
+     onclick="openLightbox(this)">
+  <div class="project-img-wrap short">
+    <img src="" alt="Photo Concept XXIII" loading="lazy"/>
+  </div>
+  <div class="project-overlay">
+    <div class="project-info">
+      <span class="project-cat">Photo Concept</span>
+      <p class="project-title">Photo Concept — XXIII</p>
+    </div>
+  </div>
+</div>
+
+<!-- PROJECT 24 — add src when ready -->
+<div class="project-card reveal reveal-delay-2"
+     data-category="branding"
+     data-title="Branding — XXIV"
+     data-desc="A cohesive brand identity project exploring visual consistency, mark-making, and colour systems."
+     onclick="openLightbox(this)">
+  <div class="project-img-wrap medium">
+    <img src="" alt="Branding XXIV" loading="lazy"/>
+  </div>
+  <div class="project-overlay">
+    <div class="project-info">
+      <span class="project-cat">Branding</span>
+      <p class="project-title">Branding — XXIV</p>
+    </div>
+  </div>
+</div>
+
+<!-- PROJECT 25 — add src when ready -->
+<div class="project-card reveal"
+     data-category="motion"
+     data-title="Motion Design — XXV"
+     data-desc="A kinetic design piece exploring fluid motion, transition, and rhythm through animation."
+     onclick="openLightbox(this)">
+  <div class="project-img-wrap tall">
+    <img src="" alt="Motion Design XXV" loading="lazy"/>
+  </div>
+  <div class="project-overlay">
+    <div class="project-info">
+      <span class="project-cat">Motion / Animation</span>
+      <p class="project-title">Motion Design — XXV</p>
+    </div>
+  </div>
+</div>
+
+<!-- PROJECT 26 — add src when ready -->
+<div class="project-card reveal reveal-delay-1"
+     data-category="graphic"
+     data-title="Graphic Design — XXVI"
+     data-desc="A graphic layout study in composition, contrast, and visual communication."
+     onclick="openLightbox(this)">
+  <div class="project-img-wrap short">
+    <img src="" alt="Graphic Design XXVI" loading="lazy"/>
+  </div>
+  <div class="project-overlay">
+    <div class="project-info">
+      <span class="project-cat">Graphic Design</span>
+      <p class="project-title">Graphic Design — XXVI</p>
+    </div>
+  </div>
+</div>
+
+<!-- PROJECT 27 — add src when ready -->
+<div class="project-card reveal reveal-delay-2"
+     data-category="typography"
+     data-title="Typography — XXVII"
+     data-desc="A display typography exploration using geometric and expressive typefaces in a structured layout."
+     onclick="openLightbox(this)">
+  <div class="project-img-wrap medium">
+    <img src="" alt="Typography XXVII" loading="lazy"/>
+  </div>
+  <div class="project-overlay">
+    <div class="project-info">
+      <span class="project-cat">Typography</span>
+      <p class="project-title">Typography — XXVII</p>
+    </div>
+  </div>
+</div>
+
+<!-- PROJECT 28 — add src when ready -->
+<div class="project-card reveal"
+     data-category="photo"
+     data-title="Photo Concept — XXVIII"
+     data-desc="A photography concept exploring pattern, repetition, and natural form through careful framing."
+     onclick="openLightbox(this)">
+  <div class="project-img-wrap tall">
+    <img src="" alt="Photo Concept XXVIII" loading="lazy"/>
+  </div>
+  <div class="project-overlay">
+    <div class="project-info">
+      <span class="project-cat">Photo Concept</span>
+      <p class="project-title">Photo Concept — XXVIII</p>
+    </div>
+  </div>
+</div>
+
+<!-- PROJECT 29 — add src when ready -->
+<div class="project-card reveal reveal-delay-1"
+     data-category="branding"
+     data-title="Branding — XXIX"
+     data-desc="Brand identity exploration focusing on logomark refinement and typographic system design."
+     onclick="openLightbox(this)">
+  <div class="project-img-wrap short">
+    <img src="" alt="Branding XXIX" loading="lazy"/>
+  </div>
+  <div class="project-overlay">
+    <div class="project-info">
+      <span class="project-cat">Branding</span>
+      <p class="project-title">Branding — XXIX</p>
+    </div>
+  </div>
+</div>
+
+<!-- PROJECT 30 — add src when ready -->
+<div class="project-card reveal reveal-delay-2"
+     data-category="graphic"
+     data-title="Graphic Design — XXX"
+     data-desc="A milestone editorial layout combining all studied principles into a refined, high-impact composition."
+     onclick="openLightbox(this)">
+  <div class="project-img-wrap medium">
+    <img src="" alt="Graphic Design XXX" loading="lazy"/>
+  </div>
+  <div class="project-overlay">
+    <div class="project-info">
+      <span class="project-cat">Graphic Design</span>
+      <p class="project-title">Graphic Design — XXX</p>
+    </div>
+  </div>
+</div>
+
+<!-- PROJECT 31 — add src when ready -->
+<div class="project-card reveal"
+     data-category="motion"
+     data-title="Motion Design — XXXI"
+     data-desc="An animation piece exploring morphing shapes and kinetic typography in After Effects."
+     onclick="openLightbox(this)">
+  <div class="project-img-wrap tall">
+    <img src="" alt="Motion Design XXXI" loading="lazy"/>
+  </div>
+  <div class="project-overlay">
+    <div class="project-info">
+      <span class="project-cat">Motion / Animation</span>
+      <p class="project-title">Motion Design — XXXI</p>
+    </div>
+  </div>
+</div>
+
+<!-- PROJECT 32 — add src when ready -->
+<div class="project-card reveal reveal-delay-1"
+     data-category="typography"
+     data-title="Typography — XXXII"
+     data-desc="An experimental typography piece pushing the boundaries of legibility and visual form."
+     onclick="openLightbox(this)">
+  <div class="project-img-wrap short">
+    <img src="" alt="Typography XXXII" loading="lazy"/>
+  </div>
+  <div class="project-overlay">
+    <div class="project-info">
+      <span class="project-cat">Typography</span>
+      <p class="project-title">Typography — XXXII</p>
+    </div>
+  </div>
+</div>
+
+<!-- PROJECT 33 — add src when ready -->
+<div class="project-card reveal reveal-delay-2"
+     data-category="graphic"
+     data-title="Graphic Design — XXXIII"
+     data-desc="A graphic design piece exploring spatial relationships, depth, and visual layering."
+     onclick="openLightbox(this)">
+  <div class="project-img-wrap medium">
+    <img src="" alt="Graphic Design XXXIII" loading="lazy"/>
+  </div>
+  <div class="project-overlay">
+    <div class="project-info">
+      <span class="project-cat">Graphic Design</span>
+      <p class="project-title">Graphic Design — XXXIII</p>
+    </div>
+  </div>
+</div>
+
+<!-- PROJECT 34 — add src when ready -->
+<div class="project-card reveal"
+     data-category="photo"
+     data-title="Photo Concept — XXXIV"
+     data-desc="A conceptual photo study in contrast, texture, and the interplay of natural and artificial light."
+     onclick="openLightbox(this)">
+  <div class="project-img-wrap tall">
+    <img src="" alt="Photo Concept XXXIV" loading="lazy"/>
+  </div>
+  <div class="project-overlay">
+    <div class="project-info">
+      <span class="project-cat">Photo Concept</span>
+      <p class="project-title">Photo Concept — XXXIV</p>
+    </div>
+  </div>
+</div>
+
+<!-- PROJECT 35 — add src when ready -->
+<div class="project-card reveal reveal-delay-1"
+     data-category="branding"
+     data-title="Branding — XXXV"
+     data-desc="A brand system study exploring how visual identity elements unify across print and digital applications."
+     onclick="openLightbox(this)">
+  <div class="project-img-wrap short">
+    <img src="" alt="Branding XXXV" loading="lazy"/>
+  </div>
+  <div class="project-overlay">
+    <div class="project-info">
+      <span class="project-cat">Branding</span>
+      <p class="project-title">Branding — XXXV</p>
+    </div>
+  </div>
+</div>
+
+<!-- PROJECT 36 — add src when ready -->
+<div class="project-card reveal reveal-delay-2"
+     data-category="motion"
+     data-title="Motion Design — XXXVI"
+     data-desc="A motion graphics reel segment exploring transitions, colour grading, and animated type."
+     onclick="openLightbox(this)">
+  <div class="project-img-wrap medium">
+    <img src="" alt="Motion Design XXXVI" loading="lazy"/>
+  </div>
+  <div class="project-overlay">
+    <div class="project-info">
+      <span class="project-cat">Motion / Animation</span>
+      <p class="project-title">Motion Design — XXXVI</p>
+    </div>
+  </div>
+</div>
+
+<!-- PROJECT 37 — add src when ready -->
+<div class="project-card reveal"
+     data-category="graphic"
+     data-title="Graphic Design — XXXVII"
+     data-desc="A poster design study exploring asymmetric composition and the tension between image and text."
+     onclick="openLightbox(this)">
+  <div class="project-img-wrap tall">
+    <img src="" alt="Graphic Design XXXVII" loading="lazy"/>
+  </div>
+  <div class="project-overlay">
+    <div class="project-info">
+      <span class="project-cat">Graphic Design</span>
+      <p class="project-title">Graphic Design — XXXVII</p>
+    </div>
+  </div>
+</div>
+
+<!-- PROJECT 38 — add src when ready -->
+<div class="project-card reveal reveal-delay-1"
+     data-category="typography"
+     data-title="Typography — XXXVIII"
+     data-desc="A typographic poster exploring the visual tension between large display type and fine body copy."
+     onclick="openLightbox(this)">
+  <div class="project-img-wrap short">
+    <img src="" alt="Typography XXXVIII" loading="lazy"/>
+  </div>
+  <div class="project-overlay">
+    <div class="project-info">
+      <span class="project-cat">Typography</span>
+      <p class="project-title">Typography — XXXVIII</p>
+    </div>
+  </div>
+</div>
+
+<!-- PROJECT 39 — add src when ready -->
+<div class="project-card reveal reveal-delay-2"
+     data-category="graphic"
+     data-title="Graphic Design — XXXIX"
+     data-desc="The final placeholder in the gallery — awaiting a new piece that pushes creative boundaries further."
+     onclick="openLightbox(this)">
+  <div class="project-img-wrap medium">
+    <img src="" alt="Graphic Design XXXIX" loading="lazy"/>
+  </div>
+  <div class="project-overlay">
+    <div class="project-info">
+      <span class="project-cat">Graphic Design</span>
+      <p class="project-title">Graphic Design — XXXIX</p>
+    </div>
+  </div>
+</div>
+```
 
   </div><!-- /masonry-grid -->
 </section>
@@ -1172,7 +1604,6 @@ const observer = new IntersectionObserver((entries) => {
 document.querySelectorAll('.reveal').forEach(el => observer.observe(el));
 
 // ── AUTO-HIDE CARDS WITH NO IMAGE ──
-// Any card whose <img> has no src gets hidden so the grid stays clean
 document.querySelectorAll('.project-card').forEach(card => {
   const img = card.querySelector('img');
   if (!img || !img.getAttribute('src') || img.getAttribute('src').trim() === '') {
@@ -1187,30 +1618,21 @@ document.querySelectorAll('.filter-btn').forEach(btn => {
     btn.classList.add('active');
     const f = btn.dataset.filter;
     document.querySelectorAll('.project-card').forEach(card => {
-      // Never show cards that have no image, even on "All Work"
       const img = card.querySelector('img');
       const hasImage = img && img.getAttribute('src') && img.getAttribute('src').trim() !== '';
-      if (!hasImage) {
-        card.classList.add('hidden');
-        return;
-      }
+      if (!hasImage) { card.classList.add('hidden'); return; }
       card.classList.toggle('hidden', f !== 'all' && card.dataset.category !== f);
     });
   });
 });
 
 // ── LIGHTBOX ──
-// Reads data-title, data-desc, and data-category from the card element
-// Falls back gracefully if attributes are missing
+// Reads data-title, data-desc, data-category from the card
+// Falls back to DOM content if attributes missing
 function openLightbox(card) {
-  const img   = card.querySelector('img');
-  const cat   = card.dataset.category
-                  ? card.dataset.category.charAt(0).toUpperCase() + card.dataset.category.slice(1)
-                  : card.querySelector('.project-cat').textContent;
-  const title = card.dataset.title  || card.querySelector('.project-title').textContent || 'Untitled';
-  const desc  = card.dataset.desc   || '';
+  const img = card.querySelector('img');
 
-  // Map category keys to readable labels
+  // Category label
   const catLabels = {
     graphic:    'Graphic Design',
     photo:      'Photo Concept',
@@ -1218,7 +1640,20 @@ function openLightbox(card) {
     branding:   'Branding',
     typography: 'Typography'
   };
-  document.getElementById('lightbox-cat').textContent   = catLabels[card.dataset.category] || cat;
+  const catKey = card.dataset.category || '';
+  const catEl  = card.querySelector('.project-cat');
+  const cat    = catLabels[catKey] || (catEl ? catEl.textContent : 'Design');
+
+  // Title — prefer data-title, fall back to DOM .project-title
+  const titleEl = card.querySelector('.project-title');
+  const title   = (card.dataset.title && card.dataset.title.trim())
+                  ? card.dataset.title
+                  : (titleEl ? titleEl.textContent.trim() : 'Untitled');
+
+  // Description
+  const desc = (card.dataset.desc && card.dataset.desc.trim()) ? card.dataset.desc : '';
+
+  document.getElementById('lightbox-cat').textContent   = cat;
   document.getElementById('lightbox-title').textContent = title;
   document.getElementById('lightbox-desc').textContent  = desc;
 
@@ -1239,6 +1674,19 @@ document.getElementById('lightbox').addEventListener('click', e => {
   if (e.target === e.currentTarget) closeLightbox();
 });
 document.addEventListener('keydown', e => { if (e.key === 'Escape') closeLightbox(); });
+
+// ── LIGHT MODE TOGGLE ──
+const themeBtn = document.getElementById('theme-toggle');
+const saved = localStorage.getItem('wt-theme');
+if (saved === 'light') {
+  document.body.classList.add('light-mode');
+  themeBtn.textContent = '☾';
+}
+themeBtn.addEventListener('click', () => {
+  const isLight = document.body.classList.toggle('light-mode');
+  themeBtn.textContent = isLight ? '☾' : '☀';
+  localStorage.setItem('wt-theme', isLight ? 'light' : 'dark');
+});
 </script>
 
 </body>
