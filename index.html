@@ -77,16 +77,16 @@ transition: width .3s cubic-bezier(.16,1,.3,1);
 .nav-links a:hover { color: #e2bc72; }
 .nav-links a:hover::after { width: 100%; }
 
-/* ── HERO — full viewport width, no side gaps ── */
+/* ── HERO ── */
 #hero {
-width: 100vw;         /* stretch edge-to-edge */
+width: 100vw;
 min-height: 100vh;
 position: relative;
 overflow: hidden;
 display: flex;
 align-items: center;
 justify-content: center;
-padding: 8rem 2rem 5rem; /* even horizontal padding */
+padding: 8rem 2rem 5rem;
 }
 
 .hero-portrait-bg {
@@ -136,7 +136,6 @@ pointer-events: none;
 z-index: 1;
 }
 
-/* Hero content — centred both axes */
 .hero-inner {
 position: relative;
 z-index: 2;
@@ -311,7 +310,6 @@ gap: 5rem;
 align-items: start;
 }
 
-/* Portrait frame — shows the actual image */
 .portrait-frame {
 width: 100%;
 aspect-ratio: 3/4;
@@ -450,7 +448,6 @@ box-shadow: 0 20px 60px rgba(0,0,0,0.6), 0 0 0 1px #9a7530;
 border-color: #9a7530;
 }
 
-/* Image container — img fills it, fallback shows if src is empty */
 .project-img-wrap {
 width: 100%;
 position: relative;
@@ -466,25 +463,9 @@ transition: transform .5s cubic-bezier(.16,1,.3,1);
 }
 .project-card:hover .project-img-wrap img { transform: scale(1.03); }
 
-/* Height classes — applied to the wrapper so images fill them */
 .project-img-wrap.tall   { height: 340px; }
 .project-img-wrap.medium { height: 240px; }
 .project-img-wrap.short  { height: 180px; }
-
-/* Fallback placeholder (shown when no real img loaded) */
-.project-img-wrap::before {
-content: attr(data-num);
-position: absolute;
-inset: 0;
-display: flex;
-align-items: center;
-justify-content: center;
-font-family: ‘Bebas Neue’, sans-serif;
-font-size: 1rem;
-letter-spacing: .2em;
-color: #2a2a2a;
-z-index: 0;
-}
 
 .project-overlay {
 position: absolute;
@@ -680,6 +661,7 @@ footer { padding: 2rem 1.5rem; flex-direction: column; align-items: flex-start; 
 .nav-links { display: none; }
 }
 
+/* Cards with no image are hidden automatically via JS */
 .project-card.hidden { display: none; }
 *:focus { outline: none; }
 *:focus-visible { outline: none; }
@@ -719,12 +701,6 @@ footer { padding: 2rem 1.5rem; flex-direction: column; align-items: flex-start; 
 
 <div id="hero">
   <div class="hero-portrait-bg">
-    <!--
-      ┌──────────────────────────────────────────┐
-      │  HERO BACKGROUND PHOTO                   │
-      │  Replace "IMG_8773.jpeg" with your image │
-      └──────────────────────────────────────────┘
-    -->
     <img src="IMG_8832.jpeg" alt="Wilfred Tengolyin"/>
   </div>
   <div class="hero-bg-grid"></div>
@@ -764,61 +740,51 @@ footer { padding: 2rem 1.5rem; flex-direction: column; align-items: flex-start; 
     <div class="section-line"></div>
   </div>
   <div class="about-grid">
-
-
-<!-- ABOUT PORTRAIT -->
-<div class="about-portrait reveal reveal-delay-1">
-  <div class="portrait-frame">
-    <!--
-      ┌──────────────────────────────────────────┐
-      │  ABOUT SECTION PORTRAIT PHOTO            │
-      │  Replace "IMG_8798.jpeg" with your image │
-      └──────────────────────────────────────────┘
-    -->
-    <img src="IMG_8831.jpeg" alt="Wilfred Tengolyin portrait"/>
-    <div class="portrait-corner-br"></div>
-  </div>
-</div>
-
-<div class="about-content reveal reveal-delay-2">
-  <p class="about-bio">
-    I'm <strong>Wilfred Tengolyin Nabyaazoare</strong>, a Communication Design student at <strong>KNUST</strong> with a deep passion for Graphic Design and Animation. I believe design is not decoration — it is the architecture of meaning.
-  </p>
-  <p class="about-bio">
-    Driven by resilience and a relentless creative curiosity, I merge visual discipline with motion craft to produce work that communicates, captivates, and endures. My goal is to build a distinguished career in Multimedia, mastering creative skills both academically and professionally.
-  </p>
-  <div class="skills-list">
-    <span class="skill-tag">Adobe Illustrator</span>
-    <span class="skill-tag">Adobe Photoshop</span>
-    <span class="skill-tag">After Effects</span>
-    <span class="skill-tag">Premiere Pro</span>
-    <span class="skill-tag">Figma</span>
-    <span class="skill-tag">InDesign</span>
-    <span class="skill-tag">Motion Design</span>
-    <span class="skill-tag">Typography</span>
-    <span class="skill-tag">Branding</span>
-    <span class="skill-tag">Animation</span>
-  </div>
-  <div class="about-meta">
-    <div class="meta-row"><span class="meta-label">Based In</span><span class="meta-val">Ghana 🇬🇭</span></div>
-    <div class="meta-row"><span class="meta-label">Institution</span><span class="meta-val">Kwame Nkrumah University of Science and Technology — College of Art &amp; Built Environment</span></div>
-    <div class="meta-row"><span class="meta-label">Handle</span><span class="meta-val">@wilfredlulu</span></div>
-    <div class="meta-row"><span class="meta-label">Status</span><span class="meta-val" style="color:#e2bc72;">Open to freelance &amp; collaborations ✦</span></div>
-  </div>
-</div>
-
-
+    <div class="about-portrait reveal reveal-delay-1">
+      <div class="portrait-frame">
+        <img src="IMG_8831.jpeg" alt="Wilfred Tengolyin portrait"/>
+        <div class="portrait-corner-br"></div>
+      </div>
+    </div>
+    <div class="about-content reveal reveal-delay-2">
+      <p class="about-bio">
+        I'm <strong>Wilfred Tengolyin Nabyaazoare</strong>, a Communication Design student at <strong>KNUST</strong> with a deep passion for Graphic Design and Animation. I believe design is not decoration — it is the architecture of meaning.
+      </p>
+      <p class="about-bio">
+        Driven by resilience and a relentless creative curiosity, I merge visual discipline with motion craft to produce work that communicates, captivates, and endures. My goal is to build a distinguished career in Multimedia, mastering creative skills both academically and professionally.
+      </p>
+      <div class="skills-list">
+        <span class="skill-tag">Adobe Illustrator</span>
+        <span class="skill-tag">Adobe Photoshop</span>
+        <span class="skill-tag">After Effects</span>
+        <span class="skill-tag">Premiere Pro</span>
+        <span class="skill-tag">Figma</span>
+        <span class="skill-tag">InDesign</span>
+        <span class="skill-tag">Motion Design</span>
+        <span class="skill-tag">Typography</span>
+        <span class="skill-tag">Branding</span>
+        <span class="skill-tag">Animation</span>
+      </div>
+      <div class="about-meta">
+        <div class="meta-row"><span class="meta-label">Based In</span><span class="meta-val">Ghana 🇬🇭</span></div>
+        <div class="meta-row"><span class="meta-label">Institution</span><span class="meta-val">Kwame Nkrumah University of Science and Technology — College of Art &amp; Built Environment</span></div>
+        <div class="meta-row"><span class="meta-label">Handle</span><span class="meta-val">@wilfredlulu</span></div>
+        <div class="meta-row"><span class="meta-label">Status</span><span class="meta-val" style="color:#e2bc72;">Open to freelance &amp; collaborations ✦</span></div>
+      </div>
+    </div>
   </div>
 </section>
 
 <div class="section-divider"></div>
 
 <!-- ══════════════ GALLERY ══════════════
-  HOW TO ADD YOUR IMAGES:
-  Each project card has ONE line you need to edit — the src="..." on the <img> tag.
-  Just replace the placeholder filename with your real image path.
-  The comment above each card tells you exactly which slot it is.
-  Example: src="my-poster.jpg"  or  src="projects/flyer-01.png"
+  HOW TO UPDATE CATEGORIES:
+  Each card has data-category, data-title, and data-desc attributes.
+  Change data-category to one of: graphic | photo | motion | branding | typography
+  Update data-title and data-desc to match the actual image.
+
+  IMPORTANT: Cards with no src on the <img> are automatically hidden.
+  Projects 15–39 are kept in the HTML but hidden until you add real images.
 ════════════════════════════════════════ -->
 
 <section id="gallery" style="max-width:1300px; padding-left:4rem; padding-right:4rem;">
@@ -838,516 +804,313 @@ footer { padding: 2rem 1.5rem; flex-direction: column; align-items: flex-start; 
 
   <div class="masonry-grid">
 
-
-<!-- ═══ PROJECT 01 — change src below ═══ -->
-<div class="project-card reveal" data-category="graphic" onclick="openLightbox(this)">
+```
+<!-- PROJECT 01 — IMG_8806 -->
+<!-- TO CHANGE CATEGORY: edit data-category. Options: graphic | photo | motion | branding | typography -->
+<!-- TO CHANGE TITLE/DESC: edit data-title and data-desc -->
+<div class="project-card reveal"
+     data-category="graphic"
+     data-title="Editorial Layout — Design I"
+     data-desc="A bold editorial graphic design composition exploring layout, hierarchy and visual tension. Created using Adobe InDesign and Illustrator."
+     onclick="openLightbox(this)">
   <div class="project-img-wrap tall">
-    <img src="IMG_8806.jpeg" alt="Project 01"/><!-- ← PUT IMAGE PATH HERE: src="your-image.jpg" -->
+    <img src="IMG_8806.jpeg" alt="Editorial Layout Design I"/>
   </div>
   <div class="project-overlay">
     <div class="project-info">
       <span class="project-cat">Graphic Design</span>
-      <p class="project-title"></p>
+      <p class="project-title">Editorial Layout — Design I</p>
     </div>
   </div>
 </div>
 
-<!-- ═══ PROJECT 02 — change src below ═══ -->
-<div class="project-card reveal reveal-delay-1" data-category="photo" onclick="openLightbox(this)">
+<!-- PROJECT 02 — IMG_8807 -->
+<div class="project-card reveal reveal-delay-1"
+     data-category="graphic"
+     data-title="Editorial Layout — Design II"
+     data-desc="A second editorial composition in the series, playing with type scale and photographic integration for a magazine-style presentation."
+     onclick="openLightbox(this)">
   <div class="project-img-wrap medium">
-    <img src="IMG_8807.jpeg"/><!-- ← PUT IMAGE PATH HERE: src="your-image.jpg" -->
+    <img src="IMG_8807.jpeg" alt="Editorial Layout Design II"/>
   </div>
   <div class="project-overlay">
     <div class="project-info">
-      <span class="project-cat">Photo Concept</span>
-      <p class="project-title">
-  
-      </p>
+      <span class="project-cat">Graphic Design</span>
+      <p class="project-title">Editorial Layout — Design II</p>
     </div>
   </div>
 </div>
 
-<!-- ═══ PROJECT 03 — change src below ═══ -->
-<div class="project-card reveal reveal-delay-2" data-category="motion" onclick="openLightbox(this)">
+<!-- PROJECT 03 — IMG_8808 -->
+<div class="project-card reveal reveal-delay-2"
+     data-category="graphic"
+     data-title="Editorial Layout — Design III"
+     data-desc="Third piece in the editorial series — refined typographic structure with striking image placement and strong use of negative space."
+     onclick="openLightbox(this)">
   <div class="project-img-wrap short">
-    <img src="IMG_8808.jpeg" alt="Project 03"/><!-- ← PUT IMAGE PATH HERE: src="your-image.jpg" -->
+    <img src="IMG_8808.jpeg" alt="Editorial Layout Design III"/>
   </div>
   <div class="project-overlay">
     <div class="project-info">
-      <span class="project-cat">Motion / Animation</span>
-      <p class="project-title">Project 03 — Untitled</p>
+      <span class="project-cat">Graphic Design</span>
+      <p class="project-title">Editorial Layout — Design III</p>
     </div>
   </div>
 </div>
 
-<!-- ═══ PROJECT 04 — change src below ═══ -->
-<div class="project-card reveal" data-category="branding" onclick="openLightbox(this)">
+<!-- PROJECT 04 — IMG_8809 -->
+<div class="project-card reveal"
+     data-category="graphic"
+     data-title="Editorial Layout — Design IV"
+     data-desc="Continuation of the editorial series, building a cohesive visual language across compositions through consistent colour and layout principles."
+     onclick="openLightbox(this)">
   <div class="project-img-wrap medium">
-    <img src="IMG_8809.jpeg" alt="Project 04"/><!-- ← PUT IMAGE PATH HERE: src="your-image.jpg" -->
+    <img src="IMG_8809.jpeg" alt="Editorial Layout Design IV"/>
   </div>
   <div class="project-overlay">
     <div class="project-info">
-      <span class="project-cat">Branding</span>
-      <p class="project-title">Project 04 — Untitled</p>
+      <span class="project-cat">Graphic Design</span>
+      <p class="project-title">Editorial Layout — Design IV</p>
     </div>
   </div>
 </div>
 
-<!-- ═══ PROJECT 05 — change src below ═══ -->
-<div class="project-card reveal reveal-delay-1" data-category="typography" onclick="openLightbox(this)">
+<!-- PROJECT 05 — IMG_8810 -->
+<div class="project-card reveal reveal-delay-1"
+     data-category="graphic"
+     data-title="Editorial Layout — Design V"
+     data-desc="Fifth editorial piece — a culmination of the series with heightened sophistication in grid structure, colour palette, and typographic pairing."
+     onclick="openLightbox(this)">
   <div class="project-img-wrap tall">
-    <img src="IMG_8810.jpeg" alt="Project 05"/><!-- ← PUT IMAGE PATH HERE: src="your-image.jpg" -->
-  </div>
-  <div class="project-overlay">
-    <div class="project-info">
-      <span class="project-cat">Typography</span>
-      <p class="project-title">Project 05 — Untitled</p>
-    </div>
-  </div>
-</div>
-
-<!-- ═══ PROJECT 06 — change src below ═══ -->
-<div class="project-card reveal reveal-delay-2" data-category="photo" onclick="openLightbox(this)">
-  <div class="project-img-wrap short">
-    <img src="IMG_8811.jpeg" alt="Project 06"/><!-- ← PUT IMAGE PATH HERE: src="your-image.jpg" -->
-  </div>
-  <div class="project-overlay">
-    <div class="project-info">
-      <span class="project-cat">Photo Concept</span>
-      <p class="project-title">Project 06 — Untitled</p>
-    </div>
-  </div>
-</div>
-
-<!-- ═══ PROJECT 07 — change src below ═══ -->
-<div class="project-card reveal" data-category="graphic" onclick="openLightbox(this)">
-  <div class="project-img-wrap short">
-    <img src="IMG_8813.jpeg" alt="Project 07"/><!-- ← PUT IMAGE PATH HERE: src="your-image.jpg" -->
+    <img src="IMG_8810.jpeg" alt="Editorial Layout Design V"/>
   </div>
   <div class="project-overlay">
     <div class="project-info">
       <span class="project-cat">Graphic Design</span>
-      <p class="project-title">Project 07 — Untitled</p>
+      <p class="project-title">Editorial Layout — Design V</p>
     </div>
   </div>
 </div>
 
-<!-- ═══ PROJECT 08 — change src below ═══ -->
-<div class="project-card reveal reveal-delay-1" data-category="motion" onclick="openLightbox(this)">
+<!-- PROJECT 06 — IMG_8811 -->
+<div class="project-card reveal reveal-delay-2"
+     data-category="graphic"
+     data-title="Editorial Layout — Design VI"
+     data-desc="The sixth editorial layout in the collection, emphasising contrast between imagery and white space for a clean, contemporary feel."
+     onclick="openLightbox(this)">
+  <div class="project-img-wrap short">
+    <img src="IMG_8811.jpeg" alt="Editorial Layout Design VI"/>
+  </div>
+  <div class="project-overlay">
+    <div class="project-info">
+      <span class="project-cat">Graphic Design</span>
+      <p class="project-title">Editorial Layout — Design VI</p>
+    </div>
+  </div>
+</div>
+
+<!-- PROJECT 07 — IMG_8813 -->
+<div class="project-card reveal"
+     data-category="graphic"
+     data-title="Nate Feuerstien — Artist Profile"
+     data-desc="A visually bold artist profile spread for Nate Feuerstien, blending portraiture with editorial typography. Features a teal accent palette and strong headline treatment."
+     onclick="openLightbox(this)">
+  <div class="project-img-wrap short">
+    <img src="IMG_8813.jpeg" alt="Nate Feuerstien Artist Profile"/>
+  </div>
+  <div class="project-overlay">
+    <div class="project-info">
+      <span class="project-cat">Graphic Design</span>
+      <p class="project-title">Nate Feuerstien — Artist Profile</p>
+    </div>
+  </div>
+</div>
+
+<!-- PROJECT 08 — IMG_8814 -->
+<div class="project-card reveal reveal-delay-1"
+     data-category="graphic"
+     data-title="Editorial Layout — Design VIII"
+     data-desc="A dynamic graphic design layout exploring the relationship between photography, typography and structured white space."
+     onclick="openLightbox(this)">
   <div class="project-img-wrap tall">
-    <img src="IMG_8814.jpeg" alt="Project 08"/><!-- ← PUT IMAGE PATH HERE: src="your-image.jpg" -->
-  </div>
-  <div class="project-overlay">
-    <div class="project-info">
-      <span class="project-cat">Motion / Animation</span>
-      <p class="project-title">Project 08 — Untitled</p>
-    </div>
-  </div>
-</div>
-
-<!-- ═══ PROJECT 09 — change src below ═══ -->
-<div class="project-card reveal reveal-delay-2" data-category="branding" onclick="openLightbox(this)">
-  <div class="project-img-wrap medium">
-    <img src="IMG_8815.jpeg" alt="Project 09"/><!-- ← PUT IMAGE PATH HERE: src="your-image.jpg" -->
-  </div>
-  <div class="project-overlay">
-    <div class="project-info">
-      <span class="project-cat">Branding</span>
-      <p class="project-title">Project 09 — Untitled</p>
-    </div>
-  </div>
-</div>
-
-<!-- ═══ PROJECT 10 — change src below ═══ -->
-<div class="project-card reveal" data-category="graphic" onclick="openLightbox(this)">
-  <div class="project-img-wrap medium">
-    <img src="IMG_8816.jpeg" alt="Project 10"/><!-- ← PUT IMAGE PATH HERE: src="your-image.jpg" -->
+    <img src="IMG_8814.jpeg" alt="Editorial Layout Design VIII"/>
   </div>
   <div class="project-overlay">
     <div class="project-info">
       <span class="project-cat">Graphic Design</span>
-      <p class="project-title">Project 10 — Untitled</p>
+      <p class="project-title">Editorial Layout — Design VIII</p>
     </div>
   </div>
 </div>
 
-<!-- ═══ PROJECT 11 — change src below ═══ -->
-<div class="project-card reveal reveal-delay-1" data-category="photo" onclick="openLightbox(this)">
+<!-- PROJECT 09 — IMG_8815 -->
+<div class="project-card reveal reveal-delay-2"
+     data-category="graphic"
+     data-title="Editorial Layout — Design IX"
+     data-desc="A composition that explores visual weight and balance, combining bold headline typography with carefully cropped photographic elements."
+     onclick="openLightbox(this)">
+  <div class="project-img-wrap medium">
+    <img src="IMG_8815.jpeg" alt="Editorial Layout Design IX"/>
+  </div>
+  <div class="project-overlay">
+    <div class="project-info">
+      <span class="project-cat">Graphic Design</span>
+      <p class="project-title">Editorial Layout — Design IX</p>
+    </div>
+  </div>
+</div>
+
+<!-- PROJECT 10 — IMG_8816 -->
+<div class="project-card reveal"
+     data-category="graphic"
+     data-title="Editorial Layout — Design X"
+     data-desc="A magazine-format graphic layout showcasing Wilfred's mastery of grid systems, typographic hierarchy, and editorial storytelling."
+     onclick="openLightbox(this)">
+  <div class="project-img-wrap medium">
+    <img src="IMG_8816.jpeg" alt="Editorial Layout Design X"/>
+  </div>
+  <div class="project-overlay">
+    <div class="project-info">
+      <span class="project-cat">Graphic Design</span>
+      <p class="project-title">Editorial Layout — Design X</p>
+    </div>
+  </div>
+</div>
+
+<!-- PROJECT 11 — IMG_8817 -->
+<div class="project-card reveal reveal-delay-1"
+     data-category="graphic"
+     data-title="Editorial Layout — Design XI"
+     data-desc="An editorial piece with refined colour use and expressive layout, continuing the series with a focus on visual rhythm and composition."
+     onclick="openLightbox(this)">
   <div class="project-img-wrap tall">
-    <img src="IMG_8817.jpeg" alt="Project 11"/><!-- ← PUT IMAGE PATH HERE: src="your-image.jpg" -->
+    <img src="IMG_8817.jpeg" alt="Editorial Layout Design XI"/>
   </div>
   <div class="project-overlay">
     <div class="project-info">
-      <span class="project-cat">Photo Concept</span>
-      <p class="project-title">Project 11 — Untitled</p>
+      <span class="project-cat">Graphic Design</span>
+      <p class="project-title">Editorial Layout — Design XI</p>
     </div>
   </div>
 </div>
 
-<!-- ═══ PROJECT 12 — change src below ═══ -->
-<div class="project-card reveal reveal-delay-2" data-category="typography" onclick="openLightbox(this)">
+<!-- PROJECT 12 — IMG_8818 -->
+<div class="project-card reveal reveal-delay-2"
+     data-category="graphic"
+     data-title="Editorial Layout — Design XII"
+     data-desc="The twelfth piece in the editorial collection — a confident, print-ready design that demonstrates command of layout, type, and image."
+     onclick="openLightbox(this)">
   <div class="project-img-wrap short">
-    <img src="IMG_8818.jpeg" alt="Project 12"/><!-- ← PUT IMAGE PATH HERE: src="your-image.jpg" -->
+    <img src="IMG_8818.jpeg" alt="Editorial Layout Design XII"/>
   </div>
   <div class="project-overlay">
     <div class="project-info">
-      <span class="project-cat">Typography</span>
-      <p class="project-title">Project 12 — Untitled</p>
+      <span class="project-cat">Graphic Design</span>
+      <p class="project-title">Editorial Layout — Design XII</p>
     </div>
   </div>
 </div>
 
-<!-- ═══ PROJECT 13 — change src below ═══ -->
-<div class="project-card reveal" data-category="motion" onclick="openLightbox(this)">
+<!-- PROJECT 13 — IMG_8819 -->
+<div class="project-card reveal"
+     data-category="graphic"
+     data-title="Editorial Layout — Design XIII"
+     data-desc="A striking editorial graphic with high contrast between text and imagery, creating a visual narrative that feels both editorial and artistic."
+     onclick="openLightbox(this)">
   <div class="project-img-wrap medium">
-    <img src="IMG_8819.jpeg" alt="Project 13"/><!-- ← PUT IMAGE PATH HERE: src="your-image.jpg" -->
+    <img src="IMG_8819.jpeg" alt="Editorial Layout Design XIII"/>
   </div>
   <div class="project-overlay">
     <div class="project-info">
-      <span class="project-cat">Motion / Animation</span>
-      <p class="project-title">Project 13 — Untitled</p>
+      <span class="project-cat">Graphic Design</span>
+      <p class="project-title">Editorial Layout — Design XIII</p>
     </div>
   </div>
 </div>
 
-<!-- ═══ PROJECT 14 — change src below ═══ -->
-<div class="project-card reveal reveal-delay-1" data-category="graphic" onclick="openLightbox(this)">
+<!-- PROJECT 14 — IMG_8820 -->
+<div class="project-card reveal reveal-delay-1"
+     data-category="graphic"
+     data-title="Editorial Layout — Design XIV"
+     data-desc="The fourteenth and final piece in the current editorial series — a bold, confident design that brings together all the visual principles explored throughout the collection."
+     onclick="openLightbox(this)">
   <div class="project-img-wrap short">
-    <img src="IMG_8820.jpeg" alt="Project 14"/><!-- ← PUT IMAGE PATH HERE: src="your-image.jpg" -->
+    <img src="IMG_8820.jpeg" alt="Editorial Layout Design XIV"/>
   </div>
   <div class="project-overlay">
     <div class="project-info">
       <span class="project-cat">Graphic Design</span>
-      <p class="project-title">Project 14 — Untitled</p>
+      <p class="project-title">Editorial Layout — Design XIV</p>
     </div>
   </div>
 </div>
 
-<!-- ═══ PROJECT 15 — change src below ═══ -->
-<div class="project-card reveal reveal-delay-2" data-category="branding" onclick="openLightbox(this)">
-  <div class="project-img-wrap tall">
-    <img src="" alt="Project 15"/><!-- ← PUT IMAGE PATH HERE: src="your-image.jpg" -->
-  </div>
-  <div class="project-overlay">
-    <div class="project-info">
-      <span class="project-cat">Branding</span>
-      <p class="project-title">Project 15 — Untitled</p>
-    </div>
-  </div>
+<!-- ═══════════════════════════════════════════════════════════ -->
+<!-- PROJECTS 15–39: Hidden until you add real images           -->
+<!-- To activate: add src="your-image.jpg" and update          -->
+<!-- data-category, data-title, and data-desc below            -->
+<!-- ═══════════════════════════════════════════════════════════ -->
+
+<div class="project-card reveal reveal-delay-2"
+     data-category="branding"
+     data-title="Branding Project"
+     data-desc="A comprehensive branding exercise exploring identity, colour systems, and logo design."
+     onclick="openLightbox(this)">
+  <div class="project-img-wrap tall"><img src="" alt=""/></div>
+  <div class="project-overlay"><div class="project-info">
+    <span class="project-cat">Branding</span>
+    <p class="project-title">Branding Project</p>
+  </div></div>
 </div>
 
-<!-- ═══ PROJECT 16 — change src below ═══ -->
-<div class="project-card reveal" data-category="photo" onclick="openLightbox(this)">
-  <div class="project-img-wrap medium">
-    <img src="" alt="Project 16"/><!-- ← PUT IMAGE PATH HERE: src="your-image.jpg" -->
-  </div>
-  <div class="project-overlay">
-    <div class="project-info">
-      <span class="project-cat">Photo Concept</span>
-      <p class="project-title">Project 16 — Untitled</p>
-    </div>
-  </div>
+<div class="project-card reveal"
+     data-category="photo"
+     data-title="Photo Concept"
+     data-desc="A conceptual photography project exploring light, shadow, and human form."
+     onclick="openLightbox(this)">
+  <div class="project-img-wrap medium"><img src="" alt=""/></div>
+  <div class="project-overlay"><div class="project-info">
+    <span class="project-cat">Photo Concept</span>
+    <p class="project-title">Photo Concept</p>
+  </div></div>
 </div>
 
-<!-- ═══ PROJECT 17 — change src below ═══ -->
-<div class="project-card reveal reveal-delay-1" data-category="typography" onclick="openLightbox(this)">
-  <div class="project-img-wrap short">
-    <img src="" alt="Project 17"/><!-- ← PUT IMAGE PATH HERE: src="your-image.jpg" -->
-  </div>
-  <div class="project-overlay">
-    <div class="project-info">
-      <span class="project-cat">Typography</span>
-      <p class="project-title">Project 17 — Untitled</p>
-    </div>
-  </div>
+<div class="project-card reveal reveal-delay-1"
+     data-category="typography"
+     data-title="Typography Study"
+     data-desc="An experimental typography study exploring letterforms, scale, and textural contrast."
+     onclick="openLightbox(this)">
+  <div class="project-img-wrap short"><img src="" alt=""/></div>
+  <div class="project-overlay"><div class="project-info">
+    <span class="project-cat">Typography</span>
+    <p class="project-title">Typography Study</p>
+  </div></div>
 </div>
 
-<!-- ═══ PROJECT 18 — change src below ═══ -->
-<div class="project-card reveal reveal-delay-2" data-category="graphic" onclick="openLightbox(this)">
-  <div class="project-img-wrap tall" data-num="IMAGE 18">
-    <img src="" alt="Project 18"/><!-- ← PUT IMAGE PATH HERE: src="your-image.jpg" -->
-  </div>
-  <div class="project-overlay">
-    <div class="project-info">
-      <span class="project-cat">Graphic Design</span>
-      <p class="project-title">Project 18 — Untitled</p>
-    </div>
-  </div>
+<div class="project-card reveal reveal-delay-2"
+     data-category="motion"
+     data-title="Motion Design"
+     data-desc="A motion design piece exploring animation principles — timing, easing, and visual storytelling through movement."
+     onclick="openLightbox(this)">
+  <div class="project-img-wrap medium"><img src="" alt=""/></div>
+  <div class="project-overlay"><div class="project-info">
+    <span class="project-cat">Motion / Animation</span>
+    <p class="project-title">Motion Design</p>
+  </div></div>
 </div>
 
-<!-- ═══ PROJECT 19 — change src below ═══ -->
-<div class="project-card reveal" data-category="motion" onclick="openLightbox(this)">
-  <div class="project-img-wrap medium" data-num="IMAGE 19">
-    <img src="" alt="Project 19"/><!-- ← PUT IMAGE PATH HERE: src="your-image.jpg" -->
-  </div>
-  <div class="project-overlay">
-    <div class="project-info">
-      <span class="project-cat">Motion / Animation</span>
-      <p class="project-title">Project 19 — Untitled</p>
-    </div>
-  </div>
+<div class="project-card reveal"
+     data-category="graphic"
+     data-title="Graphic Design"
+     data-desc="A graphic design composition blending colour, form, and typography in an expressive layout."
+     onclick="openLightbox(this)">
+  <div class="project-img-wrap tall"><img src="" alt=""/></div>
+  <div class="project-overlay"><div class="project-info">
+    <span class="project-cat">Graphic Design</span>
+    <p class="project-title">Graphic Design</p>
+  </div></div>
 </div>
-
-<!-- ═══ PROJECT 20 — change src below ═══ -->
-<div class="project-card reveal reveal-delay-1" data-category="branding" onclick="openLightbox(this)">
-  <div class="project-img-wrap short" data-num="IMAGE 20">
-    <img src="" alt="Project 20"/><!-- ← PUT IMAGE PATH HERE: src="your-image.jpg" -->
-  </div>
-  <div class="project-overlay">
-    <div class="project-info">
-      <span class="project-cat">Branding</span>
-      <p class="project-title">Project 20 — Untitled</p>
-    </div>
-  </div>
-</div>
-
-<!-- ═══ PROJECT 21 — change src below ═══ -->
-<div class="project-card reveal reveal-delay-2" data-category="photo" onclick="openLightbox(this)">
-  <div class="project-img-wrap tall" data-num="IMAGE 21">
-    <img src="" alt="Project 21"/><!-- ← PUT IMAGE PATH HERE: src="your-image.jpg" -->
-  </div>
-  <div class="project-overlay">
-    <div class="project-info">
-      <span class="project-cat">Photo Concept</span>
-      <p class="project-title">Project 21 — Untitled</p>
-    </div>
-  </div>
-</div>
-
-<!-- ═══ PROJECT 22 — change src below ═══ -->
-<div class="project-card reveal" data-category="graphic" onclick="openLightbox(this)">
-  <div class="project-img-wrap medium" data-num="IMAGE 22">
-    <img src="" alt="Project 22"/><!-- ← PUT IMAGE PATH HERE: src="your-image.jpg" -->
-  </div>
-  <div class="project-overlay">
-    <div class="project-info">
-      <span class="project-cat">Graphic Design</span>
-      <p class="project-title">Project 22 — Untitled</p>
-    </div>
-  </div>
-</div>
-
-<!-- ═══ PROJECT 23 — change src below ═══ -->
-<div class="project-card reveal reveal-delay-1" data-category="typography" onclick="openLightbox(this)">
-  <div class="project-img-wrap short" data-num="IMAGE 23">
-    <img src="" alt="Project 23"/><!-- ← PUT IMAGE PATH HERE: src="your-image.jpg" -->
-  </div>
-  <div class="project-overlay">
-    <div class="project-info">
-      <span class="project-cat">Typography</span>
-      <p class="project-title">Project 23 — Untitled</p>
-    </div>
-  </div>
-</div>
-
-<!-- ═══ PROJECT 24 — change src below ═══ -->
-<div class="project-card reveal reveal-delay-2" data-category="motion" onclick="openLightbox(this)">
-  <div class="project-img-wrap tall" data-num="IMAGE 24">
-    <img src="" alt="Project 24"/><!-- ← PUT IMAGE PATH HERE: src="your-image.jpg" -->
-  </div>
-  <div class="project-overlay">
-    <div class="project-info">
-      <span class="project-cat">Motion / Animation</span>
-      <p class="project-title">Project 24 — Untitled</p>
-    </div>
-  </div>
-</div>
-
-<!-- ═══ PROJECT 25 — change src below ═══ -->
-<div class="project-card reveal" data-category="graphic" onclick="openLightbox(this)">
-  <div class="project-img-wrap medium" data-num="IMAGE 25">
-    <img src="" alt="Project 25"/><!-- ← PUT IMAGE PATH HERE: src="your-image.jpg" -->
-  </div>
-  <div class="project-overlay">
-    <div class="project-info">
-      <span class="project-cat">Graphic Design</span>
-      <p class="project-title">Project 25 — Untitled</p>
-    </div>
-  </div>
-</div>
-
-<!-- ═══ PROJECT 26 — change src below ═══ -->
-<div class="project-card reveal reveal-delay-1" data-category="branding" onclick="openLightbox(this)">
-  <div class="project-img-wrap short" data-num="IMAGE 26">
-    <img src="" alt="Project 26"/><!-- ← PUT IMAGE PATH HERE: src="your-image.jpg" -->
-  </div>
-  <div class="project-overlay">
-    <div class="project-info">
-      <span class="project-cat">Branding</span>
-      <p class="project-title">Project 26 — Untitled</p>
-    </div>
-  </div>
-</div>
-
-<!-- ═══ PROJECT 27 — change src below ═══ -->
-<div class="project-card reveal reveal-delay-2" data-category="photo" onclick="openLightbox(this)">
-  <div class="project-img-wrap tall" data-num="IMAGE 27">
-    <img src="" alt="Project 27"/><!-- ← PUT IMAGE PATH HERE: src="your-image.jpg" -->
-  </div>
-  <div class="project-overlay">
-    <div class="project-info">
-      <span class="project-cat">Photo Concept</span>
-      <p class="project-title">Project 27 — Untitled</p>
-    </div>
-  </div>
-</div>
-
-<!-- ═══ PROJECT 28 — change src below ═══ -->
-<div class="project-card reveal" data-category="typography" onclick="openLightbox(this)">
-  <div class="project-img-wrap medium" data-num="IMAGE 28">
-    <img src="" alt="Project 28"/><!-- ← PUT IMAGE PATH HERE: src="your-image.jpg" -->
-  </div>
-  <div class="project-overlay">
-    <div class="project-info">
-      <span class="project-cat">Typography</span>
-      <p class="project-title">Project 28 — Untitled</p>
-    </div>
-  </div>
-</div>
-
-<!-- ═══ PROJECT 29 — change src below ═══ -->
-<div class="project-card reveal reveal-delay-1" data-category="motion" onclick="openLightbox(this)">
-  <div class="project-img-wrap short" data-num="IMAGE 29">
-    <img src="" alt="Project 29"/><!-- ← PUT IMAGE PATH HERE: src="your-image.jpg" -->
-  </div>
-  <div class="project-overlay">
-    <div class="project-info">
-      <span class="project-cat">Motion / Animation</span>
-      <p class="project-title">Project 29 — Untitled</p>
-    </div>
-  </div>
-</div>
-
-<!-- ═══ PROJECT 30 — change src below ═══ -->
-<div class="project-card reveal reveal-delay-2" data-category="graphic" onclick="openLightbox(this)">
-  <div class="project-img-wrap tall" data-num="IMAGE 30">
-    <img src="" alt="Project 30"/><!-- ← PUT IMAGE PATH HERE: src="your-image.jpg" -->
-  </div>
-  <div class="project-overlay">
-    <div class="project-info">
-      <span class="project-cat">Graphic Design</span>
-      <p class="project-title">Project 30 — Untitled</p>
-    </div>
-  </div>
-</div>
-
-<!-- ═══ PROJECT 31 — change src below ═══ -->
-<div class="project-card reveal" data-category="branding" onclick="openLightbox(this)">
-  <div class="project-img-wrap medium" data-num="IMAGE 31">
-    <img src="" alt="Project 31"/><!-- ← PUT IMAGE PATH HERE: src="your-image.jpg" -->
-  </div>
-  <div class="project-overlay">
-    <div class="project-info">
-      <span class="project-cat">Branding</span>
-      <p class="project-title">Project 31 — Untitled</p>
-    </div>
-  </div>
-</div>
-
-<!-- ═══ PROJECT 32 — change src below ═══ -->
-<div class="project-card reveal reveal-delay-1" data-category="photo" onclick="openLightbox(this)">
-  <div class="project-img-wrap short" data-num="IMAGE 32">
-    <img src="" alt="Project 32"/><!-- ← PUT IMAGE PATH HERE: src="your-image.jpg" -->
-  </div>
-  <div class="project-overlay">
-    <div class="project-info">
-      <span class="project-cat">Photo Concept</span>
-      <p class="project-title">Project 32 — Untitled</p>
-    </div>
-  </div>
-</div>
-
-<!-- ═══ PROJECT 33 — change src below ═══ -->
-<div class="project-card reveal reveal-delay-2" data-category="graphic" onclick="openLightbox(this)">
-  <div class="project-img-wrap tall" data-num="IMAGE 33">
-    <img src="" alt="Project 33"/><!-- ← PUT IMAGE PATH HERE: src="your-image.jpg" -->
-  </div>
-  <div class="project-overlay">
-    <div class="project-info">
-      <span class="project-cat">Graphic Design</span>
-      <p class="project-title">Project 33 — Untitled</p>
-    </div>
-  </div>
-</div>
-
-<!-- ═══ PROJECT 34 — change src below ═══ -->
-<div class="project-card reveal" data-category="typography" onclick="openLightbox(this)">
-  <div class="project-img-wrap medium" data-num="IMAGE 34">
-    <img src="" alt="Project 34"/><!-- ← PUT IMAGE PATH HERE: src="your-image.jpg" -->
-  </div>
-  <div class="project-overlay">
-    <div class="project-info">
-      <span class="project-cat">Typography</span>
-      <p class="project-title">Project 34 — Untitled</p>
-    </div>
-  </div>
-</div>
-
-<!-- ═══ PROJECT 35 — change src below ═══ -->
-<div class="project-card reveal reveal-delay-1" data-category="motion" onclick="openLightbox(this)">
-  <div class="project-img-wrap short" data-num="IMAGE 35">
-    <img src="" alt="Project 35"/><!-- ← PUT IMAGE PATH HERE: src="your-image.jpg" -->
-  </div>
-  <div class="project-overlay">
-    <div class="project-info">
-      <span class="project-cat">Motion / Animation</span>
-      <p class="project-title">Project 35 — Untitled</p>
-    </div>
-  </div>
-</div>
-
-<!-- ═══ PROJECT 36 — change src below ═══ -->
-<div class="project-card reveal reveal-delay-2" data-category="graphic" onclick="openLightbox(this)">
-  <div class="project-img-wrap tall" data-num="IMAGE 36">
-    <img src="" alt="Project 36"/><!-- ← PUT IMAGE PATH HERE: src="your-image.jpg" -->
-  </div>
-  <div class="project-overlay">
-    <div class="project-info">
-      <span class="project-cat">Graphic Design</span>
-      <p class="project-title">Project 36 — Untitled</p>
-    </div>
-  </div>
-</div>
-
-<!-- ═══ PROJECT 37 — change src below ═══ -->
-<div class="project-card reveal" data-category="branding" onclick="openLightbox(this)">
-  <div class="project-img-wrap medium" data-num="IMAGE 37">
-    <img src="" alt="Project 37"/><!-- ← PUT IMAGE PATH HERE: src="your-image.jpg" -->
-  </div>
-  <div class="project-overlay">
-    <div class="project-info">
-      <span class="project-cat">Branding</span>
-      <p class="project-title">Project 37 — Untitled</p>
-    </div>
-  </div>
-</div>
-
-<!-- ═══ PROJECT 38 — change src below ═══ -->
-<div class="project-card reveal reveal-delay-1" data-category="photo" onclick="openLightbox(this)">
-  <div class="project-img-wrap short" data-num="IMAGE 38">
-    <img src="" alt="Project 38"/><!-- ← PUT IMAGE PATH HERE: src="your-image.jpg" -->
-  </div>
-  <div class="project-overlay">
-    <div class="project-info">
-      <span class="project-cat">Photo Concept</span>
-      <p class="project-title">Project 38 — Untitled</p>
-    </div>
-  </div>
-</div>
-
-<!-- ═══ PROJECT 39 — change src below ═══ -->
-<div class="project-card reveal reveal-delay-2" data-category="graphic" onclick="openLightbox(this)">
-  <div class="project-img-wrap tall" data-num="IMAGE 39">
-    <img src="" alt="Project 39"/><!-- ← PUT IMAGE PATH HERE: src="your-image.jpg" -->
-  </div>
-  <div class="project-overlay">
-    <div class="project-info">
-      <span class="project-cat">Graphic Design</span>
-      <p class="project-title">Project 39 — Untitled</p>
-    </div>
-  </div>
-</div>
-
+```
 
   </div><!-- /masonry-grid -->
 </section>
@@ -1405,6 +1168,15 @@ const observer = new IntersectionObserver((entries) => {
 }, { threshold: 0.08 });
 document.querySelectorAll('.reveal').forEach(el => observer.observe(el));
 
+// ── AUTO-HIDE CARDS WITH NO IMAGE ──
+// Any card whose <img> has no src gets hidden so the grid stays clean
+document.querySelectorAll('.project-card').forEach(card => {
+  const img = card.querySelector('img');
+  if (!img || !img.getAttribute('src') || img.getAttribute('src').trim() === '') {
+    card.classList.add('hidden');
+  }
+});
+
 // ── GALLERY FILTER ──
 document.querySelectorAll('.filter-btn').forEach(btn => {
   btn.addEventListener('click', () => {
@@ -1412,32 +1184,54 @@ document.querySelectorAll('.filter-btn').forEach(btn => {
     btn.classList.add('active');
     const f = btn.dataset.filter;
     document.querySelectorAll('.project-card').forEach(card => {
+      // Never show cards that have no image, even on "All Work"
+      const img = card.querySelector('img');
+      const hasImage = img && img.getAttribute('src') && img.getAttribute('src').trim() !== '';
+      if (!hasImage) {
+        card.classList.add('hidden');
+        return;
+      }
       card.classList.toggle('hidden', f !== 'all' && card.dataset.category !== f);
     });
   });
 });
 
 // ── LIGHTBOX ──
-// Reads the image src and text directly from the card that was clicked
+// Reads data-title, data-desc, and data-category from the card element
+// Falls back gracefully if attributes are missing
 function openLightbox(card) {
-  const img    = card.querySelector('img');
-  const cat    = card.querySelector('.project-cat').textContent;
-  const title  = card.querySelector('.project-title').textContent;
+  const img   = card.querySelector('img');
+  const cat   = card.dataset.category
+                  ? card.dataset.category.charAt(0).toUpperCase() + card.dataset.category.slice(1)
+                  : card.querySelector('.project-cat').textContent;
+  const title = card.dataset.title  || card.querySelector('.project-title').textContent || 'Untitled';
+  const desc  = card.dataset.desc   || '';
 
-  document.getElementById('lightbox-cat').textContent   = cat;
+  // Map category keys to readable labels
+  const catLabels = {
+    graphic:    'Graphic Design',
+    photo:      'Photo Concept',
+    motion:     'Motion / Animation',
+    branding:   'Branding',
+    typography: 'Typography'
+  };
+  document.getElementById('lightbox-cat').textContent   = catLabels[card.dataset.category] || cat;
   document.getElementById('lightbox-title').textContent = title;
-  document.getElementById('lightbox-desc').textContent  = '';
+  document.getElementById('lightbox-desc').textContent  = desc;
 
   const lbImg = document.getElementById('lightbox-img');
-  lbImg.src = img && img.src ? img.src : '';
+  lbImg.src = img ? img.src : '';
+  lbImg.alt = title;
 
   document.getElementById('lightbox').classList.add('open');
   document.body.style.overflow = 'hidden';
 }
+
 function closeLightbox() {
   document.getElementById('lightbox').classList.remove('open');
   document.body.style.overflow = '';
 }
+
 document.getElementById('lightbox').addEventListener('click', e => {
   if (e.target === e.currentTarget) closeLightbox();
 });
