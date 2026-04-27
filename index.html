@@ -604,18 +604,32 @@ margin: .3rem 0 .6rem;
 }
 #lightbox-desc { font-size: .88rem; color: #888888; line-height: 1.7; }
 #lightbox-close {
-position: absolute;
-top: 1rem; right: 1rem;
-background: none;
-border: none;
-color: #666666;
-font-size: 1.4rem;
-cursor: pointer;
-transition: color .2s;
-outline: none;
-z-index: 10;
+  position: absolute;
+  top: .75rem; right: .75rem;
+  background: rgba(0,0,0,0.55);
+  border: 1px solid rgba(255,255,255,0.18);
+  color: #e8e0d4;
+  font-size: 1.1rem;
+  width: 36px;
+  height: 36px;
+  border-radius: 50%;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  cursor: pointer;
+  transition: background .2s, color .2s, border-color .2s;
+  outline: none;
+  z-index: 10;
 }
-#lightbox-close:hover { color: #c9a14a; }
+#lightbox-close:hover {
+  background: rgba(201,161,74,0.25);
+  border-color: #c9a14a;
+  color: #c9a14a;
+}
+
+
+
+}
 
 /* ── ANIMATIONS ── */
 @keyframes fadeUp {
