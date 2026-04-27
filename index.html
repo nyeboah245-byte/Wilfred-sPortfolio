@@ -604,32 +604,18 @@ margin: .3rem 0 .6rem;
 }
 #lightbox-desc { font-size: .88rem; color: #888888; line-height: 1.7; }
 #lightbox-close {
-  position: absolute;
-  top: .75rem; right: .75rem;
-  background: rgba(0,0,0,0.55);
-  border: 1px solid rgba(255,255,255,0.18);
-  color: #e8e0d4;
-  font-size: 1.1rem;
-  width: 36px;
-  height: 36px;
-  border-radius: 50%;
-  display: flex;
-  align-items: center;
-  justify-content: center;
-  cursor: pointer;
-  transition: background .2s, color .2s, border-color .2s;
-  outline: none;
-  z-index: 10;
+position: absolute;
+top: 1rem; right: 1rem;
+background: none;
+border: none;
+color: #666666;
+font-size: 1.4rem;
+cursor: pointer;
+transition: color .2s;
+outline: none;
+z-index: 10;
 }
-#lightbox-close:hover {
-  background: rgba(201,161,74,0.25);
-  border-color: #c9a14a;
-  color: #c9a14a;
-}
-
-
-
-}
+#lightbox-close:hover { color: #c9a14a; }
 
 /* ── ANIMATIONS ── */
 @keyframes fadeUp {
@@ -994,51 +980,51 @@ footer { padding: 2rem 1.5rem; flex-direction: column; align-items: flex-start; 
 
 <!-- PROJECT 12 -->
 <div class="project-card reveal reveal-delay-2"
-     data-category="photo"
-     
-     data-desc="This shot focuses on the textures and leading lines of the campus environment. The patterned brickwork and natural greenery create a balanced, professional composition that highlights spatial design."
+     data-category="graphic"
+     data-title="Editorial Layout — Design XII"
+     data-desc="The twelfth piece in the editorial collection — a confident, print-ready design that demonstrates command of layout, type, and image."
      onclick="openLightbox(this)">
   <div class="project-img-wrap short">
-    <img src="IMG_8818.jpeg" "/>
+    <img src="IMG_8818.jpeg" alt="Editorial Layout Design XII"/>
   </div>
   <div class="project-overlay">
     <div class="project-info">
-      <span class="project-cat">Photo Concept</span>
-      <p class="project-title">Architectural Perspective</p>
+      <span class="project-cat">Graphic Design</span>
+      <p class="project-title">Editorial Layout — Design XII</p>
     </div>
   </div>
 </div>
 
 <!-- PROJECT 13 -->
 <div class="project-card reveal"
-     
-     data-category="photo"
-     data-desc="This piece highlights the vibrant colors and complex vein patterns of the Croton plant. The mix of bright yellow and deep green provides a natural, high-contrast look that feels both artistic and bold."
+     data-category="graphic"
+     data-title="Editorial Layout — Design XIII"
+     data-desc="A striking editorial graphic with high contrast between text and imagery, creating a visual narrative that feels both editorial and artistic."
      onclick="openLightbox(this)">
   <div class="project-img-wrap medium">
-    <img src="IMG_8819.jpeg" />
+    <img src="IMG_8819.jpeg" alt="Editorial Layout Design XIII" />
   </div>
   <div class="project-overlay">
     <div class="project-info">
-      <span class="project-cat">Photo Concept</span>
-      <p class="project-title">Croton Plant</p>
+      <span class="project-cat">Graphic Design</span>
+      <p class="project-title">Editorial Layout — Design XIII</p>
     </div>
   </div>
 </div>
 
 <!-- PROJECT 14 -->
 <div class="project-card reveal reveal-delay-1"
-     data-category="photo"
-     
-     data-desc="This photograph explores a unique low angle perspective of a pine tree, emphasizing its radiating branch structure. The repetitive, star-like pattern creates a sense of natural symmetry and organic depth."
+     data-category="graphic"
+     data-title="Editorial Layout — Design XIV"
+     data-desc="The fourteenth piece in the editorial series — a bold, confident design that brings together all the visual principles explored throughout the collection."
      onclick="openLightbox(this)">
   <div class="project-img-wrap short">
-    <img src="IMG_8820.jpeg"/>
+    <img src="IMG_8820.jpeg" alt="Editorial Layout Design XIV"/>
   </div>
   <div class="project-overlay">
     <div class="project-info">
-      <span class="project-cat">Photo Concept</span>
-      <p class="project-title">Pine Tree</p>
+      <span class="project-cat">Graphic Design</span>
+      <p class="project-title">Editorial Layout — Design XIV</p>
     </div>
   </div>
 </div>
@@ -1084,7 +1070,7 @@ footer { padding: 2rem 1.5rem; flex-direction: column; align-items: flex-start; 
      data-desc="A low-angle shot emphasising the intricate, repetitive leaflets of a fern branch, using a shallow depth of field to create a soft, cinematic atmosphere."
      onclick="openLightbox(this)">
   <div class="project-img-wrap short">
-    <img src="IMG_8823.jpeg" />
+    <img src="IMG_8823.jpeg" alt="Botanical Fern Depth" />
   </div>
   <div class="project-overlay">
     <div class="project-info">
