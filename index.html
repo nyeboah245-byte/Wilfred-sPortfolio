@@ -1,8 +1,15 @@
 <!DOCTYPE html><html lang="en"><head><meta charset="UTF-8"/><meta name="viewport" content="width=device-width, initial-scale=1.0"/><title>Wilfred Tengolyin — Communication Design</title>
 
+<!-- PERF: Preconnect to font origins -->
+
 <link rel="preconnect" href="https://fonts.googleapis.com"/>
 <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin/>
 <link href="https://fonts.googleapis.com/css2?family=Cormorant+Garamond:ital,wght@0,300;0,400;0,600;1,300;1,400&family=DM+Sans:wght@300;400;500&family=Bebas+Neue&display=swap" rel="stylesheet"/>
+
+<!-- PERF: Preload ONLY the hero image — the one visible on first paint -->
+
+<link rel="preload" as="image" href="IMG_8832.jpeg" fetchpriority="high"/>
+
 <style>
 /* ── RESET ── */
 *, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
@@ -17,510 +24,514 @@ body {
   transition: background 0.35s, color 0.35s;
 }
 
-/* ── LIGHT MODE ── */
-
-
 /* ── NOISE OVERLAY ── */
 body::before {
-content: ‘’;
-position: fixed;
-inset: 0;
-background-image: url(“data:image/svg+xml,%3Csvg viewBox=‘0 0 256 256’ xmlns=‘http://www.w3.org/2000/svg’%3E%3Cfilter id=‘noise’%3E%3CfeTurbulence type=‘fractalNoise’ baseFrequency=‘0.9’ numOctaves=‘4’ stitchTiles=‘stitch’/%3E%3C/filter%3E%3Crect width=‘100%25’ height=‘100%25’ filter=‘url(%23noise)’ opacity=‘1’/%3E%3C/svg%3E”);
-opacity: .028;
-pointer-events: none;
-z-index: 9997;
+  content: '';
+  position: fixed;
+  inset: 0;
+  background-image: url("data:image/svg+xml,%3Csvg viewBox='0 0 256 256' xmlns='http://www.w3.org/2000/svg'%3E%3Cfilter id='noise'%3E%3CfeTurbulence type='fractalNoise' baseFrequency='0.9' numOctaves='4' stitchTiles='stitch'/%3E%3C/filter%3E%3Crect width='100%25' height='100%25' filter='url(%23noise)' opacity='1'/%3E%3C/svg%3E");
+  opacity: .028;
+  pointer-events: none;
+  z-index: 9997;
 }
 
 /* ── NAV ── */
 nav {
-position: fixed;
-top: 0; left: 0; right: 0;
-z-index: 100;
-padding: 1.4rem 4rem;
-display: flex;
-align-items: center;
-justify-content: space-between;
-background: linear-gradient(to bottom, rgba(8,8,8,0.85) 0%, transparent 100%);
-transition: background 0.4s, backdrop-filter 0.4s;
+  position: fixed;
+  top: 0; left: 0; right: 0;
+  z-index: 100;
+  padding: 1.4rem 4rem;
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  background: linear-gradient(to bottom, rgba(8,8,8,0.85) 0%, transparent 100%);
+  transition: background 0.4s, backdrop-filter 0.4s;
 }
 nav.scrolled {
-background: rgba(8,8,8,0.92);
-backdrop-filter: blur(20px);
--webkit-backdrop-filter: blur(20px);
-border-bottom: 1px solid #242424;
+  background: rgba(8,8,8,0.92);
+  backdrop-filter: blur(20px);
+  -webkit-backdrop-filter: blur(20px);
+  border-bottom: 1px solid #242424;
 }
 .nav-logo {
-font-family: ‘Bebas Neue’, sans-serif;
-font-size: 1.5rem;
-letter-spacing: .12em;
-color: #f5f2ed;
-text-decoration: none;
+  font-family: 'Bebas Neue', sans-serif;
+  font-size: 1.5rem;
+  letter-spacing: .12em;
+  color: #f5f2ed;
+  text-decoration: none;
 }
 .nav-logo span { color: #c9a14a; }
 .nav-links { display: flex; gap: 2.4rem; list-style: none; }
 .nav-links a {
-font-size: .78rem;
-letter-spacing: .14em;
-text-transform: uppercase;
-color: #ccc;
-text-decoration: none;
-transition: color .25s;
-position: relative;
+  font-size: .78rem;
+  letter-spacing: .14em;
+  text-transform: uppercase;
+  color: #ccc;
+  text-decoration: none;
+  transition: color .25s;
+  position: relative;
 }
 .nav-links a::after {
-content: ‘’;
-position: absolute;
-bottom: -3px; left: 0;
-width: 0; height: 1px;
-background: #c9a14a;
-transition: width .3s cubic-bezier(.16,1,.3,1);
+  content: '';
+  position: absolute;
+  bottom: -3px; left: 0;
+  width: 0; height: 1px;
+  background: #c9a14a;
+  transition: width .3s cubic-bezier(.16,1,.3,1);
 }
 .nav-links a:hover { color: #e2bc72; }
 .nav-links a:hover::after { width: 100%; }
 
 /* ── HERO ── */
 #hero {
-width: 100vw;
-min-height: 100vh;
-position: relative;
-overflow: hidden;
-display: flex;
-align-items: center;
-justify-content: center;
-padding: 8rem 2rem 5rem;
+  width: 100vw;
+  min-height: 100vh;
+  position: relative;
+  overflow: hidden;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  padding: 8rem 2rem 5rem;
 }
 .hero-portrait-bg {
-position: absolute;
-inset: 0;
-z-index: 0;
+  position: absolute;
+  inset: 0;
+  z-index: 0;
 }
 .hero-portrait-bg img {
-width: 100%;
-height: 100%;
-object-fit: cover;
-object-position: center top;
-display: block;
-filter: brightness(0.55) saturate(0.7);
+  width: 100%;
+  height: 100%;
+  object-fit: cover;
+  object-position: center top;
+  display: block;
+  filter: brightness(0.55) saturate(0.7);
 }
 .hero-portrait-bg::after {
-content: ‘’;
-position: absolute;
-inset: 0;
-background:
-linear-gradient(to bottom,
-rgba(8,8,8,0.45) 0%,
-rgba(8,8,8,0.15) 30%,
-rgba(8,8,8,0.35) 60%,
-rgba(8,8,8,0.72) 100%
-);
+  content: '';
+  position: absolute;
+  inset: 0;
+  background:
+    linear-gradient(to bottom,
+      rgba(8,8,8,0.45) 0%,
+      rgba(8,8,8,0.15) 30%,
+      rgba(8,8,8,0.35) 60%,
+      rgba(8,8,8,0.72) 100%
+    );
 }
 .hero-bg-grid {
-position: absolute;
-inset: 0;
-z-index: 1;
-background-image:
-linear-gradient(rgba(201,161,74,0.035) 1px, transparent 1px),
-linear-gradient(90deg, rgba(201,161,74,0.035) 1px, transparent 1px);
-background-size: 60px 60px;
-pointer-events: none;
+  position: absolute;
+  inset: 0;
+  z-index: 1;
+  background-image:
+    linear-gradient(rgba(201,161,74,0.035) 1px, transparent 1px),
+    linear-gradient(90deg, rgba(201,161,74,0.035) 1px, transparent 1px);
+  background-size: 60px 60px;
+  pointer-events: none;
 }
 .hero-glow {
-position: absolute;
-width: 600px; height: 600px;
-background: radial-gradient(circle, rgba(201,161,74,0.07) 0%, transparent 70%);
-top: 50%; left: 50%;
-transform: translate(-50%,-50%);
-pointer-events: none;
-z-index: 1;
+  position: absolute;
+  width: 600px; height: 600px;
+  background: radial-gradient(circle, rgba(201,161,74,0.07) 0%, transparent 70%);
+  top: 50%; left: 50%;
+  transform: translate(-50%,-50%);
+  pointer-events: none;
+  z-index: 1;
 }
 .hero-inner {
-position: relative;
-z-index: 2;
-text-align: center;
-max-width: 860px;
-width: 100%;
+  position: relative;
+  z-index: 2;
+  text-align: center;
+  max-width: 860px;
+  width: 100%;
 }
 .hero-eyebrow {
-font-size: .72rem;
-letter-spacing: .25em;
-text-transform: uppercase;
-color: #e2bc72;
-margin-bottom: 1.6rem;
-opacity: 0;
-animation: fadeUp .9s cubic-bezier(.16,1,.3,1) .2s forwards;
-text-shadow: 0 1px 8px rgba(0,0,0,0.8);
+  font-size: .72rem;
+  letter-spacing: .25em;
+  text-transform: uppercase;
+  color: #e2bc72;
+  margin-bottom: 1.6rem;
+  opacity: 0;
+  animation: fadeUp .9s cubic-bezier(.16,1,.3,1) .2s forwards;
+  text-shadow: 0 1px 8px rgba(0,0,0,0.8);
 }
 .hero-name {
-font-family: ‘Cormorant Garamond’, serif;
-font-size: clamp(3.5rem, 9vw, 8rem);
-font-weight: 300;
-line-height: .95;
-color: #f5f2ed;
-letter-spacing: -.01em;
-opacity: 0;
-animation: fadeUp 1s cubic-bezier(.16,1,.3,1) .4s forwards;
-text-shadow: 0 2px 20px rgba(0,0,0,0.85), 0 0 60px rgba(0,0,0,0.5);
+  font-family: 'Cormorant Garamond', serif;
+  font-size: clamp(3.5rem, 9vw, 8rem);
+  font-weight: 300;
+  line-height: .95;
+  color: #f5f2ed;
+  letter-spacing: -.01em;
+  opacity: 0;
+  animation: fadeUp 1s cubic-bezier(.16,1,.3,1) .4s forwards;
+  text-shadow: 0 2px 20px rgba(0,0,0,0.85), 0 0 60px rgba(0,0,0,0.5);
 }
 .hero-name em { font-style: italic; color: #e2bc72; }
 .hero-tagline {
-margin-top: 2rem;
-font-size: clamp(.95rem, 1.8vw, 1.15rem);
-color: #e8e0d4;
-font-weight: 300;
-max-width: 540px;
-margin-left: auto;
-margin-right: auto;
-opacity: 0;
-animation: fadeUp .9s cubic-bezier(.16,1,.3,1) .6s forwards;
-text-shadow: 0 1px 10px rgba(0,0,0,0.9);
+  margin-top: 2rem;
+  font-size: clamp(.95rem, 1.8vw, 1.15rem);
+  color: #e8e0d4;
+  font-weight: 300;
+  max-width: 540px;
+  margin-left: auto;
+  margin-right: auto;
+  opacity: 0;
+  animation: fadeUp .9s cubic-bezier(.16,1,.3,1) .6s forwards;
+  text-shadow: 0 1px 10px rgba(0,0,0,0.9);
 }
 .hero-ctas {
-margin-top: 3rem;
-display: flex;
-gap: 1rem;
-justify-content: center;
-flex-wrap: wrap;
-opacity: 0;
-animation: fadeUp .9s cubic-bezier(.16,1,.3,1) .8s forwards;
+  margin-top: 3rem;
+  display: flex;
+  gap: 1rem;
+  justify-content: center;
+  flex-wrap: wrap;
+  opacity: 0;
+  animation: fadeUp .9s cubic-bezier(.16,1,.3,1) .8s forwards;
 }
 .hero-scroll-indicator {
-position: absolute;
-bottom: 2.5rem;
-left: 50%;
-transform: translateX(-50%);
-display: flex;
-flex-direction: column;
-align-items: center;
-gap: .5rem;
-z-index: 2;
-opacity: 0;
-animation: fadeUp .9s cubic-bezier(.16,1,.3,1) 1.2s forwards;
+  position: absolute;
+  bottom: 2.5rem;
+  left: 50%;
+  transform: translateX(-50%);
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  gap: .5rem;
+  z-index: 2;
+  opacity: 0;
+  animation: fadeUp .9s cubic-bezier(.16,1,.3,1) 1.2s forwards;
 }
 .hero-scroll-indicator span {
-font-size: .65rem;
-letter-spacing: .2em;
-text-transform: uppercase;
-color: #aaa;
-text-shadow: 0 1px 6px rgba(0,0,0,0.8);
+  font-size: .65rem;
+  letter-spacing: .2em;
+  text-transform: uppercase;
+  color: #aaa;
+  text-shadow: 0 1px 6px rgba(0,0,0,0.8);
 }
 .scroll-line {
-width: 1px;
-height: 48px;
-background: linear-gradient(to bottom, #c9a14a, transparent);
-animation: scrollPulse 2s ease-in-out infinite;
+  width: 1px;
+  height: 48px;
+  background: linear-gradient(to bottom, #c9a14a, transparent);
+  animation: scrollPulse 2s ease-in-out infinite;
 }
 
 /* ── BUTTONS ── */
 .btn-primary {
-display: inline-flex;
-align-items: center;
-gap: .6rem;
-padding: .9rem 2rem;
-background: #c9a14a;
-color: #080808;
-font-family: ‘DM Sans’, sans-serif;
-font-size: .8rem;
-font-weight: 500;
-letter-spacing: .12em;
-text-transform: uppercase;
-text-decoration: none;
-border: none;
-border-radius: 4px;
-transition: background .25s, transform .25s cubic-bezier(.16,1,.3,1), box-shadow .25s;
+  display: inline-flex;
+  align-items: center;
+  gap: .6rem;
+  padding: .9rem 2rem;
+  background: #c9a14a;
+  color: #080808;
+  font-family: 'DM Sans', sans-serif;
+  font-size: .8rem;
+  font-weight: 500;
+  letter-spacing: .12em;
+  text-transform: uppercase;
+  text-decoration: none;
+  border: none;
+  border-radius: 4px;
+  transition: background .25s, transform .25s cubic-bezier(.16,1,.3,1), box-shadow .25s;
 }
 .btn-primary:hover {
-background: #e2bc72;
-transform: translateY(-2px);
-box-shadow: 0 12px 40px rgba(201,161,74,0.35);
+  background: #e2bc72;
+  transform: translateY(-2px);
+  box-shadow: 0 12px 40px rgba(201,161,74,0.35);
 }
 .btn-outline {
-display: inline-flex;
-align-items: center;
-gap: .6rem;
-padding: .9rem 2rem;
-background: rgba(8,8,8,0.4);
-color: #f5f2ed;
-font-family: ‘DM Sans’, sans-serif;
-font-size: .8rem;
-font-weight: 400;
-letter-spacing: .12em;
-text-transform: uppercase;
-text-decoration: none;
-border: 1px solid rgba(255,255,255,0.3);
-border-radius: 4px;
-backdrop-filter: blur(4px);
--webkit-backdrop-filter: blur(4px);
-transition: border-color .25s, color .25s, background .25s, transform .25s cubic-bezier(.16,1,.3,1);
+  display: inline-flex;
+  align-items: center;
+  gap: .6rem;
+  padding: .9rem 2rem;
+  background: rgba(8,8,8,0.4);
+  color: #f5f2ed;
+  font-family: 'DM Sans', sans-serif;
+  font-size: .8rem;
+  font-weight: 400;
+  letter-spacing: .12em;
+  text-transform: uppercase;
+  text-decoration: none;
+  border: 1px solid rgba(255,255,255,0.3);
+  border-radius: 4px;
+  backdrop-filter: blur(4px);
+  -webkit-backdrop-filter: blur(4px);
+  transition: border-color .25s, color .25s, background .25s, transform .25s cubic-bezier(.16,1,.3,1);
 }
 .btn-outline:hover {
-border-color: #c9a14a;
-color: #e2bc72;
-background: rgba(201,161,74,0.1);
-transform: translateY(-2px);
+  border-color: #c9a14a;
+  color: #e2bc72;
+  background: rgba(201,161,74,0.1);
+  transform: translateY(-2px);
 }
 
 /* ── DIVIDER ── */
 .section-divider {
-width: 100%;
-height: 1px;
-background: linear-gradient(to right, transparent, #2a2a2a, transparent);
+  width: 100%;
+  height: 1px;
+  background: linear-gradient(to right, transparent, #2a2a2a, transparent);
 }
 
 /* ── SECTION LAYOUT ── */
 section {
-padding: 7rem 4rem;
-max-width: 1300px;
-margin: 0 auto;
+  padding: 7rem 4rem;
+  max-width: 1300px;
+  margin: 0 auto;
 }
 .section-header {
-display: flex;
-align-items: baseline;
-gap: 1.5rem;
-margin-bottom: 4rem;
+  display: flex;
+  align-items: baseline;
+  gap: 1.5rem;
+  margin-bottom: 4rem;
 }
 .section-num {
-font-family: ‘Bebas Neue’, sans-serif;
-font-size: 1rem;
-color: #c9a14a;
-letter-spacing: .1em;
+  font-family: 'Bebas Neue', sans-serif;
+  font-size: 1rem;
+  color: #c9a14a;
+  letter-spacing: .1em;
 }
 .section-title {
-font-family: ‘Cormorant Garamond’, serif;
-font-size: clamp(2rem, 4vw, 3.2rem);
-font-weight: 300;
-color: #f5f2ed;
-line-height: 1;
+  font-family: 'Cormorant Garamond', serif;
+  font-size: clamp(2rem, 4vw, 3.2rem);
+  font-weight: 300;
+  color: #f5f2ed;
+  line-height: 1;
 }
 .section-line {
-flex: 1;
-height: 1px;
-background: #242424;
-margin-left: .5rem;
+  flex: 1;
+  height: 1px;
+  background: #242424;
+  margin-left: .5rem;
 }
 
 /* ── ABOUT ── */
 #about .about-grid {
-display: grid;
-grid-template-columns: 1fr 1fr;
-gap: 5rem;
-align-items: start;
+  display: grid;
+  grid-template-columns: 1fr 1fr;
+  gap: 5rem;
+  align-items: start;
 }
 .portrait-frame {
-width: 100%;
-aspect-ratio: 3/4;
-border: 1px solid #2a2a2a;
-border-radius: 2px;
-position: relative;
-overflow: hidden;
-background: #1a1a1a;
+  width: 100%;
+  aspect-ratio: 3/4;
+  border: 1px solid #2a2a2a;
+  border-radius: 2px;
+  position: relative;
+  overflow: hidden;
+  /* PERF: reserve exact space while image loads → zero layout shift */
+  background: #1a1a1a;
+  contain: layout paint;
 }
 .portrait-frame img {
-width: 100%;
-height: 100%;
-object-fit: cover;
-object-position: center top;
-display: block;
+  width: 100%;
+  height: 100%;
+  object-fit: cover;
+  object-position: center top;
+  display: block;
 }
 .portrait-frame::before {
-content: ‘’;
-position: absolute;
-inset: 0;
-background: linear-gradient(135deg, rgba(201,161,74,0.04) 0%, transparent 60%);
-pointer-events: none;
-z-index: 1;
+  content: '';
+  position: absolute;
+  inset: 0;
+  background: linear-gradient(135deg, rgba(201,161,74,0.04) 0%, transparent 60%);
+  pointer-events: none;
+  z-index: 1;
 }
 .portrait-frame::after {
-content: ‘’;
-position: absolute;
-top: 12px; left: 12px;
-width: 24px; height: 24px;
-border-top: 1px solid #c9a14a;
-border-left: 1px solid #c9a14a;
-z-index: 2;
+  content: '';
+  position: absolute;
+  top: 12px; left: 12px;
+  width: 24px; height: 24px;
+  border-top: 1px solid #c9a14a;
+  border-left: 1px solid #c9a14a;
+  z-index: 2;
 }
 .portrait-corner-br {
-position: absolute;
-bottom: 12px; right: 12px;
-width: 24px; height: 24px;
-border-bottom: 1px solid #c9a14a;
-border-right: 1px solid #c9a14a;
-z-index: 2;
+  position: absolute;
+  bottom: 12px; right: 12px;
+  width: 24px; height: 24px;
+  border-bottom: 1px solid #c9a14a;
+  border-right: 1px solid #c9a14a;
+  z-index: 2;
 }
 .about-bio {
-font-size: 1.05rem;
-line-height: 1.85;
-color: #d8d0c4;
-margin-bottom: 2.5rem;
+  font-size: 1.05rem;
+  line-height: 1.85;
+  color: #d8d0c4;
+  margin-bottom: 2.5rem;
 }
 .about-bio strong { color: #f5f2ed; font-weight: 500; }
 .skills-list {
-display: flex;
-flex-wrap: wrap;
-gap: .6rem;
-margin-bottom: 2.5rem;
+  display: flex;
+  flex-wrap: wrap;
+  gap: .6rem;
+  margin-bottom: 2.5rem;
 }
 .skill-tag {
-padding: .4rem 1rem;
-border: 1px solid #2a2a2a;
-border-radius: 2px;
-font-size: .72rem;
-letter-spacing: .1em;
-text-transform: uppercase;
-color: #888888;
-transition: border-color .25s, color .25s, background .25s;
+  padding: .4rem 1rem;
+  border: 1px solid #2a2a2a;
+  border-radius: 2px;
+  font-size: .72rem;
+  letter-spacing: .1em;
+  text-transform: uppercase;
+  color: #888888;
+  transition: border-color .25s, color .25s, background .25s;
 }
 .skill-tag:hover {
-border-color: #c9a14a;
-color: #e2bc72;
-background: rgba(201,161,74,0.05);
+  border-color: #c9a14a;
+  color: #e2bc72;
+  background: rgba(201,161,74,0.05);
 }
 .about-meta {
-display: flex;
-flex-direction: column;
-gap: .8rem;
-padding-top: 2rem;
-border-top: 1px solid #242424;
+  display: flex;
+  flex-direction: column;
+  gap: .8rem;
+  padding-top: 2rem;
+  border-top: 1px solid #242424;
 }
 .meta-row { display: flex; gap: 1rem; font-size: .8rem; }
 .meta-label {
-color: #c9a14a;
-letter-spacing: .1em;
-text-transform: uppercase;
-min-width: 100px;
-font-size: .7rem;
+  color: #c9a14a;
+  letter-spacing: .1em;
+  text-transform: uppercase;
+  min-width: 100px;
+  font-size: .7rem;
 }
 .meta-val { color: #d8d0c4; }
 
 /* ── GALLERY ── */
 .filter-bar {
-display: flex;
-gap: .5rem;
-flex-wrap: wrap;
-margin-bottom: 3rem;
+  display: flex;
+  gap: .5rem;
+  flex-wrap: wrap;
+  margin-bottom: 3rem;
 }
 .filter-btn {
-padding: .45rem 1.2rem;
-background: transparent;
-border: 1px solid #2a2a2a;
-border-radius: 2px;
-color: #888888;
-font-family: ‘DM Sans’, sans-serif;
-font-size: .72rem;
-letter-spacing: .1em;
-text-transform: uppercase;
-transition: all .25s;
-outline: none;
-cursor: pointer;
+  padding: .45rem 1.2rem;
+  background: transparent;
+  border: 1px solid #2a2a2a;
+  border-radius: 2px;
+  color: #888888;
+  font-family: 'DM Sans', sans-serif;
+  font-size: .72rem;
+  letter-spacing: .1em;
+  text-transform: uppercase;
+  transition: all .25s;
+  outline: none;
+  cursor: pointer;
 }
 .filter-btn.active,
 .filter-btn:hover {
-background: #c9a14a;
-border-color: #c9a14a;
-color: #080808;
+  background: #c9a14a;
+  border-color: #c9a14a;
+  color: #080808;
 }
 .masonry-grid {
-columns: 3;
-column-gap: 1.2rem;
+  columns: 3;
+  column-gap: 1.2rem;
 }
 @media (max-width: 900px) { .masonry-grid { columns: 2; } }
 @media (max-width: 560px) { .masonry-grid { columns: 1; } }
+
 .project-card {
-break-inside: avoid;
-margin-bottom: 1.2rem;
-background: #1a1a1a;
-border: 1px solid #242424;
-border-radius: 4px;
-overflow: hidden;
-position: relative;
-cursor: pointer;
-transition: transform .4s cubic-bezier(.16,1,.3,1), box-shadow .4s cubic-bezier(.16,1,.3,1), border-color .3s;
+  break-inside: avoid;
+  margin-bottom: 1.2rem;
+  background: #1a1a1a;
+  border: 1px solid #242424;
+  border-radius: 4px;
+  overflow: hidden;
+  position: relative;
+  cursor: pointer;
+  transition: transform .4s cubic-bezier(.16,1,.3,1), box-shadow .4s cubic-bezier(.16,1,.3,1), border-color .3s;
 }
 .project-card:hover {
-transform: translateY(-4px);
-box-shadow: 0 20px 60px rgba(0,0,0,0.6), 0 0 0 1px #9a7530;
-border-color: #9a7530;
+  transform: translateY(-4px);
+  box-shadow: 0 20px 60px rgba(0,0,0,0.6), 0 0 0 1px #9a7530;
+  border-color: #9a7530;
 }
 .project-img-wrap {
-width: 100%;
-position: relative;
-background: #141414;
-overflow: hidden;
+  width: 100%;
+  position: relative;
+  /* PERF: GPU-composited layer so hover scale doesn't repaint the whole page */
+  will-change: transform;
+  background: #141414;
+  overflow: hidden;
 }
 .project-img-wrap img {
-width: 100%;
-height: 100%;
-object-fit: cover;
-display: block;
-transition: transform .5s cubic-bezier(.16,1,.3,1);
+  width: 100%;
+  height: 100%;
+  object-fit: cover;
+  display: block;
+  transition: transform .5s cubic-bezier(.16,1,.3,1);
+  /* PERF: decode off the main thread so it never jank-blocks layout */
+  content-visibility: auto;
 }
 .project-card:hover .project-img-wrap img { transform: scale(1.03); }
 .project-img-wrap.tall   { height: 340px; }
 .project-img-wrap.medium { height: 240px; }
 .project-img-wrap.short  { height: 180px; }
 .project-overlay {
-position: absolute;
-inset: 0;
-background: linear-gradient(to top, rgba(8,8,8,0.92) 0%, rgba(8,8,8,0.3) 50%, transparent 100%);
-opacity: 0;
-transition: opacity .35s cubic-bezier(.16,1,.3,1);
-display: flex;
-align-items: flex-end;
-padding: 1.4rem;
-z-index: 2;
+  position: absolute;
+  inset: 0;
+  background: linear-gradient(to top, rgba(8,8,8,0.92) 0%, rgba(8,8,8,0.3) 50%, transparent 100%);
+  opacity: 0;
+  transition: opacity .35s cubic-bezier(.16,1,.3,1);
+  display: flex;
+  align-items: flex-end;
+  padding: 1.4rem;
+  z-index: 2;
 }
 .project-card:hover .project-overlay { opacity: 1; }
 .project-cat {
-font-size: .62rem;
-letter-spacing: .18em;
-text-transform: uppercase;
-color: #c9a14a;
-display: block;
-margin-bottom: .3rem;
+  font-size: .62rem;
+  letter-spacing: .18em;
+  text-transform: uppercase;
+  color: #c9a14a;
+  display: block;
+  margin-bottom: .3rem;
 }
 .project-title {
-font-family: ‘Cormorant Garamond’, serif;
-font-size: 1.15rem;
-font-weight: 400;
-color: #f5f2ed;
-line-height: 1.2;
+  font-family: 'Cormorant Garamond', serif;
+  font-size: 1.15rem;
+  font-weight: 400;
+  color: #f5f2ed;
+  line-height: 1.2;
 }
 
 /* ── CONTACT ── */
 #contact { text-align: center; }
 .contact-inner { max-width: 640px; margin: 0 auto; }
 .contact-headline {
-font-family: ‘Cormorant Garamond’, serif;
-font-size: clamp(2.4rem, 5vw, 4rem);
-font-weight: 300;
-color: #f5f2ed;
-line-height: 1.1;
-margin-bottom: 1.2rem;
+  font-family: 'Cormorant Garamond', serif;
+  font-size: clamp(2.4rem, 5vw, 4rem);
+  font-weight: 300;
+  color: #f5f2ed;
+  line-height: 1.1;
+  margin-bottom: 1.2rem;
 }
 .contact-headline em { font-style: italic; color: #e2bc72; }
 .contact-sub { color: #888888; margin-bottom: 3rem; font-size: .95rem; }
 .contact-ctas {
-display: flex;
-gap: 1rem;
-justify-content: center;
-flex-wrap: wrap;
-margin-bottom: 3.5rem;
+  display: flex;
+  gap: 1rem;
+  justify-content: center;
+  flex-wrap: wrap;
+  margin-bottom: 3.5rem;
 }
 .contact-details {
-display: flex;
-flex-direction: column;
-gap: .8rem;
-padding: 2rem;
-background: #141414;
-border: 1px solid #242424;
-border-radius: 4px;
-text-align: left;
+  display: flex;
+  flex-direction: column;
+  gap: .8rem;
+  padding: 2rem;
+  background: #141414;
+  border: 1px solid #242424;
+  border-radius: 4px;
+  text-align: left;
 }
 .contact-row {
-display: flex;
-align-items: center;
-gap: 1rem;
-font-size: .85rem;
-color: #d8d0c4;
+  display: flex;
+  align-items: center;
+  gap: 1rem;
+  font-size: .85rem;
+  color: #d8d0c4;
 }
 .contact-icon { color: #c9a14a; font-size: 1rem; width: 20px; }
 .contact-row a { color: #d8d0c4; text-decoration: none; transition: color .2s; }
@@ -528,108 +539,108 @@ color: #d8d0c4;
 
 /* ── FOOTER ── */
 footer {
-border-top: 1px solid #242424;
-padding: 2.5rem 4rem;
-display: flex;
-align-items: center;
-justify-content: space-between;
-flex-wrap: wrap;
-gap: 1rem;
+  border-top: 1px solid #242424;
+  padding: 2.5rem 4rem;
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  flex-wrap: wrap;
+  gap: 1rem;
 }
 .footer-logo {
-font-family: ‘Bebas Neue’, sans-serif;
-font-size: 1.2rem;
-letter-spacing: .1em;
-color: #666666;
-text-decoration: none;
+  font-family: 'Bebas Neue', sans-serif;
+  font-size: 1.2rem;
+  letter-spacing: .1em;
+  color: #666666;
+  text-decoration: none;
 }
 .footer-logo span { color: #c9a14a; }
 .footer-copy { font-size: .72rem; color: #333333; letter-spacing: .08em; }
 .footer-social { display: flex; gap: 1.2rem; }
 .footer-social a {
-font-size: .72rem;
-letter-spacing: .12em;
-text-transform: uppercase;
-color: #666666;
-text-decoration: none;
-transition: color .2s;
+  font-size: .72rem;
+  letter-spacing: .12em;
+  text-transform: uppercase;
+  color: #666666;
+  text-decoration: none;
+  transition: color .2s;
 }
 .footer-social a:hover { color: #c9a14a; }
 
 /* ── LIGHTBOX ── */
 #lightbox {
-display: none;
-position: fixed;
-inset: 0;
-background: rgba(0,0,0,0.92);
-z-index: 500;
-align-items: center;
-justify-content: center;
-backdrop-filter: blur(8px);
--webkit-backdrop-filter: blur(8px);
+  display: none;
+  position: fixed;
+  inset: 0;
+  background: rgba(0,0,0,0.92);
+  z-index: 500;
+  align-items: center;
+  justify-content: center;
+  backdrop-filter: blur(8px);
+  -webkit-backdrop-filter: blur(8px);
 }
 #lightbox.open { display: flex; }
 #lightbox-inner {
-background: #1a1a1a;
-border: 1px solid #2a2a2a;
-border-radius: 4px;
-max-width: 700px;
-width: 90%;
-overflow: hidden;
-position: relative;
-animation: fadeUp .4s cubic-bezier(.16,1,.3,1);
+  background: #1a1a1a;
+  border: 1px solid #2a2a2a;
+  border-radius: 4px;
+  max-width: 700px;
+  width: 90%;
+  overflow: hidden;
+  position: relative;
+  animation: fadeUp .4s cubic-bezier(.16,1,.3,1);
 }
 #lightbox-img-wrap {
-width: 100%;
-max-height: 420px;
-overflow: hidden;
-background: #141414;
-display: flex;
-align-items: center;
-justify-content: center;
+  width: 100%;
+  max-height: 420px;
+  overflow: hidden;
+  background: #141414;
+  display: flex;
+  align-items: center;
+  justify-content: center;
 }
 #lightbox-img-wrap img {
-width: 100%;
-height: 100%;
-object-fit: contain;
-display: block;
+  width: 100%;
+  height: 100%;
+  object-fit: contain;
+  display: block;
 }
 #lightbox-body { padding: 1.5rem 2rem; }
 #lightbox-cat { font-size: .65rem; letter-spacing: .2em; text-transform: uppercase; color: #c9a14a; }
 #lightbox-title {
-font-family: ‘Cormorant Garamond’, serif;
-font-size: 1.6rem;
-color: #f5f2ed;
-margin: .3rem 0 .6rem;
+  font-family: 'Cormorant Garamond', serif;
+  font-size: 1.6rem;
+  color: #f5f2ed;
+  margin: .3rem 0 .6rem;
 }
 #lightbox-desc { font-size: .88rem; color: #888888; line-height: 1.7; }
 #lightbox-close {
-position: absolute;
-top: 1rem; right: 1rem;
-background: none;
-border: none;
-color: #666666;
-font-size: 1.4rem;
-cursor: pointer;
-transition: color .2s;
-outline: none;
-z-index: 10;
+  position: absolute;
+  top: 1rem; right: 1rem;
+  background: none;
+  border: none;
+  color: #666666;
+  font-size: 1.4rem;
+  cursor: pointer;
+  transition: color .2s;
+  outline: none;
+  z-index: 10;
 }
 #lightbox-close:hover { color: #c9a14a; }
 
 /* ── ANIMATIONS ── */
 @keyframes fadeUp {
-from { opacity: 0; transform: translateY(28px); }
-to   { opacity: 1; transform: translateY(0); }
+  from { opacity: 0; transform: translateY(28px); }
+  to   { opacity: 1; transform: translateY(0); }
 }
 @keyframes scrollPulse {
-0%, 100% { opacity: .3; transform: scaleY(1); }
-50%       { opacity: 1;  transform: scaleY(1.1); }
+  0%, 100% { opacity: .3; transform: scaleY(1); }
+  50%       { opacity: 1;  transform: scaleY(1.1); }
 }
 .reveal {
-opacity: 0;
-transform: translateY(32px);
-transition: opacity .8s cubic-bezier(.16,1,.3,1), transform .8s cubic-bezier(.16,1,.3,1);
+  opacity: 0;
+  transform: translateY(32px);
+  transition: opacity .8s cubic-bezier(.16,1,.3,1), transform .8s cubic-bezier(.16,1,.3,1);
 }
 .reveal.visible { opacity: 1; transform: translateY(0); }
 .reveal-delay-1 { transition-delay: .1s; }
@@ -639,17 +650,16 @@ transition: opacity .8s cubic-bezier(.16,1,.3,1), transform .8s cubic-bezier(.16
 
 /* ── MOBILE ── */
 @media (max-width: 768px) {
-nav { padding: 1.2rem 1.5rem; }
-.nav-links { gap: 1.4rem; }
-.nav-links a { font-size: .7rem; }
-#hero { padding: 7rem 1.5rem 5rem; }
-section { padding: 5rem 1.5rem; }
-#about .about-grid { grid-template-columns: 1fr; gap: 2.5rem; }
-footer { padding: 2rem 1.5rem; flex-direction: column; align-items: flex-start; }
-#theme-toggle { bottom: 1.2rem; right: 1.2rem; width: 44px; height: 44px; }
+  nav { padding: 1.2rem 1.5rem; }
+  .nav-links { gap: 1.4rem; }
+  .nav-links a { font-size: .7rem; }
+  #hero { padding: 7rem 1.5rem 5rem; }
+  section { padding: 5rem 1.5rem; }
+  #about .about-grid { grid-template-columns: 1fr; gap: 2.5rem; }
+  footer { padding: 2rem 1.5rem; flex-direction: column; align-items: flex-start; }
 }
 @media (max-width: 480px) {
-.nav-links { display: none; }
+  .nav-links { display: none; }
 }
 
 .project-card.hidden { display: none; }
@@ -659,10 +669,6 @@ footer { padding: 2rem 1.5rem; flex-direction: column; align-items: flex-start; 
 
 </head>
 <body>
-
-<!-- ── LIGHT MODE TOGGLE ── -->
-
-
 
 <!-- ══ LIGHTBOX ══ -->
 
@@ -695,7 +701,22 @@ footer { padding: 2rem 1.5rem; flex-direction: column; align-items: flex-start; 
 
 <div id="hero">
   <div class="hero-portrait-bg">
-    <img src="IMG_8832.jpeg" alt="Wilfred Tengolyin" loading="eager"/>
+    <!--
+      PERF FIXES on hero image:
+        • loading="eager"   → do not defer (above the fold, visible immediately)
+        • fetchpriority="high" → browser allocates max bandwidth to this first
+        • decoding="async"  → decode off the main thread (no jank)
+        • width/height      → browser can reserve space before the file arrives → zero CLS
+    -->
+    <img
+      src="IMG_8832.jpeg"
+      alt="Wilfred Tengolyin"
+      loading="eager"
+      fetchpriority="high"
+      decoding="async"
+      width="1920"
+      height="1080"
+    />
   </div>
   <div class="hero-bg-grid"></div>
   <div class="hero-glow"></div>
@@ -736,7 +757,19 @@ footer { padding: 2rem 1.5rem; flex-direction: column; align-items: flex-start; 
   <div class="about-grid">
     <div class="about-portrait reveal reveal-delay-1">
       <div class="portrait-frame">
-        <img src="IMG_8831.jpeg" alt="Wilfred Tengolyin portrait"/>
+        <!--
+          PERF: loading="lazy" → browser skips this until user scrolls near it.
+          decoding="async"    → never blocks the main thread.
+          width/height        → aspect-ratio is preserved; zero layout shift.
+        -->
+        <img
+          src="IMG_8831.jpeg"
+          alt="Wilfred Tengolyin portrait"
+          loading="lazy"
+          decoding="async"
+          width="900"
+          height="1200"
+        />
         <div class="portrait-corner-br"></div>
       </div>
     </div>
@@ -790,7 +823,7 @@ footer { padding: 2rem 1.5rem; flex-direction: column; align-items: flex-start; 
 
   <div class="masonry-grid">
 
-
+```
 <!-- PROJECT 01 -->
 <div class="project-card reveal"
      data-category="graphic"
@@ -798,11 +831,16 @@ footer { padding: 2rem 1.5rem; flex-direction: column; align-items: flex-start; 
      data-desc="A clean, editorial-style digital biography layout featuring artist Nate Feuerstein (NF). This project demonstrates a strong command of grid systems, balanced whitespace, and high-contrast typography to create a professional publication feel."
      onclick="openLightbox(this)">
   <div class="project-img-wrap tall">
-    <img src="IMG_8806.jpeg"/>
+    <!--
+      First gallery image: loading="lazy" defers it until the user scrolls down.
+      All gallery images get lazy + async — only the hero gets eager/high-priority.
+    -->
+    <img src="IMG_8806.jpeg" alt="Editorial Layout NF Artist Profile" loading="lazy" decoding="async" width="800" height="1133"/>
   </div>
   <div class="project-overlay">
     <div class="project-info">
       <span class="project-cat">Graphic Design</span>
+      <p class="project-title">Editorial Layout — NF Artist Profile</p>
     </div>
   </div>
 </div>
@@ -814,7 +852,7 @@ footer { padding: 2rem 1.5rem; flex-direction: column; align-items: flex-start; 
      data-desc="A dramatic, low-key photography concept focusing on texture and form. The use of a warm, directional orange light source creates a sharp silhouette and highlights the leather details of the classic sneakers."
      onclick="openLightbox(this)">
   <div class="project-img-wrap medium">
-    <img src="IMG_8807.jpeg" alt="Sneaker Study Warm Light"/>
+    <img src="IMG_8807.jpeg" alt="Sneaker Study Warm Light" loading="lazy" decoding="async" width="800" height="600"/>
   </div>
   <div class="project-overlay">
     <div class="project-info">
@@ -831,7 +869,7 @@ footer { padding: 2rem 1.5rem; flex-direction: column; align-items: flex-start; 
      data-desc="A sharp product study of classic sneakers, emphasizing the high-gloss finish and sleek contours of the leather. The moody, low-key lighting highlights the wet look texture and premium build, creating a luxury aesthetic."
      onclick="openLightbox(this)">
   <div class="project-img-wrap short">
-    <img src="IMG_8808.jpeg"/>
+    <img src="IMG_8808.jpeg" alt="Sneaker Study Gloss and Contour" loading="lazy" decoding="async" width="800" height="450"/>
   </div>
   <div class="project-overlay">
     <div class="project-info">
@@ -848,7 +886,7 @@ footer { padding: 2rem 1.5rem; flex-direction: column; align-items: flex-start; 
      data-desc="A dramatic, low-key product photograph of a classic white sneaker. The composition uses warm, directional lighting to highlight the textures of the leather and the iconic silhouette against a deep, moody background."
      onclick="openLightbox(this)">
   <div class="project-img-wrap medium">
-    <img src="IMG_8809.jpeg"/>
+    <img src="IMG_8809.jpeg" alt="Sneaker Study Moody Silhouette" loading="lazy" decoding="async" width="800" height="600"/>
   </div>
   <div class="project-overlay">
     <div class="project-info">
@@ -861,17 +899,16 @@ footer { padding: 2rem 1.5rem; flex-direction: column; align-items: flex-start; 
 <!-- PROJECT 05 -->
 <div class="project-card reveal reveal-delay-1"
      data-category="branding"
-     
+     data-title="Givenchy Luminous Loafers"
      data-desc="A professional product shot of Givenchy loafers featuring embossed logo detailing, highlighted by dramatic blue teal lighting and a contrasting orange background."
-
      onclick="openLightbox(this)">
   <div class="project-img-wrap tall">
-    <img src="IMG_8810.jpeg" />
+    <img src="IMG_8810.jpeg" alt="Givenchy Luminous Loafers" loading="lazy" decoding="async" width="800" height="1133"/>
   </div>
   <div class="project-overlay">
     <div class="project-info">
       <span class="project-cat">Branding</span>
-        <p class="project-title">Givenchy luminous Loafers</p>
+      <p class="project-title">Givenchy Luminous Loafers</p>
     </div>
   </div>
 </div>
@@ -879,16 +916,16 @@ footer { padding: 2rem 1.5rem; flex-direction: column; align-items: flex-start; 
 <!-- PROJECT 06 -->
 <div class="project-card reveal reveal-delay-2"
      data-category="branding"
-   
-     data-desc=" A creative product shot featuring a luxury loafer balanced on an open hand, set against a warm amber backdrop with high-contrast, golden lighting."
+     data-title="Golden Balance"
+     data-desc="A creative product shot featuring a luxury loafer balanced on an open hand, set against a warm amber backdrop with high-contrast, golden lighting."
      onclick="openLightbox(this)">
   <div class="project-img-wrap short">
-    <img src="IMG_8904.jpeg" />
+    <img src="IMG_8904.jpeg" alt="Golden Balance" loading="lazy" decoding="async" width="800" height="450"/>
   </div>
   <div class="project-overlay">
     <div class="project-info">
       <span class="project-cat">Branding</span>
-        <p class="project-title">Golden Balance</p>
+      <p class="project-title">Golden Balance</p>
     </div>
   </div>
 </div>
@@ -896,16 +933,16 @@ footer { padding: 2rem 1.5rem; flex-direction: column; align-items: flex-start; 
 <!-- PROJECT 07 -->
 <div class="project-card reveal"
      data-category="branding"
-     
+     data-title="Textured Elegance"
      data-desc="A detailed close-up showcasing the fine textures and embossed branding of premium black loafers, arranged to emphasize craftsmanship and material quality."
      onclick="openLightbox(this)">
   <div class="project-img-wrap short">
-    <img src="IMG_8905.jpeg" />
+    <img src="IMG_8905.jpeg" alt="Textured Elegance" loading="lazy" decoding="async" width="800" height="450"/>
   </div>
   <div class="project-overlay">
     <div class="project-info">
       <span class="project-cat">Branding</span>
-        <p class="project-title">Textured Elegance</p>
+      <p class="project-title">Textured Elegance</p>
     </div>
   </div>
 </div>
@@ -913,16 +950,16 @@ footer { padding: 2rem 1.5rem; flex-direction: column; align-items: flex-start; 
 <!-- PROJECT 08 -->
 <div class="project-card reveal reveal-delay-1"
      data-category="photo"
-  
+     data-title="The Path Ahead"
      data-desc="A low-angle, wide-framed shot of a person with a backpack walking along a paved path on KNUST campus, framed by lush overhanging trees and soft, natural daylight."
      onclick="openLightbox(this)">
   <div class="project-img-wrap tall">
-    <img src="IMG_8906.jpeg" />
+    <img src="IMG_8906.jpeg" alt="The Path Ahead" loading="lazy" decoding="async" width="800" height="1133"/>
   </div>
   <div class="project-overlay">
     <div class="project-info">
-      <span class="project-cat">Photo concept</span>
-        <p class="project-title">The Path Ahead</p>
+      <span class="project-cat">Photo Concept</span>
+      <p class="project-title">The Path Ahead</p>
     </div>
   </div>
 </div>
@@ -930,16 +967,16 @@ footer { padding: 2rem 1.5rem; flex-direction: column; align-items: flex-start; 
 <!-- PROJECT 09 -->
 <div class="project-card reveal reveal-delay-2"
      data-category="photo"
-     
-     data-desc=" A powerful low-angle view of the iconic KNUST monument, capturing the statue's reach toward the Kumasi sky as a tribute to the strength and academic ambition of the African woman."
+     data-title="Academic Ambition"
+     data-desc="A powerful low-angle view of the iconic KNUST monument, capturing the statue's reach toward the Kumasi sky as a tribute to the strength and academic ambition of the African woman."
      onclick="openLightbox(this)">
   <div class="project-img-wrap medium">
-    <img src="IMG_8907.jpeg" />
+    <img src="IMG_8907.jpeg" alt="Academic Ambition" loading="lazy" decoding="async" width="800" height="600"/>
   </div>
   <div class="project-overlay">
     <div class="project-info">
-      <span class="project-cat">Photo concept</span>
-        <p class="project-title">Academic Ambition</p>
+      <span class="project-cat">Photo Concept</span>
+      <p class="project-title">Academic Ambition</p>
     </div>
   </div>
 </div>
@@ -947,15 +984,15 @@ footer { padding: 2rem 1.5rem; flex-direction: column; align-items: flex-start; 
 <!-- PROJECT 10 -->
 <div class="project-card reveal"
      data-category="photo"
-     
-     data-desc=" A perspective shot of the J. Harper Building corridor, featuring vibrant potted plants that add a touch of nature to the academic architecture under a warm wooden ceiling."
+     data-title="Corridor Greenery"
+     data-desc="A perspective shot of the J. Harper Building corridor, featuring vibrant potted plants that add a touch of nature to the academic architecture under a warm wooden ceiling."
      onclick="openLightbox(this)">
   <div class="project-img-wrap medium">
-    <img src="IMG_8908.jpeg" />
+    <img src="IMG_8908.jpeg" alt="Corridor Greenery" loading="lazy" decoding="async" width="800" height="600"/>
   </div>
   <div class="project-overlay">
     <div class="project-info">
-      <span class="project-cat">Photo concept</span>
+      <span class="project-cat">Photo Concept</span>
       <p class="project-title">Corridor Greenery</p>
     </div>
   </div>
@@ -964,16 +1001,16 @@ footer { padding: 2rem 1.5rem; flex-direction: column; align-items: flex-start; 
 <!-- PROJECT 11 -->
 <div class="project-card reveal reveal-delay-1"
      data-category="photo"
-     
+     data-title="KNUST Main Administration Block"
      data-desc="This photo shows the KNUST Main Administration Block. It features a clean, repetitive window grid and bold yellow columns that create a sharp, professional look."
      onclick="openLightbox(this)">
   <div class="project-img-wrap tall">
-    <img src="IMG_8909.jpeg"/>
+    <img src="IMG_8909.jpeg" alt="KNUST Main Administration Block" loading="lazy" decoding="async" width="800" height="1133"/>
   </div>
   <div class="project-overlay">
     <div class="project-info">
-      <span class="project-cat">Photo concept</span>
-      <p class="project-title">KNUST Main Administration Block </p>
+      <span class="project-cat">Photo Concept</span>
+      <p class="project-title">KNUST Main Administration Block</p>
     </div>
   </div>
 </div>
@@ -981,11 +1018,11 @@ footer { padding: 2rem 1.5rem; flex-direction: column; align-items: flex-start; 
 <!-- PROJECT 12 -->
 <div class="project-card reveal reveal-delay-2"
      data-category="photo"
-     
+     data-title="Architectural Perspective"
      data-desc="This shot focuses on the textures and leading lines of the campus environment. The patterned brickwork and natural greenery create a balanced, professional composition that highlights spatial design."
      onclick="openLightbox(this)">
   <div class="project-img-wrap short">
-    <img src="IMG_8910.jpeg" />
+    <img src="IMG_8910.jpeg" alt="Architectural Perspective" loading="lazy" decoding="async" width="800" height="450"/>
   </div>
   <div class="project-overlay">
     <div class="project-info">
@@ -998,11 +1035,11 @@ footer { padding: 2rem 1.5rem; flex-direction: column; align-items: flex-start; 
 <!-- PROJECT 13 -->
 <div class="project-card reveal"
      data-category="photo"
-     
+     data-title="Croton Plant"
      data-desc="This piece highlights the vibrant colors and complex vein patterns of the Croton plant. The mix of bright yellow and deep green provides a natural, high contrast look that feels both artistic and bold."
      onclick="openLightbox(this)">
   <div class="project-img-wrap medium">
-    <img src="IMG_8916.jpeg" />
+    <img src="IMG_8916.jpeg" alt="Croton Plant" loading="lazy" decoding="async" width="800" height="600"/>
   </div>
   <div class="project-overlay">
     <div class="project-info">
@@ -1015,11 +1052,11 @@ footer { padding: 2rem 1.5rem; flex-direction: column; align-items: flex-start; 
 <!-- PROJECT 14 -->
 <div class="project-card reveal reveal-delay-1"
      data-category="photo"
-     
+     data-title="Pine Tree"
      data-desc="This photograph explores a unique low angle perspective of a pine tree, emphasizing its radiating branch structure. The repetitive, star-like pattern creates a sense of natural symmetry and organic depth."
      onclick="openLightbox(this)">
   <div class="project-img-wrap short">
-    <img src="IMG_8917.jpeg"/>
+    <img src="IMG_8917.jpeg" alt="Pine Tree" loading="lazy" decoding="async" width="800" height="450"/>
   </div>
   <div class="project-overlay">
     <div class="project-info">
@@ -1032,11 +1069,11 @@ footer { padding: 2rem 1.5rem; flex-direction: column; align-items: flex-start; 
 <!-- PROJECT 15 -->
 <div class="project-card reveal reveal-delay-2"
      data-category="photo"
-     
+     data-title="Pink Ixora Flowers"
      data-desc="A high-definition close-up of deep pink Ixora flowers, highlighting their four-petaled structure and delicate textures against a soft, natural background."
      onclick="openLightbox(this)">
   <div class="project-img-wrap tall">
-    <img src="IMG_8918.jpeg"/>
+    <img src="IMG_8918.jpeg" alt="Pink Ixora Flowers" loading="lazy" decoding="async" width="800" height="1133"/>
   </div>
   <div class="project-overlay">
     <div class="project-info">
@@ -1049,11 +1086,11 @@ footer { padding: 2rem 1.5rem; flex-direction: column; align-items: flex-start; 
 <!-- PROJECT 16 -->
 <div class="project-card reveal"
      data-category="photo"
-     
+     data-title="Botanical Agave Symmetry"
      data-desc="A striking top-down shot of a variegated agave plant, showcasing its sharp, linear leaves and natural geometric symmetry in vibrant shades of green and cream."
      onclick="openLightbox(this)">
   <div class="project-img-wrap medium">
-    <img src="IMG_8919.jpeg" />
+    <img src="IMG_8919.jpeg" alt="Botanical Agave Symmetry" loading="lazy" decoding="async" width="800" height="600"/>
   </div>
   <div class="project-overlay">
     <div class="project-info">
@@ -1070,7 +1107,7 @@ footer { padding: 2rem 1.5rem; flex-direction: column; align-items: flex-start; 
      data-desc="A low-angle shot emphasising the intricate, repetitive leaflets of a fern branch, using a shallow depth of field to create a soft, cinematic atmosphere."
      onclick="openLightbox(this)">
   <div class="project-img-wrap short">
-    <img src="IMG_8920.jpeg"/>
+    <img src="IMG_8920.jpeg" alt="Botanical Fern Depth" loading="lazy" decoding="async" width="800" height="450"/>
   </div>
   <div class="project-overlay">
     <div class="project-info">
@@ -1080,14 +1117,14 @@ footer { padding: 2rem 1.5rem; flex-direction: column; align-items: flex-start; 
   </div>
 </div>
 
-<!-- PROJECT 18 — add src when ready -->
+<!-- PROJECT 18 -->
 <div class="project-card reveal reveal-delay-2"
      data-category="motion"
-     
+     data-title="Double Exposure"
      data-desc="This piece utilizes a double exposure effect to blend a portrait with an outdoor setting. The composition creates a thoughtful, layered narrative by merging a focused subject with the soft textures of the surrounding environment."
      onclick="openLightbox(this)">
   <div class="project-img-wrap medium">
-    <img src="IMG_8894.jpeg" />
+    <img src="IMG_8894.jpeg" alt="Double Exposure" loading="lazy" decoding="async" width="800" height="600"/>
   </div>
   <div class="project-overlay">
     <div class="project-info">
@@ -1097,363 +1134,24 @@ footer { padding: 2rem 1.5rem; flex-direction: column; align-items: flex-start; 
   </div>
 </div>
 
-<!-- PROJECT 19 — add src when ready -->
-<div class="project-card reveal"
-     data-category="graphic"
-     data-title="Graphic Design — XIX"
-     data-desc="A graphic design composition blending colour, form, and typography in an expressive layout."
-     onclick="openLightbox(this)">
-  <div class="project-img-wrap tall">
-    <img src="" alt="Graphic Design XIX"/>
-  </div>
-  <div class="project-overlay">
-    <div class="project-info">
-      <span class="project-cat">Graphic Design</span>
-      <p class="project-title">Graphic Design — XIX</p>
-    </div>
-  </div>
+<!--
+  Projects 19–39: placeholder cards with no src.
+  The JS below hides these automatically.
+  No img tag at all → zero wasted network requests.
+-->
+<div class="project-card reveal placeholder-card" data-category="graphic" data-title="Graphic Design — XIX" data-desc="A graphic design composition blending colour, form, and typography in an expressive layout." onclick="openLightbox(this)">
+  <div class="project-img-wrap tall"></div>
+  <div class="project-overlay"><div class="project-info"><span class="project-cat">Graphic Design</span><p class="project-title">Graphic Design — XIX</p></div></div>
 </div>
-
-<!-- PROJECT 20 — add src when ready -->
-<div class="project-card reveal reveal-delay-1"
-     data-category="branding"
-     data-title="Branding — XX"
-     data-desc="A branding project exploring identity systems, logo design, and visual language for a concept brand."
-     onclick="openLightbox(this)">
-  <div class="project-img-wrap short">
-    <img src="" alt="Branding XX" />
-  </div>
-  <div class="project-overlay">
-    <div class="project-info">
-      <span class="project-cat">Branding</span>
-      <p class="project-title">Branding — XX</p>
-    </div>
-  </div>
+<div class="project-card reveal reveal-delay-1 placeholder-card" data-category="branding" data-title="Branding — XX" data-desc="A branding project exploring identity systems, logo design, and visual language for a concept brand." onclick="openLightbox(this)">
+  <div class="project-img-wrap short"></div>
+  <div class="project-overlay"><div class="project-info"><span class="project-cat">Branding</span><p class="project-title">Branding — XX</p></div></div>
 </div>
-
-<!-- PROJECT 21 — add src when ready -->
-<div class="project-card reveal reveal-delay-2"
-     data-category="typography"
-     data-title="Typography — XXI"
-     data-desc="A typographic study exploring letterform relationships, hierarchy, and expressive type layout."
-     onclick="openLightbox(this)">
-  <div class="project-img-wrap medium">
-    <img src="" alt="Typography XXI" />
-  </div>
-  <div class="project-overlay">
-    <div class="project-info">
-      <span class="project-cat">Typography</span>
-      <p class="project-title">Typography — XXI</p>
-    </div>
-  </div>
+<div class="project-card reveal reveal-delay-2 placeholder-card" data-category="typography" data-title="Typography — XXI" data-desc="A typographic study exploring letterform relationships, hierarchy, and expressive type layout." onclick="openLightbox(this)">
+  <div class="project-img-wrap medium"></div>
+  <div class="project-overlay"><div class="project-info"><span class="project-cat">Typography</span><p class="project-title">Typography — XXI</p></div></div>
 </div>
-
-<!-- PROJECT 22 — add src when ready -->
-<div class="project-card reveal"
-     data-category="graphic"
-     data-title="Graphic Design — XXII"
-     data-desc="An expressive graphic design piece combining bold visual elements with purposeful composition."
-     onclick="openLightbox(this)">
-  <div class="project-img-wrap tall">
-    <img src="" alt="Graphic Design XXII" />
-  </div>
-  <div class="project-overlay">
-    <div class="project-info">
-      <span class="project-cat">Graphic Design</span>
-      <p class="project-title">Graphic Design — XXII</p>
-    </div>
-  </div>
-</div>
-
-<!-- PROJECT 23 — add src when ready -->
-<div class="project-card reveal reveal-delay-1"
-     data-category="photo"
-     data-title="Photo Concept — XXIII"
-     data-desc="A conceptual photography piece exploring light, shadow, and narrative within the frame."
-     onclick="openLightbox(this)">
-  <div class="project-img-wrap short">
-    <img src="" alt="Photo Concept XXIII" />
-  </div>
-  <div class="project-overlay">
-    <div class="project-info">
-      <span class="project-cat">Photo Concept</span>
-      <p class="project-title">Photo Concept — XXIII</p>
-    </div>
-  </div>
-</div>
-
-<!-- PROJECT 24 — add src when ready -->
-<div class="project-card reveal reveal-delay-2"
-     data-category="branding"
-     data-title="Branding — XXIV"
-     data-desc="A cohesive brand identity project exploring visual consistency, mark-making, and colour systems."
-     onclick="openLightbox(this)">
-  <div class="project-img-wrap medium">
-    <img src="" />
-  </div>
-  <div class="project-overlay">
-    <div class="project-info">
-      <span class="project-cat">Branding</span>
-      <p class="project-title">Branding — XXIV</p>
-    </div>
-  </div>
-</div>
-
-<!-- PROJECT 25 — add src when ready -->
-<div class="project-card reveal"
-     data-category="motion"
-     data-title="Motion Design — XXV"
-     data-desc="A kinetic design piece exploring fluid motion, transition, and rhythm through animation."
-     onclick="openLightbox(this)">
-  <div class="project-img-wrap tall">
-    <img src="" alt="Motion Design XXV" />
-  </div>
-  <div class="project-overlay">
-    <div class="project-info">
-      <span class="project-cat">Motion / Animation</span>
-      <p class="project-title">Motion Design — XXV</p>
-    </div>
-  </div>
-</div>
-
-<!-- PROJECT 26 — add src when ready -->
-<div class="project-card reveal reveal-delay-1"
-     data-category="graphic"
-     data-title="Graphic Design — XXVI"
-     data-desc="A graphic layout study in composition, contrast, and visual communication."
-     onclick="openLightbox(this)">
-  <div class="project-img-wrap short">
-    <img src="" alt="Graphic Design XXVI"/>
-  </div>
-  <div class="project-overlay">
-    <div class="project-info">
-      <span class="project-cat">Graphic Design</span>
-      <p class="project-title">Graphic Design — XXVI</p>
-    </div>
-  </div>
-</div>
-
-<!-- PROJECT 27 — add src when ready -->
-<div class="project-card reveal reveal-delay-2"
-     data-category="typography"
-     data-title="Typography — XXVII"
-     data-desc="A display typography exploration using geometric and expressive typefaces in a structured layout."
-     onclick="openLightbox(this)">
-  <div class="project-img-wrap medium">
-    <img src="" alt="Typography XXVII"/>
-  </div>
-  <div class="project-overlay">
-    <div class="project-info">
-      <span class="project-cat">Typography</span>
-      <p class="project-title">Typography — XXVII</p>
-    </div>
-  </div>
-</div>
-
-<!-- PROJECT 28 — add src when ready -->
-<div class="project-card reveal"
-     data-category="photo"
-     data-title="Photo Concept — XXVIII"
-     data-desc="A photography concept exploring pattern, repetition, and natural form through careful framing."
-     onclick="openLightbox(this)">
-  <div class="project-img-wrap tall">
-    <img src="" alt="Photo Concept XXVIII" />
-  </div>
-  <div class="project-overlay">
-    <div class="project-info">
-      <span class="project-cat">Photo Concept</span>
-      <p class="project-title">Photo Concept — XXVIII</p>
-    </div>
-  </div>
-</div>
-
-<!-- PROJECT 29 — add src when ready -->
-<div class="project-card reveal reveal-delay-1"
-     data-category="branding"
-     data-title="Branding — XXIX"
-     data-desc="Brand identity exploration focusing on logomark refinement and typographic system design."
-     onclick="openLightbox(this)">
-  <div class="project-img-wrap short">
-    <img src="" alt="Branding XXIX"/>
-  </div>
-  <div class="project-overlay">
-    <div class="project-info">
-      <span class="project-cat">Branding</span>
-      <p class="project-title">Branding — XXIX</p>
-    </div>
-  </div>
-</div>
-
-<!-- PROJECT 30 — add src when ready -->
-<div class="project-card reveal reveal-delay-2"
-     data-category="graphic"
-     data-title="Graphic Design — XXX"
-     data-desc="A milestone editorial layout combining all studied principles into a refined, high-impact composition."
-     onclick="openLightbox(this)">
-  <div class="project-img-wrap medium">
-    <img src="" alt="Graphic Design XXX"/>
-  </div>
-  <div class="project-overlay">
-    <div class="project-info">
-      <span class="project-cat">Graphic Design</span>
-      <p class="project-title">Graphic Design — XXX</p>
-    </div>
-  </div>
-</div>
-
-<!-- PROJECT 31 — add src when ready -->
-<div class="project-card reveal"
-     data-category="motion"
-     data-title="Motion Design — XXXI"
-     data-desc="An animation piece exploring morphing shapes and kinetic typography in After Effects."
-     onclick="openLightbox(this)">
-  <div class="project-img-wrap tall">
-    <img src="" alt="Motion Design XXXI"/>
-  </div>
-  <div class="project-overlay">
-    <div class="project-info">
-      <span class="project-cat">Motion / Animation</span>
-      <p class="project-title">Motion Design — XXXI</p>
-    </div>
-  </div>
-</div>
-
-<!-- PROJECT 32 — add src when ready -->
-<div class="project-card reveal reveal-delay-1"
-     data-category="typography"
-     data-title="Typography — XXXII"
-     data-desc="An experimental typography piece pushing the boundaries of legibility and visual form."
-     onclick="openLightbox(this)">
-  <div class="project-img-wrap short">
-    <img src="" alt="Typography XXXII">
-  </div>
-  <div class="project-overlay">
-    <div class="project-info">
-      <span class="project-cat">Typography</span>
-      <p class="project-title">Typography — XXXII</p>
-    </div>
-  </div>
-</div>
-
-<!-- PROJECT 33 — add src when ready -->
-<div class="project-card reveal reveal-delay-2"
-     data-category="graphic"
-     data-title="Graphic Design — XXXIII"
-     data-desc="A graphic design piece exploring spatial relationships, depth, and visual layering."
-     onclick="openLightbox(this)">
-  <div class="project-img-wrap medium">
-    <img src="" alt="Graphic Design XXXIII" />
-  </div>
-  <div class="project-overlay">
-    <div class="project-info">
-      <span class="project-cat">Graphic Design</span>
-      <p class="project-title">Graphic Design — XXXIII</p>
-    </div>
-  </div>
-</div>
-
-<!-- PROJECT 34 — add src when ready -->
-<div class="project-card reveal"
-     data-category="photo"
-     data-title="Photo Concept — XXXIV"
-     data-desc="A conceptual photo study in contrast, texture, and the interplay of natural and artificial light."
-     onclick="openLightbox(this)">
-  <div class="project-img-wrap tall">
-    <img src="" alt="Photo Concept XXXIV"/>
-  </div>
-  <div class="project-overlay">
-    <div class="project-info">
-      <span class="project-cat">Photo Concept</span>
-      <p class="project-title">Photo Concept — XXXIV</p>
-    </div>
-  </div>
-</div>
-
-<!-- PROJECT 35 — add src when ready -->
-<div class="project-card reveal reveal-delay-1"
-     data-category="branding"
-     data-title="Branding — XXXV"
-     data-desc="A brand system study exploring how visual identity elements unify across print and digital applications."
-     onclick="openLightbox(this)">
-  <div class="project-img-wrap short">
-    <img src="" alt="Branding XXXV"/>
-  </div>
-  <div class="project-overlay">
-    <div class="project-info">
-      <span class="project-cat">Branding</span>
-      <p class="project-title">Branding — XXXV</p>
-    </div>
-  </div>
-</div>
-
-<!-- PROJECT 36 — add src when ready -->
-<div class="project-card reveal reveal-delay-2"
-     data-category="motion"
-     data-title="Motion Design — XXXVI"
-     data-desc="A motion graphics reel segment exploring transitions, colour grading, and animated type."
-     onclick="openLightbox(this)">
-  <div class="project-img-wrap medium">
-    <img src="" alt="Motion Design XXXVI"/>
-  </div>
-  <div class="project-overlay">
-    <div class="project-info">
-      <span class="project-cat">Motion / Animation</span>
-      <p class="project-title">Motion Design — XXXVI</p>
-    </div>
-  </div>
-</div>
-
-<!-- PROJECT 37 — add src when ready -->
-<div class="project-card reveal"
-     data-category="graphic"
-     data-title="Graphic Design — XXXVII"
-     data-desc="A poster design study exploring asymmetric composition and the tension between image and text."
-     onclick="openLightbox(this)">
-  <div class="project-img-wrap tall">
-    <img src="" alt="Graphic Design XXXVII"/>
-  </div>
-  <div class="project-overlay">
-    <div class="project-info">
-      <span class="project-cat">Graphic Design</span>
-      <p class="project-title">Graphic Design — XXXVII</p>
-    </div>
-  </div>
-</div>
-
-<!-- PROJECT 38 — add src when ready -->
-<div class="project-card reveal reveal-delay-1"
-     data-category="typography"
-     data-title="Typography — XXXVIII"
-     data-desc="A typographic poster exploring the visual tension between large display type and fine body copy."
-     onclick="openLightbox(this)">
-  <div class="project-img-wrap short">
-    <img src="" alt="Typography XXXVIII"/>
-  </div>
-  <div class="project-overlay">
-    <div class="project-info">
-      <span class="project-cat">Typography</span>
-      <p class="project-title">Typography — XXXVIII</p>
-    </div>
-  </div>
-</div>
-
-<!-- PROJECT 39 — add src when ready -->
-<div class="project-card reveal reveal-delay-2"
-     data-category="graphic"
-     data-title="Graphic Design — XXXIX"
-     data-desc="The final placeholder in the gallery — awaiting a new piece that pushes creative boundaries further."
-     onclick="openLightbox(this)">
-  <div class="project-img-wrap medium">
-    <img src="" alt="Graphic Design XXXIX"/>
-  </div>
-  <div class="project-overlay">
-    <div class="project-info">
-      <span class="project-cat">Graphic Design</span>
-      <p class="project-title">Graphic Design — XXXIX</p>
-    </div>
-  </div>
-</div>
-
+```
 
   </div><!-- /masonry-grid -->
 </section>
@@ -1503,20 +1201,23 @@ footer { padding: 2rem 1.5rem; flex-direction: column; align-items: flex-start; 
 const navbar = document.getElementById('navbar');
 window.addEventListener('scroll', () => {
   navbar.classList.toggle('scrolled', window.scrollY > 60);
-});
+}, { passive: true }); // PERF: passive listener — never blocks scroll
 
 // ── SCROLL REVEAL ──
 const observer = new IntersectionObserver((entries) => {
-  entries.forEach(e => { if (e.isIntersecting) e.target.classList.add('visible'); });
+  entries.forEach(e => {
+    if (e.isIntersecting) {
+      e.target.classList.add('visible');
+      observer.unobserve(e.target); // PERF: stop watching once revealed
+    }
+  });
 }, { threshold: 0.08 });
 document.querySelectorAll('.reveal').forEach(el => observer.observe(el));
 
-// ── AUTO-HIDE CARDS WITH NO IMAGE ──
-document.querySelectorAll('.project-card').forEach(card => {
-  const img = card.querySelector('img');
-  if (!img || !img.getAttribute('src') || img.getAttribute('src').trim() === '') {
-    card.classList.add('hidden');
-  }
+// ── HIDE PLACEHOLDER CARDS (those with no img or empty src) ──
+// We removed the <img> tag entirely from placeholders, so just hide by class
+document.querySelectorAll('.placeholder-card').forEach(card => {
+  card.classList.add('hidden');
 });
 
 // ── GALLERY FILTER ──
@@ -1526,21 +1227,17 @@ document.querySelectorAll('.filter-btn').forEach(btn => {
     btn.classList.add('active');
     const f = btn.dataset.filter;
     document.querySelectorAll('.project-card').forEach(card => {
-      const img = card.querySelector('img');
-      const hasImage = img && img.getAttribute('src') && img.getAttribute('src').trim() !== '';
-      if (!hasImage) { card.classList.add('hidden'); return; }
+      if (card.classList.contains('placeholder-card')) { card.classList.add('hidden'); return; }
       card.classList.toggle('hidden', f !== 'all' && card.dataset.category !== f);
     });
   });
 });
 
 // ── LIGHTBOX ──
-// Reads data-title, data-desc, data-category from the card
-// Falls back to DOM content if attributes missing
 function openLightbox(card) {
   const img = card.querySelector('img');
+  if (!img) return; // no image, nothing to show
 
-  // Category label
   const catLabels = {
     graphic:    'Graphic Design',
     photo:      'Photo Concept',
@@ -1548,17 +1245,15 @@ function openLightbox(card) {
     branding:   'Branding',
     typography: 'Typography'
   };
-  const catKey = card.dataset.category || '';
-  const catEl  = card.querySelector('.project-cat');
-  const cat    = catLabels[catKey] || (catEl ? catEl.textContent : 'Design');
+  const catKey  = card.dataset.category || '';
+  const catEl   = card.querySelector('.project-cat');
+  const cat     = catLabels[catKey] || (catEl ? catEl.textContent : 'Design');
 
-  // Title — prefer data-title, fall back to DOM .project-title
   const titleEl = card.querySelector('.project-title');
   const title   = (card.dataset.title && card.dataset.title.trim())
                   ? card.dataset.title
                   : (titleEl ? titleEl.textContent.trim() : 'Untitled');
 
-  // Description
   const desc = (card.dataset.desc && card.dataset.desc.trim()) ? card.dataset.desc : '';
 
   document.getElementById('lightbox-cat').textContent   = cat;
@@ -1582,11 +1277,6 @@ document.getElementById('lightbox').addEventListener('click', e => {
   if (e.target === e.currentTarget) closeLightbox();
 });
 document.addEventListener('keydown', e => { if (e.key === 'Escape') closeLightbox(); });
-
-// ── LIGHT MODE TOGGLE ──
-
-
-
 </script>
 
 </body>
