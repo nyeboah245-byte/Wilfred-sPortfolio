@@ -1414,10 +1414,11 @@ document.querySelectorAll('.filter-btn').forEach(btn => {
     const f = btn.dataset.filter;
     document.querySelectorAll('.project-card').forEach(card => {
       if (card.classList.contains('placeholder-card')) { card.classList.add('hidden'); return; }
-      card.classList.toggle('hidden', f !== 'all' && card.dataset.category !== f);
+      card.classList.toggle('hidden', f !== 'all' && !card.dataset.category.split(' ').includes(f));
     });
   });
 });
+
 
 // ── LIGHTBOX ──
 function openLightbox(card) {
