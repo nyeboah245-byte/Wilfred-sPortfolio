@@ -665,6 +665,148 @@ footer {
 .project-card.hidden { display: none; }
 *:focus { outline: none; }
 *:focus-visible { outline: none; }
+
+/* ── STORIES ── */
+#stories { padding: 7rem 4rem; max-width: 1300px; margin: 0 auto; }
+.story-viewer {
+  position: fixed;
+  inset: 0;
+  background: #000;
+  z-index: 600;
+  display: none;
+  align-items: center;
+  justify-content: center;
+}
+.story-viewer.open { display: flex; }
+.story-bg {
+  position: absolute;
+  inset: 0;
+  background: #000;
+}
+.story-bg img {
+  width: 100%;
+  height: 100%;
+  object-fit: contain;
+  display: block;
+  user-select: none;
+  -webkit-user-drag: none;
+}
+.story-progress-bar {
+  position: absolute;
+  top: 1rem;
+  left: 1rem;
+  right: 1rem;
+  display: flex;
+  gap: 4px;
+  z-index: 10;
+}
+.story-seg {
+  flex: 1;
+  height: 2px;
+  background: rgba(255,255,255,0.3);
+  border-radius: 2px;
+  overflow: hidden;
+}
+.story-seg-fill {
+  height: 100%;
+  width: 0%;
+  background: #fff;
+  border-radius: 2px;
+}
+.story-seg.done .story-seg-fill { width: 100%; }
+.story-seg.active .story-seg-fill {
+  animation: storyProgress var(--story-duration, 5s) linear forwards;
+}
+@keyframes storyProgress { to { width: 100%; } }
+.story-tap-left,
+.story-tap-right {
+  position: absolute;
+  top: 0;
+  bottom: 0;
+  width: 40%;
+  z-index: 8;
+  cursor: pointer;
+  -webkit-tap-highlight-color: transparent;
+}
+.story-tap-left  { left: 0; }
+.story-tap-right { right: 0; }
+.story-close-btn {
+  position: absolute;
+  top: 1rem;
+  right: 1rem;
+  width: 36px;
+  height: 36px;
+  background: rgba(0,0,0,0.5);
+  border: none;
+  border-radius: 50%;
+  color: #fff;
+  font-size: 1.1rem;
+  cursor: pointer;
+  z-index: 11;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  transition: background .2s;
+}
+.story-close-btn:hover { background: rgba(0,0,0,0.8); }
+.story-counter {
+  position: absolute;
+  bottom: 1.5rem;
+  left: 50%;
+  transform: translateX(-50%);
+  font-size: .72rem;
+  letter-spacing: .12em;
+  color: rgba(255,255,255,0.5);
+  z-index: 10;
+  pointer-events: none;
+}
+
+/* Story thumbnails strip */
+.story-thumbs {
+  display: flex;
+  gap: 1rem;
+  overflow-x: auto;
+  padding-bottom: .5rem;
+  scrollbar-width: none;
+}
+.story-thumbs::-webkit-scrollbar { display: none; }
+.story-thumb {
+  flex: 0 0 90px;
+  height: 130px;
+  border-radius: 8px;
+  overflow: hidden;
+  cursor: pointer;
+  border: 2px solid transparent;
+  transition: border-color .25s, transform .3s cubic-bezier(.16,1,.3,1);
+  background: #1a1a1a;
+  position: relative;
+}
+.story-thumb:hover {
+  transform: scale(1.04);
+  border-color: #c9a14a;
+}
+.story-thumb img {
+  width: 100%;
+  height: 100%;
+  object-fit: cover;
+  display: block;
+  pointer-events: none;
+}
+.story-thumb-num {
+  position: absolute;
+  bottom: 4px;
+  right: 6px;
+  font-size: .6rem;
+  color: rgba(255,255,255,0.6);
+  font-family: 'DM Sans', sans-serif;
+}
+.story-open-hint {
+  font-size: .72rem;
+  letter-spacing: .14em;
+  text-transform: uppercase;
+  color: #555;
+  margin-bottom: 1.2rem;
+}
 </style>
 
 </head>
@@ -1301,6 +1443,200 @@ footer {
 
   </div><!-- /masonry-grid -->
 </section>
+<div class="section-divider"></div>
+
+<!-- ══════════════ STORIES ══════════════ -->
+<section id="stories">
+  <div class="section-header reveal">
+    <div class="section-num">S</div>
+    <h2 class="section-title">Behind the Scenes</h2>
+    <div class="section-line"></div>
+  </div>
+  <p class="story-open-hint reveal reveal-delay-1">Tap any frame to view full story</p>
+
+  <!-- THUMBNAIL STRIP — swap the src values with your actual file names -->
+  <div class="story-thumbs reveal reveal-delay-2">
+
+    <div class="story-thumb" onclick="openStory(0)">
+      <img src="IMG_9031.png" alt="Story 1" loading="lazy" decoding="async"/><!-- ← swap STORY_01.jpeg -->
+      <span class="story-thumb-num">1</span>
+    </div>
+
+    <div class="story-thumb" onclick="openStory(1)">
+      <img src="IMG_9033.png" alt="Story 2" loading="lazy" decoding="async"/><!-- ← swap STORY_02.jpeg -->
+      <span class="story-thumb-num">2</span>
+    </div>
+
+    <div class="story-thumb" onclick="openStory(2)">
+      <img src="IMG_9034.png" alt="Story 3" loading="lazy" decoding="async"/><!-- ← swap STORY_03.jpeg -->
+      <span class="story-thumb-num">3</span>
+    </div>
+
+    <div class="story-thumb" onclick="openStory(3)">
+      <img src="IMG_9035.png" alt="Story 4" loading="lazy" decoding="async"/><!-- ← swap STORY_04.jpeg -->
+      <span class="story-thumb-num">4</span>
+    </div>
+
+    <div class="story-thumb" onclick="openStory(4)">
+      <img src="IMG_9036.png" alt="Story 5" loading="lazy" decoding="async"/><!-- ← swap STORY_05.jpeg -->
+      <span class="story-thumb-num">5</span>
+    </div>
+
+    <div class="story-thumb" onclick="openStory(5)">
+      <img src="IMG_9037.png" alt="Story 6" loading="lazy" decoding="async"/><!-- ← swap STORY_06.jpeg -->
+      <span class="story-thumb-num">6</span>
+    </div>
+
+    <div class="story-thumb" onclick="openStory(6)">
+      <img src="IMG_9038.png" alt="Story 7" loading="lazy" decoding="async"/><!-- ← swap STORY_07.jpeg -->
+      <span class="story-thumb-num">7</span>
+    </div>
+
+    <div class="story-thumb" onclick="openStory(7)">
+      <img src="IMG_9039.png" alt="Story 8" loading="lazy" decoding="async"/><!-- ← swap STORY_08.jpeg -->
+      <span class="story-thumb-num">8</span>
+    </div>
+
+    <div class="story-thumb" onclick="openStory(8)">
+      <img src="IMG_9040.png" alt="Story 9" loading="lazy" decoding="async"/><!-- ← swap STORY_09.jpeg -->
+      <span class="story-thumb-num">9</span>
+    </div>
+
+    <div class="story-thumb" onclick="openStory(9)">
+      <img src="IMG_9041.png" alt="Story 10" loading="lazy" decoding="async"/><!-- ← swap STORY_10.jpeg -->
+      <span class="story-thumb-num">10</span>
+    </div>
+
+    <div class="story-thumb" onclick="openStory(10)">
+      <img src="STORY_11.jpeg" alt="Story 11" loading="lazy" decoding="async"/><!-- ← swap STORY_11.jpeg -->
+      <span class="story-thumb-num">11</span>
+    </div>
+
+    <div class="story-thumb" onclick="openStory(11)">
+      <img src="STORY_12.jpeg" alt="Story 12" loading="lazy" decoding="async"/><!-- ← swap STORY_12.jpeg -->
+      <span class="story-thumb-num">12</span>
+    </div>
+
+    <div class="story-thumb" onclick="openStory(12)">
+      <img src="STORY_13.jpeg" alt="Story 13" loading="lazy" decoding="async"/><!-- ← swap STORY_13.jpeg -->
+      <span class="story-thumb-num">13</span>
+    </div>
+
+    <div class="story-thumb" onclick="openStory(13)">
+      <img src="STORY_14.jpeg" alt="Story 14" loading="lazy" decoding="async"/><!-- ← swap STORY_14.jpeg -->
+      <span class="story-thumb-num">14</span>
+    </div>
+
+    <div class="story-thumb" onclick="openStory(14)">
+      <img src="STORY_15.jpeg" alt="Story 15" loading="lazy" decoding="async"/><!-- ← swap STORY_15.jpeg -->
+      <span class="story-thumb-num">15</span>
+    </div>
+
+    <div class="story-thumb" onclick="openStory(15)">
+      <img src="STORY_16.jpeg" alt="Story 16" loading="lazy" decoding="async"/><!-- ← swap STORY_16.jpeg -->
+      <span class="story-thumb-num">16</span>
+    </div>
+
+    <div class="story-thumb" onclick="openStory(16)">
+      <img src="STORY_17.jpeg" alt="Story 17" loading="lazy" decoding="async"/><!-- ← swap STORY_17.jpeg -->
+      <span class="story-thumb-num">17</span>
+    </div>
+
+    <div class="story-thumb" onclick="openStory(17)">
+      <img src="STORY_18.jpeg" alt="Story 18" loading="lazy" decoding="async"/><!-- ← swap STORY_18.jpeg -->
+      <span class="story-thumb-num">18</span>
+    </div>
+
+    <div class="story-thumb" onclick="openStory(18)">
+      <img src="STORY_19.jpeg" alt="Story 19" loading="lazy" decoding="async"/><!-- ← swap STORY_19.jpeg -->
+      <span class="story-thumb-num">19</span>
+    </div>
+
+    <div class="story-thumb" onclick="openStory(19)">
+      <img src="STORY_20.jpeg" alt="Story 20" loading="lazy" decoding="async"/><!-- ← swap STORY_20.jpeg -->
+      <span class="story-thumb-num">20</span>
+    </div>
+
+    <div class="story-thumb" onclick="openStory(20)">
+      <img src="STORY_21.jpeg" alt="Story 21" loading="lazy" decoding="async"/><!-- ← swap STORY_21.jpeg -->
+      <span class="story-thumb-num">21</span>
+    </div>
+
+    <div class="story-thumb" onclick="openStory(21)">
+      <img src="STORY_22.jpeg" alt="Story 22" loading="lazy" decoding="async"/><!-- ← swap STORY_22.jpeg -->
+      <span class="story-thumb-num">22</span>
+    </div>
+
+    <div class="story-thumb" onclick="openStory(22)">
+      <img src="STORY_23.jpeg" alt="Story 23" loading="lazy" decoding="async"/><!-- ← swap STORY_23.jpeg -->
+      <span class="story-thumb-num">23</span>
+    </div>
+
+    <div class="story-thumb" onclick="openStory(23)">
+      <img src="STORY_24.jpeg" alt="Story 24" loading="lazy" decoding="async"/><!-- ← swap STORY_24.jpeg -->
+      <span class="story-thumb-num">24</span>
+    </div>
+
+    <div class="story-thumb" onclick="openStory(24)">
+      <img src="STORY_25.jpeg" alt="Story 25" loading="lazy" decoding="async"/><!-- ← swap STORY_25.jpeg -->
+      <span class="story-thumb-num">25</span>
+    </div>
+
+    <div class="story-thumb" onclick="openStory(25)">
+      <img src="STORY_26.jpeg" alt="Story 26" loading="lazy" decoding="async"/><!-- ← swap STORY_26.jpeg -->
+      <span class="story-thumb-num">26</span>
+    </div>
+
+    <div class="story-thumb" onclick="openStory(26)">
+      <img src="STORY_27.jpeg" alt="Story 27" loading="lazy" decoding="async"/><!-- ← swap STORY_27.jpeg -->
+      <span class="story-thumb-num">27</span>
+    </div>
+
+    <div class="story-thumb" onclick="openStory(27)">
+      <img src="STORY_28.jpeg" alt="Story 28" loading="lazy" decoding="async"/><!-- ← swap STORY_28.jpeg -->
+      <span class="story-thumb-num">28</span>
+    </div>
+
+    <div class="story-thumb" onclick="openStory(28)">
+      <img src="STORY_29.jpeg" alt="Story 29" loading="lazy" decoding="async"/><!-- ← swap STORY_29.jpeg -->
+      <span class="story-thumb-num">29</span>
+    </div>
+
+    <div class="story-thumb" onclick="openStory(29)">
+      <img src="STORY_30.jpeg" alt="Story 30" loading="lazy" decoding="async"/><!-- ← swap STORY_30.jpeg -->
+      <span class="story-thumb-num">30</span>
+    </div>
+
+    <div class="story-thumb" onclick="openStory(30)">
+      <img src="STORY_31.jpeg" alt="Story 31" loading="lazy" decoding="async"/><!-- ← swap STORY_31.jpeg -->
+      <span class="story-thumb-num">31</span>
+    </div>
+
+    <div class="story-thumb" onclick="openStory(31)">
+      <img src="STORY_32.jpeg" alt="Story 32" loading="lazy" decoding="async"/><!-- ← swap STORY_32.jpeg -->
+      <span class="story-thumb-num">32</span>
+    </div>
+
+    <div class="story-thumb" onclick="openStory(32)">
+      <img src="STORY_33.jpeg" alt="Story 33" loading="lazy" decoding="async"/><!-- ← swap STORY_33.jpeg -->
+      <span class="story-thumb-num">33</span>
+    </div>
+
+  </div><!-- /story-thumbs -->
+</section>
+
+<!-- ══ STORY VIEWER OVERLAY ══ -->
+<div id="storyViewer" class="story-viewer">
+  <div class="story-bg">
+    <img id="storyImg" src="" alt=""/>
+  </div>
+  <div class="story-progress-bar" id="storyProgressBar"></div>
+  <div class="story-tap-left"  onclick="storyStep(-1)"></div>
+  <div class="story-tap-right" onclick="storyStep(1)"></div>
+  <button class="story-close-btn" onclick="closeStory()">✕</button>
+  <div class="story-counter" id="storyCounter"></div>
+</div>
+
 
 <div class="section-divider"></div>
 
@@ -1464,6 +1800,67 @@ document.getElementById('lightbox').addEventListener('click', e => {
   if (e.target === e.currentTarget) closeLightbox();
 });
 document.addEventListener('keydown', e => { if (e.key === 'Escape') closeLightbox(); });
+// ── STORY VIEWER ──
+(function() {
+  const DURATION = 0; // 0 = manual only, set to e.g. 5000 for auto-advance ms
+
+  let current = 0;
+  let storySrcs = [];
+
+  function buildSrcs() {
+    storySrcs = Array.from(
+      document.querySelectorAll('.story-thumb img')
+    ).map(img => img.src);
+  }
+
+  function buildProgressBar() {
+    const bar = document.getElementById('storyProgressBar');
+    bar.innerHTML = storySrcs.map((_, i) =>
+      `<div class="story-seg" id="seg-${i}"><div class="story-seg-fill"></div></div>`
+    ).join('');
+  }
+
+  function updateViewer() {
+    document.getElementById('storyImg').src = storySrcs[current];
+    document.getElementById('storyCounter').textContent =
+      (current + 1) + ' / ' + storySrcs.length;
+
+    storySrcs.forEach((_, i) => {
+      const seg = document.getElementById('seg-' + i);
+      seg.className = 'story-seg' + (i < current ? ' done' : i === current ? ' active' : '');
+    });
+  }
+
+  window.openStory = function(index) {
+    buildSrcs();
+    buildProgressBar();
+    current = index;
+    updateViewer();
+    document.getElementById('storyViewer').classList.add('open');
+    document.body.style.overflow = 'hidden';
+  };
+
+  window.storyStep = function(dir) {
+    const next = current + dir;
+    if (next < 0 || next >= storySrcs.length) { closeStory(); return; }
+    current = next;
+    updateViewer();
+  };
+
+  window.closeStory = function() {
+    document.getElementById('storyViewer').classList.remove('open');
+    document.body.style.overflow = '';
+  };
+
+  // Keyboard nav
+  document.addEventListener('keydown', e => {
+    if (!document.getElementById('storyViewer').classList.contains('open')) return;
+    if (e.key === 'ArrowRight') storyStep(1);
+    if (e.key === 'ArrowLeft')  storyStep(-1);
+    if (e.key === 'Escape')     closeStory();
+  });
+})();
+
 </script>
 
 </body>
