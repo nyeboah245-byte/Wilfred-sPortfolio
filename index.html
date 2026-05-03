@@ -615,18 +615,27 @@ footer {
 }
 #lightbox-desc { font-size: .88rem; color: #888888; line-height: 1.7; }
 #lightbox-close {
-  position: absolute;
-  top: 1rem; right: 1rem;
-  background: none;
+  position: fixed;
+  top: 1.2rem;
+  right: 1.2rem;
+  width: 36px;
+  height: 36px;
+  background: #c9a14a;
   border: none;
-  color: #666666;
-  font-size: 1.4rem;
+  border-radius: 50%;
+  color: #080808;
+  font-size: 1.1rem;
+  font-weight: 700;
   cursor: pointer;
-  transition: color .2s;
-  outline: none;
-  z-index: 10;
+  z-index: 9999;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  line-height: 1;
+  transition: background .2s;
 }
-#lightbox-close:hover { color: #c9a14a; }
+#lightbox-close:hover { background: #e2bc72; }
+
 
 /* ── ANIMATIONS ── */
 @keyframes fadeUp {
@@ -815,8 +824,8 @@ footer {
 <!-- ══ LIGHTBOX ══ -->
 
 <div id="lightbox">
+  <button id="lightbox-close" onclick="closeLightbox()">✕</button>
   <div id="lightbox-inner">
-  <button id="lightbox-close" onclick="closeLightbox()" style="position:absolute;top:12px;right:12px;width:36px;height:36px;background:#c9a14a;border:none;border-radius:50%;color:#080808;font-size:1.1rem;font-weight:700;cursor:pointer;z-index:9999;display:flex;align-items:center;justify-content:center;line-height:1;">✕</button>
 
     <div id="lightbox-img-wrap">
       <img id="lightbox-img" src="" alt=""/>
