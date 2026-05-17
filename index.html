@@ -1756,13 +1756,13 @@ document.querySelectorAll('.placeholder-card').forEach(card => {
 });
 
 // ── GALLERY FILTER ──
+// ── GALLERY FILTER ──
 document.querySelectorAll('.filter-btn').forEach(btn => {
   btn.addEventListener('click', () => {
     document.querySelectorAll('.filter-btn').forEach(b => b.classList.remove('active'));
     btn.classList.add('active');
     const f = btn.dataset.filter;
-
-  const storiesSection = document.getElementById('storiesSection');
+    const storiesSection = document.getElementById('storiesSection');
 
     if (f === 'story') {
       document.querySelectorAll('.project-card').forEach(card => card.classList.add('hidden'));
@@ -1780,16 +1780,9 @@ document.querySelectorAll('.filter-btn').forEach(btn => {
         card.classList.toggle('hidden', !card.dataset.category.split(' ').includes(f));
       });
     }
-else {
-      storyPanel.style.display = 'none';
-      if (storiesSection) storiesSection.style.display = 'none';
-      document.querySelectorAll('.project-card').forEach(card => {
-        if (card.classList.contains('placeholder-card')) { card.classList.add('hidden'); return; }
-        card.classList.toggle('hidden', !card.dataset.category.split(' ').includes(f));
-      });
-    }
   });
 });
+
 
 
 
