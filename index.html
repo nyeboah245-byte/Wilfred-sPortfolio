@@ -1458,7 +1458,7 @@ footer {
 <div class="section-divider"></div>
 
 <!-- ══════════════ STORIES ══════════════ -->
-<section id="storiesSection" style="display:none;">
+<section id="storiesSection">
 
   <div class="section-header reveal">
     <h2 class="section-title">A short story</h2>
@@ -1774,7 +1774,7 @@ document.querySelectorAll('.filter-btn').forEach(btn => {
         card.classList.remove('hidden');
       });
     } else {
-      storiesSection.style.display = 'none';
+      storiesSection.style.display = '';
       document.querySelectorAll('.project-card').forEach(card => {
         if (card.classList.contains('placeholder-card')) { card.classList.add('hidden'); return; }
         card.classList.toggle('hidden', !card.dataset.category.split(' ').includes(f));
