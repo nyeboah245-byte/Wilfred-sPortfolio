@@ -1458,7 +1458,7 @@ footer {
 <div class="section-divider"></div>
 
 <!-- ══════════════ STORIES ══════════════ -->
-<section id="stories">
+<section id="storiesSection">
   <div class="section-header reveal">
     <h2 class="section-title">A short story</h2>
     <div class="section-line"></div>
@@ -1765,13 +1765,16 @@ document.querySelectorAll('.filter-btn').forEach(btn => {
     if (f === 'story') {
       document.querySelectorAll('.project-card').forEach(card => card.classList.add('hidden'));
       storyPanel.style.display = 'flex';
+      document.getElementById('storiesSection').style.display = 'none';
     } else {
       storyPanel.style.display = 'none';
+      document.getElementById('storiesSection').style.display = '';
       document.querySelectorAll('.project-card').forEach(card => {
         if (card.classList.contains('placeholder-card')) { card.classList.add('hidden'); return; }
         card.classList.toggle('hidden', f !== 'all' && !card.dataset.category.split(' ').includes(f));
       });
     }
+
   });
 });
 
