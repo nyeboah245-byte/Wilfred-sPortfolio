@@ -1458,7 +1458,8 @@ footer {
 <div class="section-divider"></div>
 
 <!-- ══════════════ STORIES ══════════════ -->
-<section id="storiesSection">
+<section id="storiesSection" style="display:none;">
+
   <div class="section-header reveal">
     <h2 class="section-title">A short story</h2>
     <div class="section-line"></div>
@@ -1470,17 +1471,17 @@ footer {
 
 
     <div class="story-thumb" onclick="openStory(0)">
-      <img src="IMG_9031.png" alt="Story 1" loading="lazy" decoding="async"/><!-- ← swap STORY_01.jpeg -->
+      <img src="IMG_9031.png" alt="Story 1" decoding="async"/><!-- ← swap STORY_01.jpeg -->
       <span class="story-thumb-num">1</span>
     </div>
 
     <div class="story-thumb" onclick="openStory(1)">
-      <img src="IMG_9033.png" alt="Story 2" loading="lazy" decoding="async"/><!-- ← swap STORY_02.jpeg -->
+      <img src="IMG_9033.png" alt="Story 2" decoding="async"/><!-- ← swap STORY_02.jpeg -->
       <span class="story-thumb-num">2</span>
     </div>
 
     <div class="story-thumb" onclick="openStory(2)">
-      <img src="IMG_9034.png" alt="Story 3" loading="lazy" decoding="async"/><!-- ← swap STORY_03.jpeg -->
+      <img src="IMG_9034.png" alt="Story 3" decoding="async"/><!-- ← swap STORY_03.jpeg -->
       <span class="story-thumb-num">3</span>
     </div>
 
@@ -1761,21 +1762,25 @@ document.querySelectorAll('.filter-btn').forEach(btn => {
     btn.classList.add('active');
     const f = btn.dataset.filter;
 
-    const storyPanel = document.getElementById('storyPanel');
-    const storiesSection = document.querySelector('#stories, #storiesSection');
+  const storiesSection = document.getElementById('storiesSection');
 
     if (f === 'story') {
       document.querySelectorAll('.project-card').forEach(card => card.classList.add('hidden'));
-      storyPanel.style.display = 'flex';
-      if (storiesSection) storiesSection.style.display = 'none';
+      storiesSection.style.display = '';
     } else if (f === 'all') {
-      storyPanel.style.display = 'none';
-      if (storiesSection) storiesSection.style.display = '';
+      storiesSection.style.display = 'none';
       document.querySelectorAll('.project-card').forEach(card => {
         if (card.classList.contains('placeholder-card')) { card.classList.add('hidden'); return; }
         card.classList.remove('hidden');
       });
     } else {
+      storiesSection.style.display = 'none';
+      document.querySelectorAll('.project-card').forEach(card => {
+        if (card.classList.contains('placeholder-card')) { card.classList.add('hidden'); return; }
+        card.classList.toggle('hidden', !card.dataset.category.split(' ').includes(f));
+      });
+    }
+else {
       storyPanel.style.display = 'none';
       if (storiesSection) storiesSection.style.display = 'none';
       document.querySelectorAll('.project-card').forEach(card => {
