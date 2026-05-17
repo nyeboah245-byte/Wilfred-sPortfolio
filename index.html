@@ -1823,15 +1823,14 @@ document.getElementById('lightbox').addEventListener('click', e => {
 document.addEventListener('keydown', e => { if (e.key === 'Escape') closeLightbox(); });
 // ── STORY VIEWER ──
 (function() {
-  const DURATION = 0; // 0 = manual only, set to e.g. 5000 for auto-advance ms
-
   let current = 0;
   let storySrcs = [];
+  let preloaded = {};
 
   function buildSrcs() {
     storySrcs = Array.from(
       document.querySelectorAll('.story-thumb img')
-    ).map(img => img.src);
+    ).map(img => img.getAttribute('src'));
   }
 
   function buildProgressBar() {
@@ -1841,8 +1840,23 @@ document.addEventListener('keydown', e => { if (e.key === 'Escape') closeLightbo
     ).join('');
   }
 
+  function preloadAround(index) {
+    [-1, 1, 2].forEach(offset => {
+      const i = index + offset;
+      if (i < 0 || i >= storySrcs.length || preloaded[i]) return;
+      const img = new Image();
+      img.src = storySrcs[i];
+      preloaded[i] = img;
+    });
+  }
+
   function updateViewer() {
-    document.getElementById('storyImg').src = storySrcs[current];
+    const storyImg = document.getElementById('storyImg');
+    if (preloaded[current] && preloaded[current].complete) {
+      storyImg.src = preloaded[current].src;
+    } else {
+      storyImg.src = storySrcs[current];
+    }
     document.getElementById('storyCounter').textContent =
       (current + 1) + ' / ' + storySrcs.length;
 
@@ -1850,6 +1864,8 @@ document.addEventListener('keydown', e => { if (e.key === 'Escape') closeLightbo
       const seg = document.getElementById('seg-' + i);
       seg.className = 'story-seg' + (i < current ? ' done' : i === current ? ' active' : '');
     });
+
+    preloadAround(current);
   }
 
   window.openStory = function(index) {
@@ -1873,7 +1889,6 @@ document.addEventListener('keydown', e => { if (e.key === 'Escape') closeLightbo
     document.body.style.overflow = '';
   };
 
-  // Keyboard nav
   document.addEventListener('keydown', e => {
     if (!document.getElementById('storyViewer').classList.contains('open')) return;
     if (e.key === 'ArrowRight') storyStep(1);
@@ -1881,6 +1896,7 @@ document.addEventListener('keydown', e => { if (e.key === 'Escape') closeLightbo
     if (e.key === 'Escape')     closeStory();
   });
 })();
+
 
 </script>
 
