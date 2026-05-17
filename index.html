@@ -970,7 +970,9 @@ footer {
     <button class="filter-btn" data-filter="photo">Photo Concept</button>
     <button class="filter-btn" data-filter="motion">Motion / Animation</button>
     <button class="filter-btn" data-filter="branding">Branding</button>
-    <button class="filter-btn" data-filter="typography">Typography</button>
+   <button class="filter-btn" data-filter="typography">Typography</button>
+<button class="filter-btn" data-filter="story">Story</button>
+
   </div>
 
   <div class="masonry-grid">
@@ -1464,7 +1466,8 @@ footer {
   <p class="story-open-hint reveal reveal-delay-1">Tap any frame to view full story</p>
 
   <!-- THUMBNAIL STRIP — swap the src values with your actual file names -->
-  <div class="story-thumbs reveal reveal-delay-2">
+ <div id="storyPanel" class="story-thumbs reveal reveal-delay-2" style="display:none;">
+
 
     <div class="story-thumb" onclick="openStory(0)">
       <img src="IMG_9031.png" alt="Story 1" loading="lazy" decoding="async"/><!-- ← swap STORY_01.jpeg -->
@@ -1757,12 +1760,21 @@ document.querySelectorAll('.filter-btn').forEach(btn => {
     document.querySelectorAll('.filter-btn').forEach(b => b.classList.remove('active'));
     btn.classList.add('active');
     const f = btn.dataset.filter;
-    document.querySelectorAll('.project-card').forEach(card => {
-      if (card.classList.contains('placeholder-card')) { card.classList.add('hidden'); return; }
-      card.classList.toggle('hidden', f !== 'all' && !card.dataset.category.split(' ').includes(f));
-    });
+    const storyPanel = document.getElementById('storyPanel');
+
+    if (f === 'story') {
+      document.querySelectorAll('.project-card').forEach(card => card.classList.add('hidden'));
+      storyPanel.style.display = 'flex';
+    } else {
+      storyPanel.style.display = 'none';
+      document.querySelectorAll('.project-card').forEach(card => {
+        if (card.classList.contains('placeholder-card')) { card.classList.add('hidden'); return; }
+        card.classList.toggle('hidden', f !== 'all' && !card.dataset.category.split(' ').includes(f));
+      });
+    }
   });
 });
+
 
 
 // ── LIGHTBOX ──
