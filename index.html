@@ -1760,23 +1760,25 @@ document.querySelectorAll('.filter-btn').forEach(btn => {
     document.querySelectorAll('.filter-btn').forEach(b => b.classList.remove('active'));
     btn.classList.add('active');
     const f = btn.dataset.filter;
+
     const storyPanel = document.getElementById('storyPanel');
+    const storiesSection = document.querySelector('#stories, #storiesSection');
 
     if (f === 'story') {
       document.querySelectorAll('.project-card').forEach(card => card.classList.add('hidden'));
-      storyPanel.style.display = 'flex';
-      document.getElementById('storiesSection').style.display = 'none';
+      if (storyPanel) storyPanel.style.display = 'flex';
+      if (storiesSection) storiesSection.style.display = 'none';
     } else {
-      storyPanel.style.display = 'none';
-      document.getElementById('storiesSection').style.display = '';
+      if (storyPanel) storyPanel.style.display = 'none';
+      if (storiesSection) storiesSection.style.display = '';
       document.querySelectorAll('.project-card').forEach(card => {
         if (card.classList.contains('placeholder-card')) { card.classList.add('hidden'); return; }
         card.classList.toggle('hidden', f !== 'all' && !card.dataset.category.split(' ').includes(f));
       });
     }
-
   });
 });
+
 
 
 
