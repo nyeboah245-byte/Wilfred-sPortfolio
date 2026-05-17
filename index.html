@@ -1466,7 +1466,7 @@ footer {
   <p class="story-open-hint reveal reveal-delay-1">Tap any frame to view full story</p>
 
   <!-- THUMBNAIL STRIP — swap the src values with your actual file names -->
- <div id="storyPanel" class="story-thumbs reveal reveal-delay-2" style="display:none;">
+ <div id="storyPanel" class="story-thumbs reveal reveal-delay-2">
 
 
     <div class="story-thumb" onclick="openStory(0)">
@@ -1766,18 +1766,26 @@ document.querySelectorAll('.filter-btn').forEach(btn => {
 
     if (f === 'story') {
       document.querySelectorAll('.project-card').forEach(card => card.classList.add('hidden'));
-      if (storyPanel) storyPanel.style.display = 'flex';
+      storyPanel.style.display = 'flex';
       if (storiesSection) storiesSection.style.display = 'none';
-    } else {
-      if (storyPanel) storyPanel.style.display = 'none';
+    } else if (f === 'all') {
+      storyPanel.style.display = 'none';
       if (storiesSection) storiesSection.style.display = '';
       document.querySelectorAll('.project-card').forEach(card => {
         if (card.classList.contains('placeholder-card')) { card.classList.add('hidden'); return; }
-        card.classList.toggle('hidden', f !== 'all' && !card.dataset.category.split(' ').includes(f));
+        card.classList.remove('hidden');
+      });
+    } else {
+      storyPanel.style.display = 'none';
+      if (storiesSection) storiesSection.style.display = 'none';
+      document.querySelectorAll('.project-card').forEach(card => {
+        if (card.classList.contains('placeholder-card')) { card.classList.add('hidden'); return; }
+        card.classList.toggle('hidden', !card.dataset.category.split(' ').includes(f));
       });
     }
   });
 });
+
 
 
 
