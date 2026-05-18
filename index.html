@@ -1,27 +1,77 @@
-<!DOCTYPE html><html lang="en"><head><meta charset="UTF-8"/><meta name="viewport" content="width=device-width, initial-scale=1.0"/><title>Wilfred Tengolyin — Communication Design</title>
-
-<!-- PERF: Preconnect to font origins -->
+<!DOCTYPE html><html lang="en" data-theme="dark"><head><meta charset="UTF-8"/><meta name="viewport" content="width=device-width, initial-scale=1.0"/><title>Wilfred Tengolyin — Communication Design</title>
 
 <link rel="preconnect" href="https://fonts.googleapis.com"/>
 <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin/>
 <link href="https://fonts.googleapis.com/css2?family=Cormorant+Garamond:ital,wght@0,300;0,400;0,600;1,300;1,400&family=DM+Sans:wght@300;400;500&family=Bebas+Neue&display=swap" rel="stylesheet"/>
-
-<!-- PERF: Preload ONLY the hero image — the one visible on first paint -->
-
 <link rel="preload" as="image" href="IMG_8832.jpeg" fetchpriority="high"/>
 
 <style>
+/* ── THEME TOKENS ── */
+:root {
+  --bg:           #080808;
+  --bg-card:      #1a1a1a;
+  --bg-card2:     #141414;
+  --bg-nav:       rgba(8,8,8,0.92);
+  --bg-nav-grad:  linear-gradient(to bottom, rgba(8,8,8,0.85) 0%, transparent 100%);
+  --border:       #242424;
+  --border-mid:   #2a2a2a;
+  --text:         #d8d0c4;
+  --text-head:    #f5f2ed;
+  --text-muted:   #888888;
+  --text-dim:     #666666;
+  --text-footer:  #333333;
+  --gold:         #c9a14a;
+  --gold-light:   #e2bc72;
+  --gold-glow:    rgba(201,161,74,0.07);
+  --grid-line:    rgba(201,161,74,0.035);
+  --overlay-card: rgba(8,8,8,0.92);
+  --overlay-hero: rgba(8,8,8,0.72);
+  --skill-bg:     transparent;
+  --btn-outline-bg: rgba(8,8,8,0.4);
+  --btn-outline-border: rgba(255,255,255,0.3);
+  --contact-box:  #141414;
+  --lb-bg:        #1a1a1a;
+  --lb-border:    #2a2a2a;
+}
+
+[data-theme="light"] {
+  --bg:           #f5f1eb;
+  --bg-card:      #ffffff;
+  --bg-card2:     #f0ebe3;
+  --bg-nav:       rgba(245,241,235,0.96);
+  --bg-nav-grad:  linear-gradient(to bottom, rgba(245,241,235,0.92) 0%, transparent 100%);
+  --border:       #ddd7cc;
+  --border-mid:   #d0c9bd;
+  --text:         #4a4035;
+  --text-head:    #1a1510;
+  --text-muted:   #7a7060;
+  --text-dim:     #a09585;
+  --text-footer:  #b0a898;
+  --gold:         #a07830;
+  --gold-light:   #c09040;
+  --gold-glow:    rgba(160,120,48,0.06);
+  --grid-line:    rgba(160,120,48,0.06);
+  --overlay-card: rgba(245,241,235,0.95);
+  --overlay-hero: rgba(245,241,235,0.5);
+  --skill-bg:     #f0ebe3;
+  --btn-outline-bg: rgba(245,241,235,0.6);
+  --btn-outline-border: rgba(26,21,16,0.25);
+  --contact-box:  #ede8e0;
+  --lb-bg:        #ffffff;
+  --lb-border:    #ddd7cc;
+}
+
 /* ── RESET ── */
 *, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
 html { scroll-behavior: smooth; }
 body {
-  background: #080808;
-  color: #d8d0c4;
+  background: var(--bg);
+  color: var(--text);
   font-family: 'DM Sans', sans-serif;
   font-weight: 300;
   line-height: 1.6;
   overflow-x: hidden;
-  transition: background 0.35s, color 0.35s;
+  transition: background 0.4s cubic-bezier(.16,1,.3,1), color 0.4s cubic-bezier(.16,1,.3,1);
 }
 
 /* ── NOISE OVERLAY ── */
@@ -35,6 +85,48 @@ body::before {
   z-index: 9997;
 }
 
+/* ── THEME TOGGLE ── */
+#theme-toggle {
+  position: relative;
+  width: 44px;
+  height: 24px;
+  background: var(--border-mid);
+  border: 1px solid var(--border);
+  border-radius: 12px;
+  cursor: pointer;
+  transition: background 0.3s, border-color 0.3s;
+  flex-shrink: 0;
+  outline: none;
+  padding: 0;
+}
+#theme-toggle::after {
+  content: '';
+  position: absolute;
+  top: 3px;
+  left: 3px;
+  width: 16px;
+  height: 16px;
+  border-radius: 50%;
+  background: var(--gold);
+  transition: transform 0.3s cubic-bezier(.16,1,.3,1), background 0.3s;
+}
+[data-theme="light"] #theme-toggle::after {
+  transform: translateX(20px);
+}
+.toggle-icon {
+  position: absolute;
+  top: 50%;
+  transform: translateY(-50%);
+  font-size: .62rem;
+  pointer-events: none;
+  user-select: none;
+  transition: opacity 0.2s;
+}
+.toggle-icon.moon { left: 5px; opacity: 1; }
+.toggle-icon.sun  { right: 5px; opacity: 0; }
+[data-theme="light"] .toggle-icon.moon { opacity: 0; }
+[data-theme="light"] .toggle-icon.sun  { opacity: 1; }
+
 /* ── NAV ── */
 nav {
   position: fixed;
@@ -44,29 +136,35 @@ nav {
   display: flex;
   align-items: center;
   justify-content: space-between;
-  background: linear-gradient(to bottom, rgba(8,8,8,0.85) 0%, transparent 100%);
+  background: var(--bg-nav-grad);
   transition: background 0.4s, backdrop-filter 0.4s;
 }
 nav.scrolled {
-  background: rgba(8,8,8,0.92);
+  background: var(--bg-nav);
   backdrop-filter: blur(20px);
   -webkit-backdrop-filter: blur(20px);
-  border-bottom: 1px solid #242424;
+  border-bottom: 1px solid var(--border);
+}
+.nav-right {
+  display: flex;
+  align-items: center;
+  gap: 2rem;
 }
 .nav-logo {
   font-family: 'Bebas Neue', sans-serif;
   font-size: 1.5rem;
   letter-spacing: .12em;
-  color: #f5f2ed;
+  color: var(--text-head);
   text-decoration: none;
+  transition: color 0.3s;
 }
-.nav-logo span { color: #c9a14a; }
+.nav-logo span { color: var(--gold); }
 .nav-links { display: flex; gap: 2.4rem; list-style: none; }
 .nav-links a {
   font-size: .78rem;
   letter-spacing: .14em;
   text-transform: uppercase;
-  color: #ccc;
+  color: var(--text-muted);
   text-decoration: none;
   transition: color .25s;
   position: relative;
@@ -76,10 +174,10 @@ nav.scrolled {
   position: absolute;
   bottom: -3px; left: 0;
   width: 0; height: 1px;
-  background: #c9a14a;
+  background: var(--gold);
   transition: width .3s cubic-bezier(.16,1,.3,1);
 }
-.nav-links a:hover { color: #e2bc72; }
+.nav-links a:hover { color: var(--gold-light); }
 .nav-links a:hover::after { width: 100%; }
 
 /* ── HERO ── */
@@ -105,6 +203,10 @@ nav.scrolled {
   object-position: center top;
   display: block;
   filter: brightness(0.55) saturate(0.7);
+  transition: filter 0.4s;
+}
+[data-theme="light"] .hero-portrait-bg img {
+  filter: brightness(0.72) saturate(0.85);
 }
 .hero-portrait-bg::after {
   content: '';
@@ -115,7 +217,17 @@ nav.scrolled {
       rgba(8,8,8,0.45) 0%,
       rgba(8,8,8,0.15) 30%,
       rgba(8,8,8,0.35) 60%,
-      rgba(8,8,8,0.72) 100%
+      var(--overlay-hero) 100%
+    );
+  transition: background 0.4s;
+}
+[data-theme="light"] .hero-portrait-bg::after {
+  background:
+    linear-gradient(to bottom,
+      rgba(245,241,235,0.35) 0%,
+      rgba(245,241,235,0.05) 30%,
+      rgba(245,241,235,0.2) 60%,
+      rgba(245,241,235,0.55) 100%
     );
 }
 .hero-bg-grid {
@@ -123,15 +235,15 @@ nav.scrolled {
   inset: 0;
   z-index: 1;
   background-image:
-    linear-gradient(rgba(201,161,74,0.035) 1px, transparent 1px),
-    linear-gradient(90deg, rgba(201,161,74,0.035) 1px, transparent 1px);
+    linear-gradient(var(--grid-line) 1px, transparent 1px),
+    linear-gradient(90deg, var(--grid-line) 1px, transparent 1px);
   background-size: 60px 60px;
   pointer-events: none;
 }
 .hero-glow {
   position: absolute;
   width: 600px; height: 600px;
-  background: radial-gradient(circle, rgba(201,161,74,0.07) 0%, transparent 70%);
+  background: radial-gradient(circle, var(--gold-glow) 0%, transparent 70%);
   top: 50%; left: 50%;
   transform: translate(-50%,-50%);
   pointer-events: none;
@@ -148,7 +260,7 @@ nav.scrolled {
   font-size: .72rem;
   letter-spacing: .25em;
   text-transform: uppercase;
-  color: #e2bc72;
+  color: var(--gold-light);
   margin-bottom: 1.6rem;
   opacity: 0;
   animation: fadeUp .9s cubic-bezier(.16,1,.3,1) .2s forwards;
@@ -165,7 +277,7 @@ nav.scrolled {
   animation: fadeUp 1s cubic-bezier(.16,1,.3,1) .4s forwards;
   text-shadow: 0 2px 20px rgba(0,0,0,0.85), 0 0 60px rgba(0,0,0,0.5);
 }
-.hero-name em { font-style: italic; color: #e2bc72; }
+.hero-name em { font-style: italic; color: var(--gold-light); }
 .hero-tagline {
   margin-top: 2rem;
   font-size: clamp(.95rem, 1.8vw, 1.15rem);
@@ -210,7 +322,7 @@ nav.scrolled {
 .scroll-line {
   width: 1px;
   height: 48px;
-  background: linear-gradient(to bottom, #c9a14a, transparent);
+  background: linear-gradient(to bottom, var(--gold), transparent);
   animation: scrollPulse 2s ease-in-out infinite;
 }
 
@@ -220,7 +332,7 @@ nav.scrolled {
   align-items: center;
   gap: .6rem;
   padding: .9rem 2rem;
-  background: #c9a14a;
+  background: var(--gold);
   color: #080808;
   font-family: 'DM Sans', sans-serif;
   font-size: .8rem;
@@ -233,7 +345,7 @@ nav.scrolled {
   transition: background .25s, transform .25s cubic-bezier(.16,1,.3,1), box-shadow .25s;
 }
 .btn-primary:hover {
-  background: #e2bc72;
+  background: var(--gold-light);
   transform: translateY(-2px);
   box-shadow: 0 12px 40px rgba(201,161,74,0.35);
 }
@@ -242,23 +354,23 @@ nav.scrolled {
   align-items: center;
   gap: .6rem;
   padding: .9rem 2rem;
-  background: rgba(8,8,8,0.4);
-  color: #f5f2ed;
+  background: var(--btn-outline-bg);
+  color: var(--text-head);
   font-family: 'DM Sans', sans-serif;
   font-size: .8rem;
   font-weight: 400;
   letter-spacing: .12em;
   text-transform: uppercase;
   text-decoration: none;
-  border: 1px solid rgba(255,255,255,0.3);
+  border: 1px solid var(--btn-outline-border);
   border-radius: 4px;
   backdrop-filter: blur(4px);
   -webkit-backdrop-filter: blur(4px);
   transition: border-color .25s, color .25s, background .25s, transform .25s cubic-bezier(.16,1,.3,1);
 }
 .btn-outline:hover {
-  border-color: #c9a14a;
-  color: #e2bc72;
+  border-color: var(--gold);
+  color: var(--gold-light);
   background: rgba(201,161,74,0.1);
   transform: translateY(-2px);
 }
@@ -267,7 +379,7 @@ nav.scrolled {
 .section-divider {
   width: 100%;
   height: 1px;
-  background: linear-gradient(to right, transparent, #2a2a2a, transparent);
+  background: linear-gradient(to right, transparent, var(--border), transparent);
 }
 
 /* ── SECTION LAYOUT ── */
@@ -285,21 +397,23 @@ section {
 .section-num {
   font-family: 'Bebas Neue', sans-serif;
   font-size: 1rem;
-  color: #c9a14a;
+  color: var(--gold);
   letter-spacing: .1em;
 }
 .section-title {
   font-family: 'Cormorant Garamond', serif;
   font-size: clamp(2rem, 4vw, 3.2rem);
   font-weight: 300;
-  color: #f5f2ed;
+  color: var(--text-head);
   line-height: 1;
+  transition: color 0.3s;
 }
 .section-line {
   flex: 1;
   height: 1px;
-  background: #242424;
+  background: var(--border);
   margin-left: .5rem;
+  transition: background 0.3s;
 }
 
 /* ── ABOUT ── */
@@ -312,13 +426,13 @@ section {
 .portrait-frame {
   width: 100%;
   aspect-ratio: 3/4;
-  border: 1px solid #2a2a2a;
+  border: 1px solid var(--border-mid);
   border-radius: 2px;
   position: relative;
   overflow: hidden;
-  /* PERF: reserve exact space while image loads → zero layout shift */
-  background: #1a1a1a;
+  background: var(--bg-card);
   contain: layout paint;
+  transition: border-color 0.3s, background 0.3s;
 }
 .portrait-frame img {
   width: 100%;
@@ -340,25 +454,26 @@ section {
   position: absolute;
   top: 12px; left: 12px;
   width: 24px; height: 24px;
-  border-top: 1px solid #c9a14a;
-  border-left: 1px solid #c9a14a;
+  border-top: 1px solid var(--gold);
+  border-left: 1px solid var(--gold);
   z-index: 2;
 }
 .portrait-corner-br {
   position: absolute;
   bottom: 12px; right: 12px;
   width: 24px; height: 24px;
-  border-bottom: 1px solid #c9a14a;
-  border-right: 1px solid #c9a14a;
+  border-bottom: 1px solid var(--gold);
+  border-right: 1px solid var(--gold);
   z-index: 2;
 }
 .about-bio {
   font-size: 1.05rem;
   line-height: 1.85;
-  color: #d8d0c4;
+  color: var(--text);
   margin-bottom: 2.5rem;
+  transition: color 0.3s;
 }
-.about-bio strong { color: #f5f2ed; font-weight: 500; }
+.about-bio strong { color: var(--text-head); font-weight: 500; }
 .skills-list {
   display: flex;
   flex-wrap: wrap;
@@ -367,17 +482,18 @@ section {
 }
 .skill-tag {
   padding: .4rem 1rem;
-  border: 1px solid #2a2a2a;
+  border: 1px solid var(--border-mid);
   border-radius: 2px;
   font-size: .72rem;
   letter-spacing: .1em;
   text-transform: uppercase;
-  color: #888888;
+  color: var(--text-muted);
+  background: var(--skill-bg);
   transition: border-color .25s, color .25s, background .25s;
 }
 .skill-tag:hover {
-  border-color: #c9a14a;
-  color: #e2bc72;
+  border-color: var(--gold);
+  color: var(--gold-light);
   background: rgba(201,161,74,0.05);
 }
 .about-meta {
@@ -385,17 +501,18 @@ section {
   flex-direction: column;
   gap: .8rem;
   padding-top: 2rem;
-  border-top: 1px solid #242424;
+  border-top: 1px solid var(--border);
+  transition: border-color 0.3s;
 }
 .meta-row { display: flex; gap: 1rem; font-size: .8rem; }
 .meta-label {
-  color: #c9a14a;
+  color: var(--gold);
   letter-spacing: .1em;
   text-transform: uppercase;
   min-width: 100px;
   font-size: .7rem;
 }
-.meta-val { color: #d8d0c4; }
+.meta-val { color: var(--text); transition: color 0.3s; }
 
 /* ── GALLERY ── */
 .filter-bar {
@@ -407,9 +524,9 @@ section {
 .filter-btn {
   padding: .45rem 1.2rem;
   background: transparent;
-  border: 1px solid #2a2a2a;
+  border: 1px solid var(--border-mid);
   border-radius: 2px;
-  color: #888888;
+  color: var(--text-muted);
   font-family: 'DM Sans', sans-serif;
   font-size: .72rem;
   letter-spacing: .1em;
@@ -420,8 +537,8 @@ section {
 }
 .filter-btn.active,
 .filter-btn:hover {
-  background: #c9a14a;
-  border-color: #c9a14a;
+  background: var(--gold);
+  border-color: var(--gold);
   color: #080808;
 }
 .masonry-grid {
@@ -434,26 +551,29 @@ section {
 .project-card {
   break-inside: avoid;
   margin-bottom: 1.2rem;
-  background: #1a1a1a;
-  border: 1px solid #242424;
+  background: var(--bg-card);
+  border: 1px solid var(--border);
   border-radius: 4px;
   overflow: hidden;
   position: relative;
   cursor: pointer;
-  transition: transform .4s cubic-bezier(.16,1,.3,1), box-shadow .4s cubic-bezier(.16,1,.3,1), border-color .3s;
+  transition: transform .4s cubic-bezier(.16,1,.3,1), box-shadow .4s cubic-bezier(.16,1,.3,1), border-color .3s, background 0.3s;
 }
 .project-card:hover {
   transform: translateY(-4px);
+  box-shadow: 0 20px 60px rgba(0,0,0,0.15), 0 0 0 1px var(--gold);
+  border-color: var(--gold);
+}
+[data-theme="dark"] .project-card:hover {
   box-shadow: 0 20px 60px rgba(0,0,0,0.6), 0 0 0 1px #9a7530;
-  border-color: #9a7530;
 }
 .project-img-wrap {
   width: 100%;
   position: relative;
-  /* PERF: GPU-composited layer so hover scale doesn't repaint the whole page */
   will-change: transform;
-  background: #141414;
+  background: var(--bg-card2);
   overflow: hidden;
+  transition: background 0.3s;
 }
 .project-img-wrap img {
   width: 100%;
@@ -461,7 +581,6 @@ section {
   object-fit: cover;
   display: block;
   transition: transform .5s cubic-bezier(.16,1,.3,1);
-  /* PERF: decode off the main thread so it never jank-blocks layout */
   content-visibility: auto;
 }
 .project-card:hover .project-img-wrap img { transform: scale(1.03); }
@@ -471,7 +590,7 @@ section {
 .project-overlay {
   position: absolute;
   inset: 0;
-  background: linear-gradient(to top, rgba(8,8,8,0.92) 0%, rgba(8,8,8,0.3) 50%, transparent 100%);
+  background: linear-gradient(to top, var(--overlay-card) 0%, rgba(8,8,8,0.3) 50%, transparent 100%);
   opacity: 0;
   transition: opacity .35s cubic-bezier(.16,1,.3,1);
   display: flex;
@@ -479,12 +598,15 @@ section {
   padding: 1.4rem;
   z-index: 2;
 }
+[data-theme="light"] .project-overlay {
+  background: linear-gradient(to top, rgba(245,241,235,0.97) 0%, rgba(245,241,235,0.5) 50%, transparent 100%);
+}
 .project-card:hover .project-overlay { opacity: 1; }
 .project-cat {
   font-size: .62rem;
   letter-spacing: .18em;
   text-transform: uppercase;
-  color: #c9a14a;
+  color: var(--gold);
   display: block;
   margin-bottom: .3rem;
 }
@@ -492,8 +614,9 @@ section {
   font-family: 'Cormorant Garamond', serif;
   font-size: 1.15rem;
   font-weight: 400;
-  color: #f5f2ed;
+  color: var(--text-head);
   line-height: 1.2;
+  transition: color 0.3s;
 }
 
 /* ── CONTACT ── */
@@ -503,12 +626,13 @@ section {
   font-family: 'Cormorant Garamond', serif;
   font-size: clamp(2.4rem, 5vw, 4rem);
   font-weight: 300;
-  color: #f5f2ed;
+  color: var(--text-head);
   line-height: 1.1;
   margin-bottom: 1.2rem;
+  transition: color 0.3s;
 }
-.contact-headline em { font-style: italic; color: #e2bc72; }
-.contact-sub { color: #888888; margin-bottom: 3rem; font-size: .95rem; }
+.contact-headline em { font-style: italic; color: var(--gold-light); }
+.contact-sub { color: var(--text-muted); margin-bottom: 3rem; font-size: .95rem; transition: color 0.3s; }
 .contact-ctas {
   display: flex;
   gap: 1rem;
@@ -521,51 +645,55 @@ section {
   flex-direction: column;
   gap: .8rem;
   padding: 2rem;
-  background: #141414;
-  border: 1px solid #242424;
+  background: var(--contact-box);
+  border: 1px solid var(--border);
   border-radius: 4px;
   text-align: left;
+  transition: background 0.3s, border-color 0.3s;
 }
 .contact-row {
   display: flex;
   align-items: center;
   gap: 1rem;
   font-size: .85rem;
-  color: #d8d0c4;
+  color: var(--text);
+  transition: color 0.3s;
 }
-.contact-icon { color: #c9a14a; font-size: 1rem; width: 20px; }
-.contact-row a { color: #d8d0c4; text-decoration: none; transition: color .2s; }
-.contact-row a:hover { color: #e2bc72; }
+.contact-icon { color: var(--gold); font-size: 1rem; width: 20px; }
+.contact-row a { color: var(--text); text-decoration: none; transition: color .2s; }
+.contact-row a:hover { color: var(--gold-light); }
 
 /* ── FOOTER ── */
 footer {
-  border-top: 1px solid #242424;
+  border-top: 1px solid var(--border);
   padding: 2.5rem 4rem;
   display: flex;
   align-items: center;
   justify-content: space-between;
   flex-wrap: wrap;
   gap: 1rem;
+  transition: border-color 0.3s;
 }
 .footer-logo {
   font-family: 'Bebas Neue', sans-serif;
   font-size: 1.2rem;
   letter-spacing: .1em;
-  color: #666666;
+  color: var(--text-dim);
   text-decoration: none;
+  transition: color 0.3s;
 }
-.footer-logo span { color: #c9a14a; }
-.footer-copy { font-size: .72rem; color: #333333; letter-spacing: .08em; }
+.footer-logo span { color: var(--gold); }
+.footer-copy { font-size: .72rem; color: var(--text-footer); letter-spacing: .08em; transition: color 0.3s; }
 .footer-social { display: flex; gap: 1.2rem; }
 .footer-social a {
   font-size: .72rem;
   letter-spacing: .12em;
   text-transform: uppercase;
-  color: #666666;
+  color: var(--text-dim);
   text-decoration: none;
   transition: color .2s;
 }
-.footer-social a:hover { color: #c9a14a; }
+.footer-social a:hover { color: var(--gold); }
 
 /* ── LIGHTBOX ── */
 #lightbox {
@@ -579,25 +707,30 @@ footer {
   backdrop-filter: blur(8px);
   -webkit-backdrop-filter: blur(8px);
 }
+[data-theme="light"] #lightbox {
+  background: rgba(245,241,235,0.88);
+}
 #lightbox.open { display: flex; }
 #lightbox-inner {
-  background: #1a1a1a;
-  border: 1px solid #2a2a2a;
+  background: var(--lb-bg);
+  border: 1px solid var(--lb-border);
   border-radius: 4px;
   max-width: 700px;
   width: 90%;
   overflow: hidden;
   position: relative;
   animation: fadeUp .4s cubic-bezier(.16,1,.3,1);
+  transition: background 0.3s, border-color 0.3s;
 }
 #lightbox-img-wrap {
   width: 100%;
   max-height: 420px;
   overflow: hidden;
-  background: #141414;
+  background: var(--bg-card2);
   display: flex;
   align-items: center;
   justify-content: center;
+  transition: background 0.3s;
 }
 #lightbox-img-wrap img {
   width: 100%;
@@ -606,21 +739,22 @@ footer {
   display: block;
 }
 #lightbox-body { padding: 1.5rem 2rem; }
-#lightbox-cat { font-size: .65rem; letter-spacing: .2em; text-transform: uppercase; color: #c9a14a; }
+#lightbox-cat { font-size: .65rem; letter-spacing: .2em; text-transform: uppercase; color: var(--gold); }
 #lightbox-title {
   font-family: 'Cormorant Garamond', serif;
   font-size: 1.6rem;
-  color: #f5f2ed;
+  color: var(--text-head);
   margin: .3rem 0 .6rem;
+  transition: color 0.3s;
 }
-#lightbox-desc { font-size: .88rem; color: #888888; line-height: 1.7; }
+#lightbox-desc { font-size: .88rem; color: var(--text-muted); line-height: 1.7; transition: color 0.3s; }
 #lightbox-close {
   position: fixed;
   top: 1.2rem;
   right: 1.2rem;
   width: 36px;
   height: 36px;
-  background: #c9a14a;
+  background: var(--gold);
   border: none;
   border-radius: 50%;
   color: #080808;
@@ -634,8 +768,7 @@ footer {
   line-height: 1;
   transition: background .2s;
 }
-#lightbox-close:hover { background: #e2bc72; }
-
+#lightbox-close:hover { background: var(--gold-light); }
 
 /* ── ANIMATIONS ── */
 @keyframes fadeUp {
@@ -676,7 +809,7 @@ footer {
 *:focus-visible { outline: none; }
 
 /* ── STORIES ── */
-#stories { padding: 7rem 4rem; max-width: 1300px; margin: 0 auto; }
+#storiesSection { padding: 7rem 4rem; max-width: 1300px; margin: 0 auto; }
 .story-viewer {
   position: fixed;
   inset: 0;
@@ -769,8 +902,6 @@ footer {
   z-index: 10;
   pointer-events: none;
 }
-
-/* Story thumbnails strip */
 .story-thumbs {
   display: flex;
   gap: 1rem;
@@ -786,13 +917,13 @@ footer {
   overflow: hidden;
   cursor: pointer;
   border: 2px solid transparent;
-  transition: border-color .25s, transform .3s cubic-bezier(.16,1,.3,1);
-  background: #1a1a1a;
+  transition: border-color .25s, transform .3s cubic-bezier(.16,1,.3,1), background 0.3s;
+  background: var(--bg-card);
   position: relative;
 }
 .story-thumb:hover {
   transform: scale(1.04);
-  border-color: #c9a14a;
+  border-color: var(--gold);
 }
 .story-thumb img {
   width: 100%;
@@ -813,8 +944,9 @@ footer {
   font-size: .72rem;
   letter-spacing: .14em;
   text-transform: uppercase;
-  color: #555;
+  color: var(--text-muted);
   margin-bottom: 1.2rem;
+  transition: color 0.3s;
 }
 </style>
 
@@ -826,7 +958,6 @@ footer {
 <div id="lightbox">
   <button id="lightbox-close" onclick="closeLightbox()">✕</button>
   <div id="lightbox-inner">
-
     <div id="lightbox-img-wrap">
       <img id="lightbox-img" src="" alt=""/>
     </div>
@@ -842,24 +973,23 @@ footer {
 
 <nav id="navbar">
   <a class="nav-logo" href="#hero">W<span>.</span>T</a>
-  <ul class="nav-links">
-    <li><a href="#about">About</a></li>
-    <li><a href="#gallery">Work</a></li>
-    <li><a href="#contact">Contact</a></li>
-  </ul>
+  <div class="nav-right">
+    <ul class="nav-links">
+      <li><a href="#about">About</a></li>
+      <li><a href="#gallery">Work</a></li>
+      <li><a href="#contact">Contact</a></li>
+    </ul>
+    <button id="theme-toggle" aria-label="Toggle dark/light mode" onclick="toggleTheme()">
+      <span class="toggle-icon moon">🌙</span>
+      <span class="toggle-icon sun">☀️</span>
+    </button>
+  </div>
 </nav>
 
 <!-- ══════════════ HERO ══════════════ -->
 
 <div id="hero">
   <div class="hero-portrait-bg">
-    <!--
-      PERF FIXES on hero image:
-        • loading="eager"   → do not defer (above the fold, visible immediately)
-        • fetchpriority="high" → browser allocates max bandwidth to this first
-        • decoding="async"  → decode off the main thread (no jank)
-        • width/height      → browser can reserve space before the file arrives → zero CLS
-    -->
     <img
       src="IMG_8832.jpeg"
       alt="Wilfred Tengolyin"
@@ -902,18 +1032,12 @@ footer {
 
 <section id="about">
   <div class="section-header reveal">
- 
     <h2 class="section-title">About Me</h2>
     <div class="section-line"></div>
   </div>
   <div class="about-grid">
     <div class="about-portrait reveal reveal-delay-1">
       <div class="portrait-frame">
-        <!--
-          PERF: loading="lazy" → browser skips this until user scrolls near it.
-          decoding="async"    → never blocks the main thread.
-          width/height        → aspect-ratio is preserved; zero layout shift.
-        -->
         <img
           src="IMG_8831.jpeg"
           alt="Wilfred Tengolyin portrait"
@@ -948,7 +1072,7 @@ footer {
         <div class="meta-row"><span class="meta-label">Based In</span><span class="meta-val">Ghana 🇬🇭</span></div>
         <div class="meta-row"><span class="meta-label">Institution</span><span class="meta-val">Kwame Nkrumah University of Science and Technology — College of Art &amp; Built Environment</span></div>
         <div class="meta-row"><span class="meta-label">Handle</span><span class="meta-val">@wilfredlulu</span></div>
-        <div class="meta-row"><span class="meta-label">Status</span><span class="meta-val" style="color:#e2bc72;">Open to freelance &amp; collaborations ✦</span></div>
+        <div class="meta-row"><span class="meta-label">Status</span><span class="meta-val" style="color:var(--gold-light);">Open to freelance &amp; collaborations ✦</span></div>
       </div>
     </div>
   </div>
@@ -960,7 +1084,6 @@ footer {
 
 <section id="gallery" style="max-width:1300px; padding-left:4rem; padding-right:4rem;">
   <div class="section-header reveal">
-  
     <h2 class="section-title">The Archive</h2>
     <div class="section-line"></div>
   </div>
@@ -970,9 +1093,8 @@ footer {
     <button class="filter-btn" data-filter="photo">Photo Concept</button>
     <button class="filter-btn" data-filter="motion">Motion / Animation</button>
     <button class="filter-btn" data-filter="branding">Branding</button>
-   <button class="filter-btn" data-filter="typography">Typography</button>
-<button class="filter-btn" data-filter="story">Story</button>
-
+    <button class="filter-btn" data-filter="typography">Typography</button>
+    <button class="filter-btn" data-filter="story">Story</button>
   </div>
 
   <div class="masonry-grid">
@@ -985,10 +1107,6 @@ footer {
      data-desc="A clean, editorial-style digital biography layout featuring artist Nate Feuerstein (NF). This project demonstrates a strong command of grid systems, balanced whitespace, and high-contrast typography to create a professional publication feel."
      onclick="openLightbox(this)">
   <div class="project-img-wrap tall">
-    <!--
-      First gallery image: loading="lazy" defers it until the user scrolls down.
-      All gallery images get lazy + async — only the hero gets eager/high-priority.
-    -->
     <img src="IMG_8806.jpeg" alt="Nate Feuerstien Artist Profile" loading="lazy" decoding="async" width="800" height="1133"/>
   </div>
   <div class="project-overlay">
@@ -1390,9 +1508,7 @@ footer {
   </div>
 </div>
 
-
 <!-- PROJECT 25 -->
-
 <div class="project-card reveal"
      data-category="photo"
      data-title="Focused Interaction"
@@ -1410,7 +1526,6 @@ footer {
 </div>
 
 <!-- PROJECT 26 -->
-
 <div class="project-card reveal reveal-delay-1"
      data-category="photo"
      data-title="Behind the Lens"
@@ -1428,7 +1543,6 @@ footer {
 </div>
 
 <!-- PROJECT 27 -->
-
 <div class="project-card reveal reveal-delay-2"
      data-category="typography"
      data-title="KSA Degree Show"
@@ -1446,199 +1560,59 @@ footer {
 </div>
 
 
-<!--
-  Remaining placeholder cards with no src.
-  The JS below hides these automatically.
-  No img tag at all → zero wasted network requests.
-
-
-
   </div><!-- /masonry-grid -->
 </section>
+
 <div class="section-divider"></div>
 
 <!-- ══════════════ STORIES ══════════════ -->
-<section id="storiesSection">
 
+<section id="storiesSection">
   <div class="section-header reveal">
     <h2 class="section-title">A short story</h2>
     <div class="section-line"></div>
   </div>
   <p class="story-open-hint reveal reveal-delay-1">Tap any frame to view full story</p>
 
-  <!-- THUMBNAIL STRIP — swap the src values with your actual file names -->
- <div id="storyPanel" class="story-thumbs reveal reveal-delay-2">
-
-
-    <div class="story-thumb" onclick="openStory(0)">
-      <img src="IMG_9031.png" alt="Story 1" decoding="async"/><!-- ← swap STORY_01.jpeg -->
-      <span class="story-thumb-num">1</span>
-    </div>
-
-    <div class="story-thumb" onclick="openStory(1)">
-      <img src="IMG_9033.png" alt="Story 2" decoding="async"/><!-- ← swap STORY_02.jpeg -->
-      <span class="story-thumb-num">2</span>
-    </div>
-
-    <div class="story-thumb" onclick="openStory(2)">
-      <img src="IMG_9034.png" alt="Story 3" decoding="async"/><!-- ← swap STORY_03.jpeg -->
-      <span class="story-thumb-num">3</span>
-    </div>
-
-    <div class="story-thumb" onclick="openStory(3)">
-      <img src="IMG_9035.png" alt="Story 4" loading="lazy" decoding="async"/><!-- ← swap STORY_04.jpeg -->
-      <span class="story-thumb-num">4</span>
-    </div>
-
-    <div class="story-thumb" onclick="openStory(4)">
-      <img src="IMG_9036.png" alt="Story 5" loading="lazy" decoding="async"/><!-- ← swap STORY_05.jpeg -->
-      <span class="story-thumb-num">5</span>
-    </div>
-
-    <div class="story-thumb" onclick="openStory(5)">
-      <img src="IMG_9037.png" alt="Story 6" loading="lazy" decoding="async"/><!-- ← swap STORY_06.jpeg -->
-      <span class="story-thumb-num">6</span>
-    </div>
-
-    <div class="story-thumb" onclick="openStory(6)">
-      <img src="IMG_9038.png" alt="Story 7" loading="lazy" decoding="async"/><!-- ← swap STORY_07.jpeg -->
-      <span class="story-thumb-num">7</span>
-    </div>
-
-    <div class="story-thumb" onclick="openStory(7)">
-      <img src="IMG_9039.png" alt="Story 8" loading="lazy" decoding="async"/><!-- ← swap STORY_08.jpeg -->
-      <span class="story-thumb-num">8</span>
-    </div>
-
-    <div class="story-thumb" onclick="openStory(8)">
-      <img src="IMG_9040.png" alt="Story 9" loading="lazy" decoding="async"/><!-- ← swap STORY_09.jpeg -->
-      <span class="story-thumb-num">9</span>
-    </div>
-
-    <div class="story-thumb" onclick="openStory(9)">
-      <img src="IMG_9041.png" alt="Story 10" loading="lazy" decoding="async"/><!-- ← swap STORY_10.jpeg -->
-      <span class="story-thumb-num">10</span>
-    </div>
-
-    <div class="story-thumb" onclick="openStory(10)">
-      <img src="IMG_9042.png" alt="Story 11" loading="lazy" decoding="async"/><!-- ← swap STORY_11.jpeg -->
-      <span class="story-thumb-num">11</span>
-    </div>
-
-    <div class="story-thumb" onclick="openStory(11)">
-      <img src="IMG_9043.png" alt="Story 12" loading="lazy" decoding="async"/><!-- ← swap STORY_12.jpeg -->
-      <span class="story-thumb-num">12</span>
-    </div>
-
-    <div class="story-thumb" onclick="openStory(12)">
-      <img src="IMG_9044.png" alt="Story 13" loading="lazy" decoding="async"/><!-- ← swap STORY_13.jpeg -->
-      <span class="story-thumb-num">13</span>
-    </div>
-
-    <div class="story-thumb" onclick="openStory(13)">
-      <img src="IMG_9045.png" alt="Story 14" loading="lazy" decoding="async"/><!-- ← swap STORY_14.jpeg -->
-      <span class="story-thumb-num">14</span>
-    </div>
-
-    <div class="story-thumb" onclick="openStory(14)">
-      <img src="IMG_9046.png" alt="Story 15" loading="lazy" decoding="async"/><!-- ← swap STORY_15.jpeg -->
-      <span class="story-thumb-num">15</span>
-    </div>
-
-    <div class="story-thumb" onclick="openStory(15)">
-      <img src="IMG_9047.png" alt="Story 16" loading="lazy" decoding="async"/><!-- ← swap STORY_16.jpeg -->
-      <span class="story-thumb-num">16</span>
-    </div>
-
-    <div class="story-thumb" onclick="openStory(16)">
-      <img src="IMG_9048.png" alt="Story 17" loading="lazy" decoding="async"/><!-- ← swap STORY_17.jpeg -->
-      <span class="story-thumb-num">17</span>
-    </div>
-
-    <div class="story-thumb" onclick="openStory(17)">
-      <img src="IMG_9049.png" alt="Story 18" loading="lazy" decoding="async"/><!-- ← swap STORY_18.jpeg -->
-      <span class="story-thumb-num">18</span>
-    </div>
-
-    <div class="story-thumb" onclick="openStory(18)">
-      <img src="IMG_9050.png" alt="Story 19" loading="lazy" decoding="async"/><!-- ← swap STORY_19.jpeg -->
-      <span class="story-thumb-num">19</span>
-    </div>
-
-    <div class="story-thumb" onclick="openStory(19)">
-      <img src="IMG_9051.png" alt="Story 20" loading="lazy" decoding="async"/><!-- ← swap STORY_20.jpeg -->
-      <span class="story-thumb-num">20</span>
-    </div>
-
-    <div class="story-thumb" onclick="openStory(20)">
-      <img src="IMG_9052.png" alt="Story 21" loading="lazy" decoding="async"/><!-- ← swap STORY_21.jpeg -->
-      <span class="story-thumb-num">21</span>
-    </div>
-
-    <div class="story-thumb" onclick="openStory(21)">
-      <img src="IMG_9053.png" alt="Story 22" loading="lazy" decoding="async"/><!-- ← swap STORY_22.jpeg -->
-      <span class="story-thumb-num">22</span>
-    </div>
-
-    <div class="story-thumb" onclick="openStory(22)">
-      <img src="IMG_9054.png" alt="Story 23" loading="lazy" decoding="async"/><!-- ← swap STORY_23.jpeg -->
-      <span class="story-thumb-num">23</span>
-    </div>
-
-    <div class="story-thumb" onclick="openStory(23)">
-      <img src="IMG_9055.png" alt="Story 24" loading="lazy" decoding="async"/><!-- ← swap STORY_24.jpeg -->
-      <span class="story-thumb-num">24</span>
-    </div>
-
-    <div class="story-thumb" onclick="openStory(24)">
-      <img src="IMG_9056.png" alt="Story 25" loading="lazy" decoding="async"/><!-- ← swap STORY_25.jpeg -->
-      <span class="story-thumb-num">25</span>
-    </div>
-
-    <div class="story-thumb" onclick="openStory(25)">
-      <img src="IMG_9057.png" alt="Story 26" loading="lazy" decoding="async"/><!-- ← swap STORY_26.jpeg -->
-      <span class="story-thumb-num">26</span>
-    </div>
-
-    <div class="story-thumb" onclick="openStory(26)">
-      <img src="IMG_9058.png" alt="Story 27" loading="lazy" decoding="async"/><!-- ← swap STORY_27.jpeg -->
-      <span class="story-thumb-num">27</span>
-    </div>
-
-    <div class="story-thumb" onclick="openStory(27)">
-      <img src="IMG_9059.png" alt="Story 28" loading="lazy" decoding="async"/><!-- ← swap STORY_28.jpeg -->
-      <span class="story-thumb-num">28</span>
-    </div>
-
-    <div class="story-thumb" onclick="openStory(28)">
-      <img src="IMG_9060.png" alt="Story 29" loading="lazy" decoding="async"/><!-- ← swap STORY_29.jpeg -->
-      <span class="story-thumb-num">29</span>
-    </div>
-
-    <div class="story-thumb" onclick="openStory(29)">
-      <img src="IMG_9061.png" alt="Story 30" loading="lazy" decoding="async"/><!-- ← swap STORY_30.jpeg -->
-      <span class="story-thumb-num">30</span>
-    </div>
-
-    <div class="story-thumb" onclick="openStory(30)">
-      <img src="IMG_9062.png" alt="Story 31" loading="lazy" decoding="async"/><!-- ← swap STORY_31.jpeg -->
-      <span class="story-thumb-num">31</span>
-    </div>
-
-    <div class="story-thumb" onclick="openStory(31)">
-      <img src="IMG_9063.png" alt="Story 32" loading="lazy" decoding="async"/><!-- ← swap STORY_32.jpeg -->
-      <span class="story-thumb-num">32</span>
-    </div>
-
-    <div class="story-thumb" onclick="openStory(32)">
-      <img src="IMG_9064.png" alt="Story 33" loading="lazy" decoding="async"/><!-- ← swap STORY_33.jpeg -->
-      <span class="story-thumb-num">33</span>
-    </div>
-
-  </div><!-- /story-thumbs -->
+  <div id="storyPanel" class="story-thumbs reveal reveal-delay-2">
+    <div class="story-thumb" onclick="openStory(0)"><img src="IMG_9031.png" alt="Story 1" decoding="async"/><span class="story-thumb-num">1</span></div>
+    <div class="story-thumb" onclick="openStory(1)"><img src="IMG_9033.png" alt="Story 2" decoding="async"/><span class="story-thumb-num">2</span></div>
+    <div class="story-thumb" onclick="openStory(2)"><img src="IMG_9034.png" alt="Story 3" decoding="async"/><span class="story-thumb-num">3</span></div>
+    <div class="story-thumb" onclick="openStory(3)"><img src="IMG_9035.png" alt="Story 4" loading="lazy" decoding="async"/><span class="story-thumb-num">4</span></div>
+    <div class="story-thumb" onclick="openStory(4)"><img src="IMG_9036.png" alt="Story 5" loading="lazy" decoding="async"/><span class="story-thumb-num">5</span></div>
+    <div class="story-thumb" onclick="openStory(5)"><img src="IMG_9037.png" alt="Story 6" loading="lazy" decoding="async"/><span class="story-thumb-num">6</span></div>
+    <div class="story-thumb" onclick="openStory(6)"><img src="IMG_9038.png" alt="Story 7" loading="lazy" decoding="async"/><span class="story-thumb-num">7</span></div>
+    <div class="story-thumb" onclick="openStory(7)"><img src="IMG_9039.png" alt="Story 8" loading="lazy" decoding="async"/><span class="story-thumb-num">8</span></div>
+    <div class="story-thumb" onclick="openStory(8)"><img src="IMG_9040.png" alt="Story 9" loading="lazy" decoding="async"/><span class="story-thumb-num">9</span></div>
+    <div class="story-thumb" onclick="openStory(9)"><img src="IMG_9041.png" alt="Story 10" loading="lazy" decoding="async"/><span class="story-thumb-num">10</span></div>
+    <div class="story-thumb" onclick="openStory(10)"><img src="IMG_9042.png" alt="Story 11" loading="lazy" decoding="async"/><span class="story-thumb-num">11</span></div>
+    <div class="story-thumb" onclick="openStory(11)"><img src="IMG_9043.png" alt="Story 12" loading="lazy" decoding="async"/><span class="story-thumb-num">12</span></div>
+    <div class="story-thumb" onclick="openStory(12)"><img src="IMG_9044.png" alt="Story 13" loading="lazy" decoding="async"/><span class="story-thumb-num">13</span></div>
+    <div class="story-thumb" onclick="openStory(13)"><img src="IMG_9045.png" alt="Story 14" loading="lazy" decoding="async"/><span class="story-thumb-num">14</span></div>
+    <div class="story-thumb" onclick="openStory(14)"><img src="IMG_9046.png" alt="Story 15" loading="lazy" decoding="async"/><span class="story-thumb-num">15</span></div>
+    <div class="story-thumb" onclick="openStory(15)"><img src="IMG_9047.png" alt="Story 16" loading="lazy" decoding="async"/><span class="story-thumb-num">16</span></div>
+    <div class="story-thumb" onclick="openStory(16)"><img src="IMG_9048.png" alt="Story 17" loading="lazy" decoding="async"/><span class="story-thumb-num">17</span></div>
+    <div class="story-thumb" onclick="openStory(17)"><img src="IMG_9049.png" alt="Story 18" loading="lazy" decoding="async"/><span class="story-thumb-num">18</span></div>
+    <div class="story-thumb" onclick="openStory(18)"><img src="IMG_9050.png" alt="Story 19" loading="lazy" decoding="async"/><span class="story-thumb-num">19</span></div>
+    <div class="story-thumb" onclick="openStory(19)"><img src="IMG_9051.png" alt="Story 20" loading="lazy" decoding="async"/><span class="story-thumb-num">20</span></div>
+    <div class="story-thumb" onclick="openStory(20)"><img src="IMG_9052.png" alt="Story 21" loading="lazy" decoding="async"/><span class="story-thumb-num">21</span></div>
+    <div class="story-thumb" onclick="openStory(21)"><img src="IMG_9053.png" alt="Story 22" loading="lazy" decoding="async"/><span class="story-thumb-num">22</span></div>
+    <div class="story-thumb" onclick="openStory(22)"><img src="IMG_9054.png" alt="Story 23" loading="lazy" decoding="async"/><span class="story-thumb-num">23</span></div>
+    <div class="story-thumb" onclick="openStory(23)"><img src="IMG_9055.png" alt="Story 24" loading="lazy" decoding="async"/><span class="story-thumb-num">24</span></div>
+    <div class="story-thumb" onclick="openStory(24)"><img src="IMG_9056.png" alt="Story 25" loading="lazy" decoding="async"/><span class="story-thumb-num">25</span></div>
+    <div class="story-thumb" onclick="openStory(25)"><img src="IMG_9057.png" alt="Story 26" loading="lazy" decoding="async"/><span class="story-thumb-num">26</span></div>
+    <div class="story-thumb" onclick="openStory(26)"><img src="IMG_9058.png" alt="Story 27" loading="lazy" decoding="async"/><span class="story-thumb-num">27</span></div>
+    <div class="story-thumb" onclick="openStory(27)"><img src="IMG_9059.png" alt="Story 28" loading="lazy" decoding="async"/><span class="story-thumb-num">28</span></div>
+    <div class="story-thumb" onclick="openStory(28)"><img src="IMG_9060.png" alt="Story 29" loading="lazy" decoding="async"/><span class="story-thumb-num">29</span></div>
+    <div class="story-thumb" onclick="openStory(29)"><img src="IMG_9061.png" alt="Story 30" loading="lazy" decoding="async"/><span class="story-thumb-num">30</span></div>
+    <div class="story-thumb" onclick="openStory(30)"><img src="IMG_9062.png" alt="Story 31" loading="lazy" decoding="async"/><span class="story-thumb-num">31</span></div>
+    <div class="story-thumb" onclick="openStory(31)"><img src="IMG_9063.png" alt="Story 32" loading="lazy" decoding="async"/><span class="story-thumb-num">32</span></div>
+    <div class="story-thumb" onclick="openStory(32)"><img src="IMG_9064.png" alt="Story 33" loading="lazy" decoding="async"/><span class="story-thumb-num">33</span></div>
+  </div>
 </section>
 
 <!-- ══ STORY VIEWER OVERLAY ══ -->
+
 <div id="storyViewer" class="story-viewer">
   <div class="story-bg">
     <img id="storyImg" src="" alt=""/>
@@ -1649,7 +1623,6 @@ footer {
   <button class="story-close-btn" onclick="closeStory()">✕</button>
   <div class="story-counter" id="storyCounter"></div>
 </div>
-
 
 <div class="section-divider"></div>
 
@@ -1672,50 +1645,38 @@ footer {
       </a>
     </div>
     <div class="contact-details reveal reveal-delay-2">
-
-  <div class="contact-row">
-    <span class="contact-icon">
-      <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="#c9a14a" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round">
-        <rect x="2" y="4" width="20" height="16" rx="2"/>
-        <path d="m2 7 10 7 10-7"/>
-      </svg>
-    </span>
-    <a href="mailto:wilfredlulu111@gmail.com">wilfredlulu111@gmail.com</a>
-  </div>
-
-  <div class="contact-row">
-    <span class="contact-icon">
-      <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="#c9a14a" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round">
-        <rect x="5" y="2" width="14" height="20" rx="2"/>
-        <circle cx="12" cy="17" r="1" fill="#c9a14a"/>
-        <path d="M9 6h6"/>
-      </svg>
-    </span>
-    <a href="tel:+233558687100">+233 558 687 100</a>
-  </div>
-
-  <div class="contact-row">
-    <span class="contact-icon">
-      <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="#c9a14a" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round">
-        <rect x="5" y="2" width="14" height="20" rx="2"/>
-        <circle cx="12" cy="17" r="1" fill="#c9a14a"/>
-        <path d="M9 6h6"/>
-      </svg>
-    </span>
-    <a href="tel:+233509033087">+233 509 033 087</a>
-  </div>
-
-  <div class="contact-row">
-    <span class="contact-icon">
-      <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="#c9a14a" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round">
-        <path d="M12 2C8.686 2 6 4.686 6 8c0 4.418 6 13 6 13s6-8.582 6-13c0-3.314-2.686-6-6-6z"/>
-        <circle cx="12" cy="8" r="2"/>
-      </svg>
-    </span>
-    <span>Kumasi, Ghana — KNUST</span>
-  </div>
-
-</div>
+      <div class="contact-row">
+        <span class="contact-icon">
+          <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="var(--gold)" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round">
+            <rect x="2" y="4" width="20" height="16" rx="2"/><path d="m2 7 10 7 10-7"/>
+          </svg>
+        </span>
+        <a href="mailto:wilfredlulu111@gmail.com">wilfredlulu111@gmail.com</a>
+      </div>
+      <div class="contact-row">
+        <span class="contact-icon">
+          <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="var(--gold)" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round">
+            <rect x="5" y="2" width="14" height="20" rx="2"/><circle cx="12" cy="17" r="1" fill="var(--gold)"/><path d="M9 6h6"/>
+          </svg>
+        </span>
+        <a href="tel:+233558687100">+233 558 687 100</a>
+      </div>
+      <div class="contact-row">
+        <span class="contact-icon">
+          <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="var(--gold)" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round">
+            <rect x="5" y="2" width="14" height="20" rx="2"/><circle cx="12" cy="17" r="1" fill="var(--gold)"/><path d="M9 6h6"/>
+          </svg>
+        </span>
+        <a href="tel:+233509033087">+233 509 033 087</a>
+      </div>
+      <div class="contact-row">
+        <span class="contact-icon">
+          <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="var(--gold)" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round">
+            <path d="M12 2C8.686 2 6 4.686 6 8c0 4.418 6 13 6 13s6-8.582 6-13c0-3.314-2.686-6-6-6z"/><circle cx="12" cy="8" r="2"/>
+          </svg>
+        </span>
+        <span>Kumasi, Ghana — KNUST</span>
+      </div>
     </div>
   </div>
 </section>
@@ -1732,30 +1693,48 @@ footer {
 </footer>
 
 <script>
+// ── THEME TOGGLE ── (hardcoded dark default, persists via localStorage)
+function toggleTheme() {
+  const html = document.documentElement;
+  const isDark = html.getAttribute('data-theme') === 'dark';
+  const next = isDark ? 'light' : 'dark';
+  html.setAttribute('data-theme', next);
+  try { localStorage.setItem('wt-theme', next); } catch(e) {}
+}
+
+// On load: restore saved preference, otherwise stay dark
+(function() {
+  try {
+    const saved = localStorage.getItem('wt-theme');
+    if (saved === 'light') {
+      document.documentElement.setAttribute('data-theme', 'light');
+    }
+    // 'dark' or null → stay dark (already set on <html>)
+  } catch(e) {}
+})();
+
 // ── NAV SCROLL ──
 const navbar = document.getElementById('navbar');
 window.addEventListener('scroll', () => {
   navbar.classList.toggle('scrolled', window.scrollY > 60);
-}, { passive: true }); // PERF: passive listener — never blocks scroll
+}, { passive: true });
 
 // ── SCROLL REVEAL ──
 const observer = new IntersectionObserver((entries) => {
   entries.forEach(e => {
     if (e.isIntersecting) {
       e.target.classList.add('visible');
-      observer.unobserve(e.target); // PERF: stop watching once revealed
+      observer.unobserve(e.target);
     }
   });
 }, { threshold: 0.08 });
 document.querySelectorAll('.reveal').forEach(el => observer.observe(el));
 
-// ── HIDE PLACEHOLDER CARDS (those with no img or empty src) ──
-// We removed the <img> tag entirely from placeholders, so just hide by class
+// ── HIDE PLACEHOLDER CARDS ──
 document.querySelectorAll('.placeholder-card').forEach(card => {
   card.classList.add('hidden');
 });
 
-// ── GALLERY FILTER ──
 // ── GALLERY FILTER ──
 document.querySelectorAll('.filter-btn').forEach(btn => {
   btn.addEventListener('click', () => {
@@ -1783,40 +1762,28 @@ document.querySelectorAll('.filter-btn').forEach(btn => {
   });
 });
 
-
-
-
-
-
 // ── LIGHTBOX ──
 function openLightbox(card) {
   const img = card.querySelector('img');
-  if (!img) return; // no image, nothing to show
+  if (!img) return;
 
   const catLabels = {
-    graphic:    'Graphic Design',
-    photo:      'Photo Concept',
-    motion:     'Motion / Animation',
-    branding:   'Branding',
-    typography: 'Typography'
+    graphic: 'Graphic Design', photo: 'Photo Concept',
+    motion: 'Motion / Animation', branding: 'Branding', typography: 'Typography'
   };
-  const catKey  = card.dataset.category || '';
-  const catEl   = card.querySelector('.project-cat');
-  const cat     = catLabels[catKey] || (catEl ? catEl.textContent : 'Design');
-
+  const catKey = card.dataset.category || '';
+  const catEl  = card.querySelector('.project-cat');
+  const cat    = catLabels[catKey] || (catEl ? catEl.textContent : 'Design');
   const titleEl = card.querySelector('.project-title');
   const title   = (card.dataset.title && card.dataset.title.trim())
-                  ? card.dataset.title
-                  : (titleEl ? titleEl.textContent.trim() : 'Untitled');
-
+                  ? card.dataset.title : (titleEl ? titleEl.textContent.trim() : 'Untitled');
   const desc = (card.dataset.desc && card.dataset.desc.trim()) ? card.dataset.desc : '';
 
   document.getElementById('lightbox-cat').textContent   = cat;
   document.getElementById('lightbox-title').textContent = title;
   document.getElementById('lightbox-desc').textContent  = desc;
-
   const lbImg = document.getElementById('lightbox-img');
-  lbImg.src = img ? img.src : '';
+  lbImg.src = img.src;
   lbImg.alt = title;
 
   document.getElementById('lightbox').classList.add('open');
@@ -1832,6 +1799,7 @@ document.getElementById('lightbox').addEventListener('click', e => {
   if (e.target === e.currentTarget) closeLightbox();
 });
 document.addEventListener('keydown', e => { if (e.key === 'Escape') closeLightbox(); });
+
 // ── STORY VIEWER ──
 (function() {
   let current = 0;
@@ -1839,9 +1807,8 @@ document.addEventListener('keydown', e => { if (e.key === 'Escape') closeLightbo
   let preloaded = {};
 
   function buildSrcs() {
-    storySrcs = Array.from(
-      document.querySelectorAll('.story-thumb img')
-    ).map(img => img.getAttribute('src'));
+    storySrcs = Array.from(document.querySelectorAll('.story-thumb img'))
+      .map(img => img.getAttribute('src'));
   }
 
   function buildProgressBar() {
@@ -1863,19 +1830,14 @@ document.addEventListener('keydown', e => { if (e.key === 'Escape') closeLightbo
 
   function updateViewer() {
     const storyImg = document.getElementById('storyImg');
-    if (preloaded[current] && preloaded[current].complete) {
-      storyImg.src = preloaded[current].src;
-    } else {
-      storyImg.src = storySrcs[current];
-    }
+    storyImg.src = (preloaded[current] && preloaded[current].complete)
+      ? preloaded[current].src : storySrcs[current];
     document.getElementById('storyCounter').textContent =
       (current + 1) + ' / ' + storySrcs.length;
-
     storySrcs.forEach((_, i) => {
       const seg = document.getElementById('seg-' + i);
       seg.className = 'story-seg' + (i < current ? ' done' : i === current ? ' active' : '');
     });
-
     preloadAround(current);
   }
 
@@ -1907,8 +1869,6 @@ document.addEventListener('keydown', e => { if (e.key === 'Escape') closeLightbo
     if (e.key === 'Escape')     closeStory();
   });
 })();
-
-
 </script>
 
 </body>
