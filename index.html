@@ -2083,7 +2083,7 @@ document.querySelectorAll('.filter-btn').forEach(btn => {
       document.querySelectorAll('.project-card').forEach(card => card.classList.add('hidden'));
       storiesSection.style.display = '';
     } else if (f === 'all') {
-      storiesSection.style.display = 'none';
+      storiesSection.style.display = '';
       document.querySelectorAll('.project-card').forEach(card => {
         if (card.classList.contains('placeholder-card')) { card.classList.add('hidden'); return; }
         card.classList.remove('hidden');
