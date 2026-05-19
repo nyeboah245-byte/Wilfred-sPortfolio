@@ -2089,7 +2089,7 @@ document.querySelectorAll('.filter-btn').forEach(btn => {
         card.classList.remove('hidden');
       });
     } else {
-      storiesSection.style.display = '';
+      storiesSection.style.display = 'none';
       document.querySelectorAll('.project-card').forEach(card => {
         if (card.classList.contains('placeholder-card')) { card.classList.add('hidden'); return; }
         card.classList.toggle('hidden', !card.dataset.category.split(' ').includes(f));
