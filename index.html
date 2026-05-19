@@ -266,6 +266,10 @@ nav.scrolled {
   animation: fadeUp .9s cubic-bezier(.16,1,.3,1) .2s forwards;
   text-shadow: 0 1px 8px rgba(0,0,0,0.8);
 }
+[data-theme="light"] .hero-eyebrow {
+  color: #fff;
+  text-shadow: 0 1px 4px rgba(0,0,0,0.9), 0 2px 16px rgba(0,0,0,0.7);
+}
 .hero-name {
   font-family: 'Cormorant Garamond', serif;
   font-size: clamp(3.5rem, 9vw, 8rem);
@@ -668,11 +672,18 @@ footer {
   border-top: 1px solid var(--border);
   padding: 2.5rem 4rem;
   display: flex;
+  flex-direction: column;
+  align-items: center;
+  gap: 1.4rem;
+  transition: border-color 0.3s;
+}
+.footer-top {
+  width: 100%;
+  display: flex;
   align-items: center;
   justify-content: space-between;
   flex-wrap: wrap;
   gap: 1rem;
-  transition: border-color 0.3s;
 }
 .footer-logo {
   font-family: 'Bebas Neue', sans-serif;
@@ -683,7 +694,7 @@ footer {
   transition: color 0.3s;
 }
 .footer-logo span { color: var(--gold); }
-.footer-copy { font-size: .72rem; color: var(--text-footer); letter-spacing: .08em; transition: color 0.3s; }
+.footer-copy { font-size: .72rem; color: var(--text-footer); letter-spacing: .08em; transition: color 0.3s; text-align: center; }
 .footer-social { display: flex; gap: 1.2rem; }
 .footer-social a {
   font-size: .72rem;
@@ -790,6 +801,131 @@ footer {
 .reveal-delay-3 { transition-delay: .3s; }
 .reveal-delay-4 { transition-delay: .4s; }
 
+/* ── HAMBURGER ── */
+#hamburger {
+  display: none;
+  flex-direction: column;
+  justify-content: center;
+  gap: 5px;
+  width: 36px;
+  height: 36px;
+  background: none;
+  border: none;
+  cursor: pointer;
+  padding: 4px;
+  z-index: 200;
+  flex-shrink: 0;
+}
+#hamburger span {
+  display: block;
+  height: 1.5px;
+  background: var(--text-head);
+  border-radius: 2px;
+  transition: transform 0.35s cubic-bezier(.16,1,.3,1), opacity 0.25s, width 0.3s;
+  transform-origin: center;
+}
+#hamburger span:nth-child(2) { width: 65%; margin-left: auto; }
+#hamburger.open span:nth-child(1) { transform: translateY(6.5px) rotate(45deg); }
+#hamburger.open span:nth-child(2) { opacity: 0; transform: scaleX(0); }
+#hamburger.open span:nth-child(3) { transform: translateY(-6.5px) rotate(-45deg); }
+
+/* ── MOBILE DRAWER ── */
+#mobile-drawer {
+  position: fixed;
+  top: 0; right: 0;
+  width: min(280px, 80vw);
+  height: 100vh;
+  background: var(--bg-nav);
+  backdrop-filter: blur(24px);
+  -webkit-backdrop-filter: blur(24px);
+  border-left: 1px solid var(--border);
+  z-index: 150;
+  display: flex;
+  flex-direction: column;
+  padding: 6rem 2.5rem 3rem;
+  gap: 0;
+  transform: translateX(100%);
+  transition: transform 0.4s cubic-bezier(.16,1,.3,1), background 0.3s;
+}
+#mobile-drawer.open { transform: translateX(0); }
+#drawer-overlay {
+  position: fixed;
+  inset: 0;
+  background: rgba(0,0,0,0.5);
+  z-index: 140;
+  opacity: 0;
+  pointer-events: none;
+  transition: opacity 0.35s;
+}
+#drawer-overlay.open { opacity: 1; pointer-events: all; }
+.drawer-link {
+  font-family: 'Cormorant Garamond', serif;
+  font-size: 2rem;
+  font-weight: 300;
+  color: var(--text-head);
+  text-decoration: none;
+  letter-spacing: .04em;
+  padding: .7rem 0;
+  border-bottom: 1px solid var(--border);
+  transition: color .25s, border-color 0.3s;
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+}
+.drawer-link:last-of-type { border-bottom: none; }
+.drawer-link:hover { color: var(--gold-light); }
+.drawer-link::after { content: '→'; font-size: 1rem; color: var(--gold); opacity: 0; transition: opacity .25s, transform .25s; transform: translateX(-6px); }
+.drawer-link:hover::after { opacity: 1; transform: translateX(0); }
+.drawer-bottom {
+  margin-top: auto;
+  font-size: .7rem;
+  letter-spacing: .12em;
+  text-transform: uppercase;
+  color: var(--text-muted);
+}
+
+/* ── BACK TO TOP ── */
+#back-to-top {
+  display: inline-flex;
+  align-items: center;
+  gap: .6rem;
+  background: none;
+  border: 1px solid var(--gold);
+  border-radius: 2px;
+  color: var(--gold);
+  font-family: 'DM Sans', sans-serif;
+  font-size: .72rem;
+  letter-spacing: .16em;
+  text-transform: uppercase;
+  cursor: pointer;
+  padding: .7rem 1.6rem;
+  transition: background .25s, color .25s, transform .3s cubic-bezier(.16,1,.3,1), box-shadow .25s;
+}
+#back-to-top:hover {
+  background: var(--gold);
+  color: #080808;
+  transform: translateY(-2px);
+  box-shadow: 0 8px 24px rgba(201,161,74,0.25);
+}
+#back-to-top svg { transition: transform .3s cubic-bezier(.16,1,.3,1); }
+#back-to-top:hover svg { transform: translateY(-3px); }
+
+/* ── DRAWER TOGGLE ROW ── */
+.drawer-toggle-row {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  padding-bottom: 1.2rem;
+  margin-bottom: .4rem;
+  border-bottom: 1px solid var(--border);
+}
+.drawer-toggle-label {
+  font-size: .7rem;
+  letter-spacing: .14em;
+  text-transform: uppercase;
+  color: var(--text-muted);
+}
+
 /* ── MOBILE ── */
 @media (max-width: 768px) {
   nav { padding: 1.2rem 1.5rem; }
@@ -798,10 +934,13 @@ footer {
   #hero { padding: 7rem 1.5rem 5rem; }
   section { padding: 5rem 1.5rem; }
   #about .about-grid { grid-template-columns: 1fr; gap: 2.5rem; }
-  footer { padding: 2rem 1.5rem; flex-direction: column; align-items: flex-start; }
+  footer { padding: 2rem 1.5rem; }
+  .footer-top { flex-direction: column; align-items: flex-start; }
 }
 @media (max-width: 480px) {
   .nav-links { display: none; }
+  #hamburger { display: flex; }
+  #theme-toggle { display: none; }
 }
 
 .project-card.hidden { display: none; }
@@ -977,14 +1116,35 @@ footer {
     <ul class="nav-links">
       <li><a href="#about">About</a></li>
       <li><a href="#gallery">Work</a></li>
+      <li><a href="#storiesSection">Stories</a></li>
       <li><a href="#contact">Contact</a></li>
     </ul>
     <button id="theme-toggle" aria-label="Toggle dark/light mode" onclick="toggleTheme()">
       <span class="toggle-icon moon">🌙</span>
       <span class="toggle-icon sun">☀️</span>
     </button>
+    <button id="hamburger" aria-label="Open menu" onclick="toggleDrawer()">
+      <span></span><span></span><span></span>
+    </button>
   </div>
 </nav>
+
+<!-- ══ MOBILE DRAWER ══ -->
+
+<div id="drawer-overlay" onclick="closeDrawer()"></div>
+<div id="mobile-drawer">
+  <div class="drawer-toggle-row">
+    <span class="drawer-toggle-label">Appearance</span>
+    <button id="theme-toggle-drawer" aria-label="Toggle dark/light mode" onclick="toggleTheme()" style="position:relative;width:44px;height:24px;background:var(--border-mid);border:1px solid var(--border);border-radius:12px;cursor:pointer;transition:background 0.3s,border-color 0.3s;flex-shrink:0;outline:none;padding:0;">
+      <span style="position:absolute;top:3px;left:3px;width:16px;height:16px;border-radius:50%;background:var(--gold);transition:transform 0.3s cubic-bezier(.16,1,.3,1),background 0.3s;display:block;" id="drawer-toggle-dot"></span>
+    </button>
+  </div>
+  <a class="drawer-link" href="#about"         onclick="closeDrawer()">About</a>
+  <a class="drawer-link" href="#gallery"        onclick="closeDrawer()">Work</a>
+  <a class="drawer-link" href="#storiesSection" onclick="closeDrawer()">Stories</a>
+  <a class="drawer-link" href="#contact"        onclick="closeDrawer()">Contact</a>
+  <p class="drawer-bottom">Wilfred Tengolyin · KNUST</p>
+</div>
 
 <!-- ══════════════ HERO ══════════════ -->
 
@@ -1027,7 +1187,7 @@ footer {
 </div>
 
 <div class="section-divider"></div>
- 
+
 <!-- ══════════════ ABOUT ══════════════ -->
 
 <section id="about">
@@ -1684,22 +1844,56 @@ footer {
 <!-- ══════════════ FOOTER ══════════════ -->
 
 <footer>
-  <a class="footer-logo" href="#hero">WILFRED<span>.</span>T</a>
-  <div class="footer-social">
-    <a href="https://wa.me/233558687100" target="_blank">WhatsApp</a>
-    <a href="mailto:wilfredlulu111@gmail.com">Email</a>
+  <button id="back-to-top" onclick="window.scrollTo({top:0,behavior:'smooth'})">
+    <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M12 19V5"/><path d="M5 12l7-7 7 7"/></svg>
+    Back to Top
+  </button>
+  <div class="footer-top">
+    <a class="footer-logo" href="#hero">WILFRED<span>.</span>T</a>
+    <div class="footer-social">
+      <a href="https://wa.me/233558687100" target="_blank">WhatsApp</a>
+      <a href="mailto:wilfredlulu111@gmail.com">Email</a>
+    </div>
   </div>
   <p class="footer-copy">© 2026 Wilfred Tengolyin Nabyaazoare. All rights reserved.</p>
 </footer>
 
 <script>
+// ── MOBILE DRAWER ──
+function toggleDrawer() {
+  const drawer  = document.getElementById('mobile-drawer');
+  const overlay = document.getElementById('drawer-overlay');
+  const burger  = document.getElementById('hamburger');
+  const isOpen  = drawer.classList.contains('open');
+  if (isOpen) {
+    closeDrawer();
+  } else {
+    drawer.classList.add('open');
+    overlay.classList.add('open');
+    burger.classList.add('open');
+    document.body.style.overflow = 'hidden';
+  }
+}
+function closeDrawer() {
+  document.getElementById('mobile-drawer').classList.remove('open');
+  document.getElementById('drawer-overlay').classList.remove('open');
+  document.getElementById('hamburger').classList.remove('open');
+  document.body.style.overflow = '';
+}
+document.addEventListener('keydown', e => { if (e.key === 'Escape') closeDrawer(); });
+
 // ── THEME TOGGLE ── (hardcoded dark default, persists via localStorage)
 function toggleTheme() {
   const html = document.documentElement;
   const isDark = html.getAttribute('data-theme') === 'dark';
   const next = isDark ? 'light' : 'dark';
   html.setAttribute('data-theme', next);
+  syncDrawerDot(next);
   try { localStorage.setItem('wt-theme', next); } catch(e) {}
+}
+function syncDrawerDot(theme) {
+  const dot = document.getElementById('drawer-toggle-dot');
+  if (dot) dot.style.transform = theme === 'light' ? 'translateX(20px)' : '';
 }
 
 // On load: restore saved preference, otherwise stay dark
@@ -1708,8 +1902,8 @@ function toggleTheme() {
     const saved = localStorage.getItem('wt-theme');
     if (saved === 'light') {
       document.documentElement.setAttribute('data-theme', 'light');
+      syncDrawerDot('light');
     }
-    // 'dark' or null → stay dark (already set on <html>)
   } catch(e) {}
 })();
 
