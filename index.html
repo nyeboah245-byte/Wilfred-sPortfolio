@@ -132,18 +132,21 @@ nav {
   position: fixed;
   top: 0; left: 0; right: 0;
   z-index: 100;
-  padding: 1.4rem 4rem;
+  padding: 1rem 4rem;
   display: flex;
   align-items: center;
   justify-content: space-between;
-  background: var(--bg-nav-grad);
-  transition: background 0.4s, backdrop-filter 0.4s;
-}
-nav.scrolled {
   background: var(--bg-nav);
   backdrop-filter: blur(20px);
   -webkit-backdrop-filter: blur(20px);
   border-bottom: 1px solid var(--border);
+  transform: translateY(-100%);
+  opacity: 0;
+  transition: transform 0.4s cubic-bezier(.16,1,.3,1), opacity 0.35s, background 0.3s, border-color 0.3s;
+}
+nav.nav-visible {
+  transform: translateY(0);
+  opacity: 1;
 }
 .nav-right {
   display: flex;
@@ -801,33 +804,64 @@ footer {
 .reveal-delay-3 { transition-delay: .3s; }
 .reveal-delay-4 { transition-delay: .4s; }
 
-/* ── HAMBURGER ── */
+/* ── HAMBURGER — Circle ⊙ style ── */
 #hamburger {
   display: none;
-  flex-direction: column;
+  align-items: center;
   justify-content: center;
-  gap: 5px;
-  width: 36px;
-  height: 36px;
+  width: 32px;
+  height: 32px;
   background: none;
-  border: none;
+  border: 1.5px solid var(--gold);
+  border-radius: 50%;
   cursor: pointer;
-  padding: 4px;
+  padding: 0;
   z-index: 200;
   flex-shrink: 0;
+  position: relative;
+  transition: border-color .3s, background .3s;
 }
-#hamburger span {
+#hamburger:hover {
+  background: rgba(201,161,74,0.08);
+}
+#hamburger.open {
+  border-color: var(--text-muted);
+}
+/* the lines sit inside the circle */
+#hamburger .hb-lines {
+  display: flex;
+  flex-direction: column;
+  gap: 3px;
+  width: 13px;
+}
+#hamburger .hb-lines span {
   display: block;
   height: 1.5px;
-  background: var(--text-head);
+  background: var(--gold);
   border-radius: 2px;
-  transition: transform 0.35s cubic-bezier(.16,1,.3,1), opacity 0.25s, width 0.3s;
-  transform-origin: center;
+  transform-origin: left center;
+  transition: transform 0.38s cubic-bezier(.16,1,.3,1),
+              opacity   0.28s cubic-bezier(.16,1,.3,1),
+              width     0.28s cubic-bezier(.16,1,.3,1);
 }
-#hamburger span:nth-child(2) { width: 65%; margin-left: auto; }
-#hamburger.open span:nth-child(1) { transform: translateY(6.5px) rotate(45deg); }
-#hamburger.open span:nth-child(2) { opacity: 0; transform: scaleX(0); }
-#hamburger.open span:nth-child(3) { transform: translateY(-6.5px) rotate(-45deg); }
+/* second line is shorter — like the logo's asymmetry */
+#hamburger .hb-lines span:nth-child(2) { width: 60%; }
+/* open state: lines slide right & fade */
+#hamburger.open .hb-lines span:nth-child(1) {
+  transform: translateX(12px);
+  opacity: 0;
+}
+#hamburger.open .hb-lines span:nth-child(2) {
+  width: 100%;
+  transform: translateX(8px);
+  opacity: 0;
+  transition-delay: .05s;
+}
+#hamburger.open .hb-lines span:nth-child(3) {
+  transform: translateX(12px);
+  opacity: 0;
+  transition-delay: .1s;
+}
 
 /* ── MOBILE DRAWER ── */
 #mobile-drawer {
@@ -1124,7 +1158,9 @@ footer {
       <span class="toggle-icon sun">☀️</span>
     </button>
     <button id="hamburger" aria-label="Open menu" onclick="toggleDrawer()">
-      <span></span><span></span><span></span>
+      <div class="hb-lines">
+        <span></span><span></span><span></span>
+      </div>
     </button>
   </div>
 </nav>
@@ -1907,10 +1943,23 @@ function syncDrawerDot(theme) {
   } catch(e) {}
 })();
 
-// ── NAV SCROLL ──
+// ── NAV SCROLL — visible on load, hides scrolling down, shows scrolling up ──
 const navbar = document.getElementById('navbar');
+let lastY = window.scrollY;
+navbar.classList.add('nav-visible');
 window.addEventListener('scroll', () => {
-  navbar.classList.toggle('scrolled', window.scrollY > 60);
+  const y = window.scrollY;
+  if (y < 80) {
+    // always show at the very top
+    navbar.classList.add('nav-visible');
+  } else if (y > lastY) {
+    // scrolling down — hide
+    navbar.classList.remove('nav-visible');
+  } else {
+    // scrolling up — show
+    navbar.classList.add('nav-visible');
+  }
+  lastY = y;
 }, { passive: true });
 
 // ── SCROLL REVEAL ──
