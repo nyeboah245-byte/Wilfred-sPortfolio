@@ -944,6 +944,37 @@ footer {
 #back-to-top svg { transition: transform .3s cubic-bezier(.16,1,.3,1); }
 #back-to-top:hover svg { transform: translateY(-3px); }
 
+.drawer-header {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  margin-bottom: 1.2rem;
+}
+.drawer-header-label {
+  font-family: 'Bebas Neue', sans-serif;
+  font-size: 1.1rem;
+  letter-spacing: .14em;
+  color: var(--text-head);
+}
+.drawer-close-btn {
+  width: 32px;
+  height: 32px;
+  border-radius: 50%;
+  border: 1.5px solid var(--border-mid);
+  background: none;
+  color: var(--text-muted);
+  cursor: pointer;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  transition: border-color .25s, color .25s, background .25s;
+}
+.drawer-close-btn:hover {
+  border-color: var(--gold);
+  color: var(--gold);
+  background: rgba(201,161,74,0.08);
+}
+
 /* ── DRAWER TOGGLE ROW ── */
 .drawer-toggle-row {
   display: flex;
@@ -1169,6 +1200,12 @@ footer {
 
 <div id="drawer-overlay" onclick="closeDrawer()"></div>
 <div id="mobile-drawer">
+  <div class="drawer-header">
+    <span class="drawer-header-label">Menu</span>
+    <button class="drawer-close-btn" onclick="closeDrawer()" aria-label="Close menu">
+      <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round"><line x1="18" y1="6" x2="6" y2="18"/><line x1="6" y1="6" x2="18" y2="18"/></svg>
+    </button>
+  </div>
   <div class="drawer-toggle-row">
     <span class="drawer-toggle-label">Appearance</span>
     <button id="theme-toggle-drawer" aria-label="Toggle dark/light mode" onclick="toggleTheme()" style="position:relative;width:44px;height:24px;background:var(--border-mid);border:1px solid var(--border);border-radius:12px;cursor:pointer;transition:background 0.3s,border-color 0.3s;flex-shrink:0;outline:none;padding:0;">
@@ -1895,6 +1932,45 @@ footer {
 </footer>
 
 <script>
+// ── SWIPE TO CLOSE DRAWER ──
+(function() {
+  const drawer = document.getElementById('mobile-drawer');
+  let touchStartX = 0;
+  let touchStartY = 0;
+  let isDragging = false;
+
+  drawer.addEventListener('touchstart', e => {
+    touchStartX = e.touches[0].clientX;
+    touchStartY = e.touches[0].clientY;
+    isDragging = false;
+    drawer.style.transition = 'none';
+  }, { passive: true });
+
+  drawer.addEventListener('touchmove', e => {
+    const dx = e.touches[0].clientX - touchStartX;
+    const dy = Math.abs(e.touches[0].clientY - touchStartY);
+    // only handle rightward horizontal swipe
+    if (dx > 0 && dy < 60) {
+      isDragging = true;
+      drawer.style.transform = `translateX(${dx}px)`;
+    }
+  }, { passive: true });
+
+  drawer.addEventListener('touchend', e => {
+    const dx = e.changedTouches[0].clientX - touchStartX;
+    drawer.style.transition = '';
+    if (isDragging && dx > 80) {
+      // swiped far enough — close
+      drawer.style.transform = '';
+      closeDrawer();
+    } else {
+      // snap back
+      drawer.style.transform = '';
+    }
+    isDragging = false;
+  }, { passive: true });
+})();
+
 // ── MOBILE DRAWER ──
 function toggleDrawer() {
   const drawer  = document.getElementById('mobile-drawer');
