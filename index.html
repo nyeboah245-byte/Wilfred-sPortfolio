@@ -165,9 +165,17 @@ nav.nav-hidden {
   letter-spacing: .12em;
   color: var(--text-head);
   text-decoration: none;
-  transition: color 0.3s;
+  transition: color 0.3s, text-shadow 0.3s;
+  text-shadow: 0 1px 6px rgba(0,0,0,0.5);
 }
 .nav-logo span { color: var(--gold); }
+[data-theme="light"] nav:not(.nav-scrolled) .nav-logo {
+  color: #fff;
+  text-shadow: 0 1px 8px rgba(0,0,0,0.9);
+}
+[data-theme="light"] nav:not(.nav-scrolled) .nav-logo span {
+  color: #e2bc72;
+}
 .nav-links { display: flex; gap: 2.4rem; list-style: none; }
 .nav-links a {
   font-size: .78rem;
@@ -838,6 +846,18 @@ footer {
 }
 #hamburger.open {
   border-color: var(--text-muted);
+}
+[data-theme="light"] #hamburger {
+  background: rgba(0,0,0,0.35);
+  border-color: rgba(255,255,255,0.7);
+  backdrop-filter: blur(4px);
+  -webkit-backdrop-filter: blur(4px);
+}
+[data-theme="light"] #hamburger .hb-lines span {
+  background: #fff;
+}
+[data-theme="light"] #hamburger:hover {
+  background: rgba(0,0,0,0.5);
 }
 /* the lines sit inside the circle */
 #hamburger .hb-lines {
