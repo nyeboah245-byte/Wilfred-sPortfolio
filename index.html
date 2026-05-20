@@ -222,6 +222,8 @@ nav.nav-hidden {
   display: block;
   filter: brightness(0.55) saturate(0.7);
   transition: filter 0.4s;
+  will-change: transform;
+  transform-origin: center center;
 }
 [data-theme="light"] .hero-portrait-bg img {
   filter: brightness(0.9) saturate(1);
@@ -1990,6 +1992,38 @@ footer {
 </footer>
 
 <script>
+// ── SMOOTH HERO PARALLAX ──
+(function() {
+  const heroImg = document.querySelector('.hero-portrait-bg img');
+  if (!heroImg) return;
+  let ticking = false;
+  let currentScale = 1;
+  let targetScale = 1;
+
+  function lerp(a, b, t) { return a + (b - a) * t; }
+
+  function update() {
+    currentScale = lerp(currentScale, targetScale, 0.08);
+    heroImg.style.transform = `scale(${currentScale})`;
+    if (Math.abs(currentScale - targetScale) > 0.0001) {
+      requestAnimationFrame(update);
+    } else {
+      ticking = false;
+    }
+  }
+
+  window.addEventListener('scroll', () => {
+    const y = window.scrollY;
+    const heroHeight = document.getElementById('hero').offsetHeight;
+    const progress = Math.min(y / heroHeight, 1);
+    targetScale = 1 + progress * 0.12;
+    if (!ticking) {
+      ticking = true;
+      requestAnimationFrame(update);
+    }
+  }, { passive: true });
+})();
+
 // ── SWIPE TO CLOSE DRAWER ──
 (function() {
   const drawer = document.getElementById('mobile-drawer');
