@@ -204,9 +204,10 @@ nav.nav-hidden {
   position: relative;
   overflow: hidden;
   display: flex;
-  align-items: flex-end;
-  justify-content: center;
-  padding: 8rem 2rem 6rem;
+  flex-direction: column;
+  align-items: center;
+  justify-content: flex-end;
+  padding: 8rem 2rem 5rem;
 }
 .hero-portrait-bg {
   position: absolute;
@@ -272,6 +273,12 @@ nav.nav-hidden {
   max-width: 860px;
   width: 100%;
   padding-top: 38vh;
+}
+@media (max-width: 768px) {
+  .hero-inner {
+    padding-top: 0 !important;
+    margin-top: auto !important;
+  }
 }
 .hero-eyebrow {
   font-size: .72rem;
@@ -1029,12 +1036,13 @@ footer {
   nav { padding: 1.2rem 1.5rem; }
   .nav-links { gap: 1.4rem; }
   .nav-links a { font-size: .7rem; }
-  #hero { padding: 2rem 1.5rem 3rem; }
-  .hero-inner { padding-top: 16vh; }
+  #hero { padding: 0 1.5rem 2.5rem; min-height: 100dvh; }
+  .hero-inner { padding-top: 0; margin-top: auto; }
   .hero-name { font-size: clamp(2.6rem, 11vw, 4rem); line-height: 1; }
-  .hero-tagline { margin-top: 1rem; font-size: .9rem; }
-  .hero-ctas { margin-top: 1.6rem; gap: .7rem; }
-  .btn-primary, .btn-outline { padding: .75rem 1.4rem; font-size: .72rem; }
+  .hero-eyebrow { margin-bottom: .6rem; }
+  .hero-tagline { margin-top: .8rem; font-size: .88rem; line-height: 1.5; }
+  .hero-ctas { margin-top: 1rem; gap: .6rem; }
+  .btn-primary, .btn-outline { padding: .7rem 1.2rem; font-size: .72rem; }
   section { padding: 5rem 1.5rem; }
   #about .about-grid { grid-template-columns: 1fr; gap: 2.5rem; }
   footer { padding: 2rem 1.5rem; }
