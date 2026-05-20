@@ -217,7 +217,7 @@ nav.nav-hidden {
   width: 100%;
   height: 100%;
   object-fit: cover;
-  object-position: center top;
+  object-position: center 20%;
   display: block;
   filter: brightness(0.55) saturate(0.7);
   transition: filter 0.4s;
@@ -271,7 +271,7 @@ nav.nav-hidden {
   text-align: center;
   max-width: 860px;
   width: 100%;
-  padding-top: 55vh;
+  padding-top: 38vh;
 }
 .hero-eyebrow {
   font-size: .72rem;
@@ -1029,7 +1029,12 @@ footer {
   nav { padding: 1.2rem 1.5rem; }
   .nav-links { gap: 1.4rem; }
   .nav-links a { font-size: .7rem; }
-  #hero { padding: 7rem 1.5rem 5rem; }
+  #hero { padding: 2rem 1.5rem 3rem; }
+  .hero-inner { padding-top: 35vh; }
+  .hero-name { font-size: clamp(2.6rem, 11vw, 4rem); line-height: 1; }
+  .hero-tagline { margin-top: 1rem; font-size: .9rem; }
+  .hero-ctas { margin-top: 1.6rem; gap: .7rem; }
+  .btn-primary, .btn-outline { padding: .75rem 1.4rem; font-size: .72rem; }
   section { padding: 5rem 1.5rem; }
   #about .about-grid { grid-template-columns: 1fr; gap: 2.5rem; }
   footer { padding: 2rem 1.5rem; }
