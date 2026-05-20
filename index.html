@@ -336,29 +336,36 @@ nav.nav-hidden {
 }
 .hero-scroll-indicator {
   position: absolute;
-  bottom: 2.5rem;
+  bottom: 1.5rem;
   left: 50%;
   transform: translateX(-50%);
   display: flex;
   flex-direction: column;
   align-items: center;
-  gap: .5rem;
+  gap: .4rem;
   z-index: 2;
   opacity: 0;
   animation: fadeUp .9s cubic-bezier(.16,1,.3,1) 1.2s forwards;
 }
 .hero-scroll-indicator span {
-  font-size: .65rem;
+  font-size: .6rem;
   letter-spacing: .2em;
   text-transform: uppercase;
-  color: #aaa;
+  color: rgba(255,255,255,0.6);
   text-shadow: 0 1px 6px rgba(0,0,0,0.8);
 }
 .scroll-line {
   width: 1px;
-  height: 48px;
-  background: linear-gradient(to bottom, var(--gold), transparent);
-  animation: scrollPulse 2s ease-in-out infinite;
+  height: 36px;
+  background: linear-gradient(to bottom, rgba(255,255,255,0.6), transparent);
+  animation: scrollBounce 1.8s ease-in-out infinite;
+}
+@keyframes scrollBounce {
+  0%, 100% { transform: scaleY(1) translateY(0); opacity: 0.4; }
+  50%       { transform: scaleY(1.15) translateY(4px); opacity: 1; }
+}
+@media (max-width: 768px) {
+  .hero-scroll-indicator { display: none; }
 }
 
 /* ── BUTTONS ── */
